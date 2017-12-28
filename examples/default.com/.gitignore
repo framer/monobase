@@ -7,5 +7,6 @@
 ehthumbs.db
 Thumbs.db
 
-dist
-node_modules
+./build
+./dist
+./node_modules
