@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/build": true,
+        "**/.vscode": true,
+        "**/yarn.lock": true
+    }
+}
