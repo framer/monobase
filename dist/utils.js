@@ -24,6 +24,9 @@ exports.cp = function (source, dest) {
     });
 };
 exports.rmdir = function (dir) {
+    if (!fs.existsSync(dir)) {
+        return;
+    }
     var list = fs.readdirSync(dir);
     for (var i = 0; i < list.length; i++) {
         var filename = path.join(dir, list[i]);
