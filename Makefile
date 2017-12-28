@@ -19,7 +19,7 @@ build: bootstrap
 
 publish: git-check dist
 	yarn publish
-	-git commit -a -m "publised new version"
+	-git commit -a -m "*** published new version"
 	-git push
 
 git-check:
