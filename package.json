@@ -1,6 +1,6 @@
 {
   "name": "monobase",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Koen Bok",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -52,6 +52,13 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
