@@ -17,5 +17,6 @@ build: bootstrap
 # docs: bootstrap
 # 	./node_modules/.bin/typedoc --out dist/docs
 
-# publish: build docs
-# 	yarn publish
+publish: dist
+	yarn publish
+	git commit -a -m "publised new version"
