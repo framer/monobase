@@ -22,6 +22,10 @@ export const cp = (source: string, dest: string) => {
 };
 
 export const rmdir = (dir: string) => {
+  if (!fs.existsSync(dir)) {
+    return;
+  }
+
   const list = fs.readdirSync(dir);
   for (let i = 0; i < list.length; i++) {
     const filename = path.join(dir, list[i]);
