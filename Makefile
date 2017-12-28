@@ -5,10 +5,10 @@ dist: bootstrap
 	@rm -Rf dist
 	./node_modules/.bin/tsc
 
-serve:
+serve: bootstrap
 	./node_modules/.bin/ts-node src/cli.ts serve --project=examples/default.com
 
-build:
+build: bootstrap
 	./node_modules/.bin/ts-node src/cli.ts build --project=examples/default.com
 
 # test: bootstrap
