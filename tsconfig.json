@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "es2015"
+    ],
+    "module": "commonjs",
+    // "moduleResolution": "node",
+    "types": [
+      "node"
+    ],
+    "jsx": "react",
+    "outDir": "dist",
+    "sourceMap": false,
+    "declaration": true,
+    "baseUrl": "."
+  },
+  "exclude": [
+    "node_modules",
+    "examples",
+    "**/*.test.ts"
+  ]
+}
