@@ -4,7 +4,7 @@ A fast and simple React static site generator that keep interactive components i
 
 #### Quick start
 
-* Download the [default.com](goo.gl/cLdfQG) template
+* Download the [default.com](http://goo.gl/cLdfQG) template
 * `cd ~/Downloads/default.com`
 * `make serve` to start you dev server
 * `make build` to generate your site
@@ -26,5 +26,5 @@ Some React components are interactive. Monobase generates a single script called
 
 To mark components as interactive:
 
-* Wrap them in the Dynamic Component [example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/Timer.tsx#L22)
-* Export them in `components/dynamic.ts` [example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/dynamic.ts#L2)
+* Wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/Timer.tsx#L22)]
+* Export them in `components/dynamic.ts` [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/dynamic.ts#L2)]
