@@ -44,19 +44,19 @@ exports.build = function (project, path) { return __awaiter(_this, void 0, void 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Exporting project");
+                console.log("\nExporting project");
                 console.log(chalk_1.default.gray(path));
                 utils.rmdir(path);
                 utils.mkdir(path);
-                console.log("Building pages");
+                console.log("\nBuilding pages");
                 return [4 /*yield*/, _build.pages(project, path)];
             case 1:
                 _a.sent();
-                console.log("Generating component script");
+                console.log("\nGenerating component script");
                 return [4 /*yield*/, _build.script(project, path)];
             case 2:
                 _a.sent();
-                console.log("Copying static assets");
+                console.log("\nCopying static assets");
                 return [4 /*yield*/, _build.assets(project, path)];
             case 3:
                 _a.sent();
