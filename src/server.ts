@@ -30,6 +30,10 @@ export const serve = async (project: types.Project, port = 3000) => {
   app.use(middleware.reload);
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
+  app.use(
+    "/static",
+    express.static(path.join(project.path, project.config.static))
+  );
 
   app.get(project.config.componentScript, async (req, res) => {
     res.send(await render.script(project));
@@ -56,7 +60,8 @@ export const serve = async (project: types.Project, port = 3000) => {
   watch(
     [
       `${project.path}/${project.config.pages}/**/*.(js|ts|tsx)`,
-      `${project.path}/${project.config.components}/**/*.(js|ts|tsx)`
+      `${project.path}/${project.config.components}/**/*.(js|ts|tsx)`,
+      `${project.path}/${project.config.static}/**/*.(js|css)`
     ],
     done => {
       io.emit("reload");
