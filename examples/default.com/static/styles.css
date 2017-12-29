@@ -1,0 +1,28 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: "Neue Helvetica W02", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-weight: 400;
+  color: #222;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 4.5vw;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #1a1919;
+  font-weight: 700;
+  font-style: normal;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  line-height: 0.9;
+}

@@ -1,16 +1,13 @@
 import * as React from "react";
 import { Project } from "monobase";
 
-type TemplateProps = {
-  project: Project;
-  children?: React.ReactNode;
-};
+import Header from "./Header";
 
-const Template = (props: TemplateProps) => {
+const Template = (props: { project: Project; children?: React.ReactNode }) => {
   return (
     <html>
       <head>
-        <style />
+        <link rel="stylesheet" href="/static/styles.css" />
       </head>
       <body>
         {props.children}
