@@ -41,6 +41,7 @@ var http = require("http");
 var express = require("express");
 var socketio = require("socket.io");
 var watch = require("glob-watcher");
+var path = require("path");
 var render = require("./render");
 var middleware = require("./middleware");
 var utils = require("./utils");
@@ -66,6 +67,7 @@ exports.serve = function (project, port) {
             app.use(middleware.reload);
             app.use(middleware.logging);
             app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
+            app.use("/static", express.static(path.join(project.path, project.config.static)));
             app.get(project.config.componentScript, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
                 var _a, _b;
                 return __generator(this, function (_c) {
@@ -93,7 +95,8 @@ exports.serve = function (project, port) {
             server.listen(port, function () { return Promise.resolve(); });
             watch([
                 project.path + "/" + project.config.pages + "/**/*.(js|ts|tsx)",
-                project.path + "/" + project.config.components + "/**/*.(js|ts|tsx)"
+                project.path + "/" + project.config.components + "/**/*.(js|ts|tsx)",
+                project.path + "/" + project.config.static + "/**/*.(js|css)"
             ], function (done) {
                 io.emit("reload");
                 done();
