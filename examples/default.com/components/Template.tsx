@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Project } from "monobase";
 
-import Header from "./Header";
-
 const Template = (props: { project: Project; children?: React.ReactNode }) => {
   return (
     <html>
