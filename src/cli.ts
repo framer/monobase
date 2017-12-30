@@ -5,6 +5,7 @@ require("ts-node/register");
 import * as _ from "lodash";
 import * as path from "path";
 import * as minimist from "minimist";
+import * as openport from "first-open-port";
 import chalk from "chalk";
 
 import * as browser from "./browser";
@@ -40,7 +41,11 @@ const main = async () => {
   };
 
   if (command === "serve") {
-    const port = argv.port || argv.p || 3000;
+    let port = argv.port || argv.p || 3000;
+
+    // See if we can actually use the port
+    port = await openport(port, port + 100);
+
     const open = argv.browser || true;
     const url = `https://localhost:${port}`;
     await project.serve(p, port);
