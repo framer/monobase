@@ -42,7 +42,7 @@ const main = async () => {
   if (command === "serve") {
     const port = argv.port || argv.p || 3000;
     const open = argv.browser || true;
-    const url = `http://localhost:${port}`;
+    const url = `https://localhost:${port}`;
     await project.serve(p, port);
 
     if (open) browser.open(url);

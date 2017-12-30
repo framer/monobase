@@ -1,8 +1,9 @@
 import * as _ from "lodash";
-import * as http from "http";
+import * as https from "https";
 import * as express from "express";
 import * as socketio from "socket.io";
 import * as watch from "glob-watcher";
+import * as fs from "fs";
 import * as path from "path";
 import * as project from "./project";
 import * as types from "./types";
@@ -22,7 +23,12 @@ const modulePath = (url: string) => {
 
 export const serve = async (project: types.Project, port = 3000) => {
   const app = express();
-  const server = new http.Server(app);
+  const ssl = path.join(__dirname, "..", "extras", "ssl");
+  const options = {
+    key: fs.readFileSync(path.join(ssl, "key.pem")),
+    cert: fs.readFileSync(path.join(ssl, "cert.pem"))
+  };
+  const server = https.createServer(options, app);
   const io = socketio(server);
 
   app.use(middleware.addslash);
