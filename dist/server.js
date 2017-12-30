@@ -37,10 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var _ = require("lodash");
-var http = require("http");
+var https = require("https");
 var express = require("express");
 var socketio = require("socket.io");
 var watch = require("glob-watcher");
+var fs = require("fs");
 var path = require("path");
 var render = require("./render");
 var middleware = require("./middleware");
@@ -57,10 +58,15 @@ exports.serve = function (project, port) {
     if (port === void 0) { port = 3000; }
     return __awaiter(_this, void 0, void 0, function () {
         var _this = this;
-        var app, server, io;
+        var app, ssl, options, server, io;
         return __generator(this, function (_a) {
             app = express();
-            server = new http.Server(app);
+            ssl = path.join(__dirname, "..", "extras", "ssl");
+            options = {
+                key: fs.readFileSync(path.join(ssl, "key.pem")),
+                cert: fs.readFileSync(path.join(ssl, "cert.pem"))
+            };
+            server = https.createServer(options, app);
             io = socketio(server);
             app.use(middleware.addslash);
             app.use(middleware.nocache);
