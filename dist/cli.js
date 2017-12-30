@@ -41,6 +41,7 @@ require("ts-node/register");
 var _ = require("lodash");
 var path = require("path");
 var minimist = require("minimist");
+var openport = require("first-open-port");
 var chalk_1 = require("chalk");
 var browser = require("./browser");
 var project = require("./project");
@@ -71,18 +72,22 @@ var main = function () { return __awaiter(_this, void 0, void 0, function () {
                         componentScript: "/components.js"
                     }
                 };
-                if (!(command === "serve")) return [3 /*break*/, 2];
+                if (!(command === "serve")) return [3 /*break*/, 3];
                 port = argv.port || argv.p || 3000;
-                open = argv.browser || true;
-                url = "http://localhost:" + port;
-                return [4 /*yield*/, project.serve(p, port)];
+                return [4 /*yield*/, openport(port, port + 100)];
             case 1:
+                // See if we can actually use the port
+                port = _a.sent();
+                open = argv.browser || true;
+                url = "https://localhost:" + port;
+                return [4 /*yield*/, project.serve(p, port)];
+            case 2:
                 _a.sent();
                 if (open)
                     browser.open(url);
                 console.log(chalk_1.default.green("Serving on " + url));
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 4];
+            case 3:
                 if (command === "build") {
                     buildPath = argv.path || argv.p || path.join(p.path, "build");
                     project.build(p, buildPath);
@@ -90,8 +95,8 @@ var main = function () { return __awaiter(_this, void 0, void 0, function () {
                 else {
                     usage();
                 }
-                _a.label = 3;
-            case 3: return [2 /*return*/];
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); };
