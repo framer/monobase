@@ -12,11 +12,18 @@
 
 import * as opn from "opn";
 import * as spawn from "cross-spawn";
+import * as path from "path";
 import { execSync } from "child_process";
 import chalk from "chalk";
 
 // https://github.com/sindresorhus/opn#app
-var OSX_CHROME = "google chrome";
+const OSX_CHROME = "google chrome";
+const OSX_CHROME_APPLE_SCRIPT = path.join(
+  __dirname,
+  "..",
+  "extras",
+  "applescript"
+);
 
 const Actions = Object.freeze({
   NONE: 0,
@@ -79,7 +86,7 @@ function startBrowserProcess(browser, url) {
       // on OS X Google Chrome with AppleScript
       execSync('ps cax | grep "Google Chrome"');
       execSync('osascript openChrome.applescript "' + encodeURI(url) + '"', {
-        cwd: __dirname,
+        cwd: OSX_CHROME_APPLE_SCRIPT,
         stdio: "ignore"
       });
       return true;
