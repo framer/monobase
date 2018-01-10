@@ -8,7 +8,7 @@ const style: React.CSSProperties = {
   width: 100,
   height: 40,
   display: "inline-block",
-  backgroundColor: "green",
+  backgroundColor: "lightgrey",
   font: "14px/38px Helvetica",
   userSelect: "none",
   textAlign: "center",
