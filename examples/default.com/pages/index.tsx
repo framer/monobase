@@ -8,22 +8,36 @@ import Timer from "../components/Timer";
 import Button from "../components/Button";
 import MouseLocation from "../components/MouseLocation";
 
-const style: React.CSSProperties = {
-  font: "14px/1.3em Monaco"
+const Example = props => {
+  return (
+    <section
+      style={{ height: 200, padding: 20, borderTop: "1px solid lightgrey" }}
+    >
+      <h3>{props.title} Example</h3>
+      <p>{props.description}</p>
+      <div>{props.children}</div>
+    </section>
+  );
 };
 
 const render = (project: Project) => {
   return (
     <Template project={project}>
-      <h3>
-        Welcome to <a href="/test">Framer</a>
-      </h3>
-      <p style={style}>This is Framer</p>
-      <Button />
-      <Button />
-      <Button />
-      <Timer />
-      <MouseLocation />
+      <span style={{ textAlign: "center" }}>
+        <section style={{ height: 200, padding: 60 }}>
+          <h1>Welcome to Monobase</h1>
+          <p>A simple React based static site generator</p>
+        </section>
+        <Example title="Button" description="Click me">
+          <Button />
+        </Example>
+        <Example title="Mouse Location" description="Move your mouse">
+          <MouseLocation />
+        </Example>
+        <Example title="Time" description="Just wait and watch">
+          <Timer />
+        </Example>
+      </span>
     </Template>
   );
 };

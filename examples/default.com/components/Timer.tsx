@@ -6,7 +6,7 @@ class Timer extends React.Component {
   time = Date.now();
 
   componentDidMount() {
-    setInterval(this.update, 500);
+    setInterval(this.update, 200);
   }
 
   update = () => {
@@ -15,7 +15,7 @@ class Timer extends React.Component {
   };
 
   render() {
-    return <span>This time: {this.time}</span>;
+    return <span>This is the time: {this.time}</span>;
   }
 }
 
