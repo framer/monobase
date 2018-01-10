@@ -3,8 +3,11 @@ import * as path from "path";
 import * as inject from "connect-inject";
 import * as morgan from "morgan";
 import * as express from "express";
+import * as types from "./types";
 import chalk from "chalk";
 import { token } from "morgan";
+import { renderToString } from "react-dom/server";
+import * as error from "./error";
 
 export const reload = inject({
   snippet: `
@@ -43,7 +46,10 @@ export const logging = morgan((tokens, req, res) => {
   }
 
   let status = tokens.status(req, res);
-  if (status !== "200") status = chalk.red(status);
+
+  if (status !== "200") {
+    status = chalk.red(status);
+  }
 
   return chalk.gray(
     [
@@ -56,4 +62,14 @@ export const logging = morgan((tokens, req, res) => {
   );
 });
 
-// export const logging = morgan("dev");
+export const errors = (project: types.Project) => {
+  return (err: Error, req, res, next) => {
+    const shortStack =
+      _.slice(err.stack.split("\n"), 1, 4).join("\n") + "\n    [...]";
+
+    console.error(chalk.white("Error:"), chalk.red(err.message));
+    console.error(chalk.gray(shortStack));
+
+    res.status("500").send(renderToString(error.render(err, project)));
+  };
+};

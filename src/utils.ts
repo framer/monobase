@@ -50,12 +50,8 @@ export const stats = (path: string) => {
   });
 };
 
-export const glob = (query: string): Promise<string[]> => {
-  return new Promise((resolve, reject) => {
-    _glob(query, (err, files) => {
-      resolve(files);
-    });
-  });
+export const glob = (pattern: string) => {
+  return _glob(pattern);
 };
 
 export const replaceExtension = (dir, ext) => {

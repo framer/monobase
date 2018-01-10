@@ -61,6 +61,9 @@ export const serve = async (project: types.Project, port = 3000) => {
     res.send(page);
   });
 
+  // Error handler need to be on the bottom
+  app.use(middleware.errors(project));
+
   server.listen(port, () => Promise.resolve());
 
   watch(
