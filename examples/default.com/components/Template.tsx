@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Project } from "monobase";
 
-const Template = (props: { project: Project; children?: React.ReactNode }) => {
+function Template(props: { project: Project; children?: React.ReactNode }) {
   return (
     <html>
       <head>
@@ -15,6 +15,6 @@ const Template = (props: { project: Project; children?: React.ReactNode }) => {
       </body>
     </html>
   );
-};
+}
 
 export default Template;
