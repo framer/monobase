@@ -46,9 +46,7 @@ export const page = (project: types.Project, page: string) => {
   // If we have a page module, see if it has a default error exposed
   if (typeof pageModule.default !== "function") {
     throw Error(
-      `The page module at ${projectPageImportPath} does not have a [default export]
-      (https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). 
-      You can add one by adding \`export default render;\`.`
+      `The page module at ${projectPageImportPath} does not have a [default export](https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). You can add one by adding \`export default render;\`.`
     );
   }
 

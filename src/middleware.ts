@@ -4,6 +4,7 @@ import * as inject from "connect-inject";
 import * as morgan from "morgan";
 import * as express from "express";
 import * as types from "./types";
+import * as unmarkdown from "remove-markdown";
 import chalk from "chalk";
 import { token } from "morgan";
 import { renderToString } from "react-dom/server";
@@ -67,7 +68,7 @@ export const errors = (project: types.Project) => {
     const shortStack =
       _.slice(err.stack.split("\n"), 1, 4).join("\n") + "\n    [...]";
 
-    console.error(chalk.white("Error:"), chalk.red(err.message));
+    console.error(chalk.white("Error:"), chalk.red(unmarkdown(err.message)));
     console.error(chalk.gray(shortStack));
 
     res.status("500").send(renderToString(error.render(err, project)));
