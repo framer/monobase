@@ -1,3 +1,5 @@
+project = examples/default.com
+
 bootstrap:
 	@test -d ./node_modules || yarn
 
@@ -6,10 +8,10 @@ dist: bootstrap
 	./node_modules/.bin/tsc
 
 serve: bootstrap
-	./node_modules/.bin/ts-node src/cli.ts serve --project=examples/default.com
+	./node_modules/.bin/ts-node -P $(project) src/cli.ts serve --project=$(project)
 
 build: bootstrap
-	./node_modules/.bin/ts-node src/cli.ts build --project=examples/default.com
+	./node_modules/.bin/ts-node -P $(project) src/cli.ts build --project=$(project)
 
 # test: bootstrap
 # 	./node_modules/.bin/jest --watch
