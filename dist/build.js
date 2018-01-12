@@ -39,25 +39,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var path = require("path");
 var fs = require("fs");
 var prettyBytes = require("pretty-bytes");
+var unmarkdown = require("remove-markdown");
 var chalk_1 = require("chalk");
 var utils = require("./utils");
 var render = require("./render");
 exports.pages = function (project, root) { return __awaiter(_this, void 0, void 0, function () {
-    var pagesPath, pages, _i, pages_1, pagePath, relativePath;
+    var pagesPath, pages, _i, pages_1, pagePath, relativePagePath;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                pagesPath = path.join(project.path, project.config.pages);
-                return [4 /*yield*/, utils.glob(pagesPath + "/**/*.ts{,x}")];
-            case 1:
-                pages = _a.sent();
-                for (_i = 0, pages_1 = pages; _i < pages_1.length; _i++) {
-                    pagePath = pages_1[_i];
-                    relativePath = path.relative(pagesPath, pagePath);
-                    page(project, relativePath, root);
-                }
-                return [2 /*return*/];
+        pagesPath = path.join(project.path, project.config.pages);
+        pages = utils.glob(pagesPath + "/**/*.ts{,x}");
+        for (_i = 0, pages_1 = pages; _i < pages_1.length; _i++) {
+            pagePath = pages_1[_i];
+            relativePagePath = path.relative(pagesPath, pagePath);
+            try {
+                page(project, relativePagePath, root);
+            }
+            catch (error) {
+                console.error(chalk_1.default.red("\nerror") + " /" + relativePagePath + "\n\n" + unmarkdown(error.message) + "\n\n");
+                console.error(chalk_1.default.grey(error.stack));
+                process.exit();
+            }
         }
+        return [2 /*return*/];
     });
 }); };
 var page = function (project, dir, root) {
@@ -65,7 +68,7 @@ var page = function (project, dir, root) {
     var pageRelativePath = utils.replaceExtension(dir, ".html");
     var pagePath = path.join(root, pageRelativePath);
     utils.mkdir(path.dirname(pagePath));
-    fs.writeFileSync(pagePath, render.page(project, dir));
+    fs.writeFileSync(pagePath, render.page(project, dir, true));
     console.log(chalk_1.default.gray("/" + pageRelativePath), chalk_1.default.gray("(" + Math.round(Date.now() - time) + "ms)"));
 };
 exports.assets = function (project, root) { return __awaiter(_this, void 0, void 0, function () {

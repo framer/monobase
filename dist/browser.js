@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // var opn = require("opn");
 var opn = require("opn");
 var spawn = require("cross-spawn");
+var path = require("path");
 var child_process_1 = require("child_process");
 var chalk_1 = require("chalk");
 // https://github.com/sindresorhus/opn#app
 var OSX_CHROME = "google chrome";
+var OSX_CHROME_APPLE_SCRIPT = path.join(__dirname, "..", "extras", "applescript");
 var Actions = Object.freeze({
     NONE: 0,
     BROWSER: 1,
@@ -71,7 +73,7 @@ function startBrowserProcess(browser, url) {
             // on OS X Google Chrome with AppleScript
             child_process_1.execSync('ps cax | grep "Google Chrome"');
             child_process_1.execSync('osascript openChrome.applescript "' + encodeURI(url) + '"', {
-                cwd: __dirname,
+                cwd: OSX_CHROME_APPLE_SCRIPT,
                 stdio: "ignore"
             });
             return true;
