@@ -49,12 +49,8 @@ exports.stats = function (path) {
         });
     });
 };
-exports.glob = function (query) {
-    return new Promise(function (resolve, reject) {
-        _glob(query, function (err, files) {
-            resolve(files);
-        });
-    });
+exports.glob = function (pattern) {
+    return _glob.sync(pattern);
 };
 exports.replaceExtension = function (dir, ext) {
     return path.join(path.dirname(dir), path.basename(dir, path.extname(dir)) + ext);

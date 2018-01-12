@@ -98,6 +98,8 @@ exports.serve = function (project, port) {
                 }
                 res.send(page);
             });
+            // Error handler need to be on the bottom
+            app.use(middleware.errors(project));
             server.listen(port, function () { return Promise.resolve(); });
             watch([
                 project.path + "/" + project.config.pages + "/**/*.(js|ts|tsx)",

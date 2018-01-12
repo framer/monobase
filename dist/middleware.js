@@ -4,7 +4,10 @@ var _ = require("lodash");
 var path = require("path");
 var inject = require("connect-inject");
 var morgan = require("morgan");
+var unmarkdown = require("remove-markdown");
 var chalk_1 = require("chalk");
+var server_1 = require("react-dom/server");
+var error = require("./error");
 exports.reload = inject({
     snippet: "\n    <script src=\"/_socket/socket.io.min.js\"></script>\n    <script>var socket = io(); socket.on(\"reload\", function(msg) { location.reload() });</script>\n    "
 });
@@ -31,8 +34,9 @@ exports.logging = morgan(function (tokens, req, res) {
         return null;
     }
     var status = tokens.status(req, res);
-    if (status !== "200")
+    if (status !== "200") {
         status = chalk_1.default.red(status);
+    }
     return chalk_1.default.gray([
         tokens.method(req, res),
         status,
@@ -41,4 +45,11 @@ exports.logging = morgan(function (tokens, req, res) {
         "(" + Math.round(parseFloat(tokens["response-time"](req, res)) || 0) + "ms)"
     ].join(" "));
 });
-// export const logging = morgan("dev");
+exports.errors = function (project) {
+    return function (err, req, res, next) {
+        var shortStack = _.slice(err.stack.split("\n"), 1, 4).join("\n") + "\n    [...]";
+        console.error(chalk_1.default.white("Error:"), chalk_1.default.red(unmarkdown(err.message)));
+        console.error(chalk_1.default.gray(shortStack));
+        res.status("500").send(server_1.renderToString(error.render(err, project)));
+    };
+};

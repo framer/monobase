@@ -6,5 +6,5 @@ export declare const stats: (path: string) => Promise<{
     dirs: number;
     bytes: number;
 }>;
-export declare const glob: (query: string) => Promise<string[]>;
+export declare const glob: (pattern: string) => any;
 export declare const replaceExtension: (dir: any, ext: any) => string;

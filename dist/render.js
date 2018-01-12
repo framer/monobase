@@ -38,20 +38,43 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var path = require("path");
 var server_1 = require("react-dom/server");
+var utils = require("./utils");
 var compiler = require("./compiler");
-exports.page = function (project, page) {
-    for (var path_1 in require.cache) {
-        if (path_1.indexOf(project.path) !== -1) {
-            delete require.cache[path_1];
+exports.page = function (project, page, cache) {
+    if (cache === void 0) { cache = false; }
+    if (cache === false) {
+        // Make sure we clear all the cache for this project
+        for (var path_1 in require.cache) {
+            if (path_1.indexOf(project.path) !== -1) {
+                delete require.cache[path_1];
+            }
         }
     }
-    var projectPageImportPath = path.join(project.path, project.config.pages, page);
-    var pageModule;
+    var projectPagesPath = path.join(project.path, project.config.pages);
+    var projectPageImportPath = path.join(projectPagesPath, page);
+    var pageModule, pageModuleError;
     try {
         pageModule = require(projectPageImportPath);
     }
     catch (error) {
-        return null;
+        pageModuleError = error;
+    }
+    // If we could not import a page, let's find out what happened
+    if (!pageModule) {
+        // If there was no page named like it, throw a 404 not found.
+        if (utils.glob(projectPageImportPath + ".ts{,x}").length === 0) {
+            return null;
+        }
+        // If there is a page at that path, some other error occured.
+        var error = Error();
+        error.message = "The page module at `" + projectPageImportPath + "` exists, but cannot be imported: \n\n";
+        error.message += pageModuleError.message;
+        error.stack = pageModuleError.stack;
+        throw error;
+    }
+    // If we have a page module, see if it has a default error exposed
+    if (typeof pageModule.default !== "function") {
+        throw Error("The page module at " + projectPageImportPath + " does not have a [default export](https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). You can add one by adding `export default render;`.");
     }
     return server_1.renderToString(pageModule.default(project));
 };
