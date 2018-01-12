@@ -8,7 +8,7 @@ import Timer from "../components/Timer";
 import Button from "../components/Button";
 import MouseLocation from "../components/MouseLocation";
 
-const Example = props => {
+function Example(props) {
   return (
     <section
       style={{ height: 200, padding: 20, borderTop: "1px solid lightgrey" }}
@@ -18,14 +18,14 @@ const Example = props => {
       <div>{props.children}</div>
     </section>
   );
-};
+}
 
-const render = (project: Project) => {
+function render(project: Project) {
   return (
     <Template project={project}>
       <span style={{ textAlign: "center" }}>
         <section style={{ height: 200, padding: 60 }}>
-          <h1>Welcome to Monobase</h1>
+          <h1>Welcome to Monobase koen</h1>
           <p>A simple React based static site generator</p>
         </section>
         <Example title="Button" description="Click me">
@@ -40,6 +40,6 @@ const render = (project: Project) => {
       </span>
     </Template>
   );
-};
+}
 
 export default render;
