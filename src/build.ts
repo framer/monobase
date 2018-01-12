@@ -1,6 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import * as prettyBytes from "pretty-bytes";
+import * as unmarkdown from "remove-markdown";
 import chalk from "chalk";
 
 import * as utils from "./utils";
@@ -16,7 +17,11 @@ export const pages = async (project: types.Project, root) => {
     try {
       page(project, relativePagePath, root);
     } catch (error) {
-      console.error(chalk.red("\nerror"), `/${relativePagePath}\n`);
+      console.error(
+        `${chalk.red("\nerror")} /${relativePagePath}\n\n${unmarkdown(
+          error.message
+        )}\n\n`
+      );
       console.error(chalk.grey(error.stack));
       process.exit();
     }
