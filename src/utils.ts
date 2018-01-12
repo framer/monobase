@@ -51,7 +51,7 @@ export const stats = (path: string) => {
 };
 
 export const glob = (pattern: string) => {
-  return _glob(pattern);
+  return _glob.sync(pattern);
 };
 
 export const replaceExtension = (dir, ext) => {

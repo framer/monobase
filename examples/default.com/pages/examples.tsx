@@ -5,3 +5,5 @@ import Template from "../components/Template";
 function render(project: Project) {
   return <Template project={project} />;
 }
+
+export default render;
