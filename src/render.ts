@@ -9,11 +9,13 @@ import * as utils from "./utils";
 import * as types from "./types";
 import * as compiler from "./compiler";
 
-export const page = (project: types.Project, page: string) => {
-  // Make sure we clear all the cache for this project
-  for (let path in require.cache) {
-    if (path.indexOf(project.path) !== -1) {
-      delete require.cache[path];
+export const page = (project: types.Project, page: string, cache = false) => {
+  if (cache === false) {
+    // Make sure we clear all the cache for this project
+    for (let path in require.cache) {
+      if (path.indexOf(project.path) !== -1) {
+        delete require.cache[path];
+      }
     }
   }
 
