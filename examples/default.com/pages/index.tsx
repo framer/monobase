@@ -7,6 +7,7 @@ import Template from "../components/Template";
 import Timer from "../components/Timer";
 import Button from "../components/Button";
 import MouseLocation from "../components/MouseLocation";
+import CSSComponent from "../components/CSSComponent";
 
 function Example(props) {
   return (
@@ -36,6 +37,9 @@ function render(project: Project) {
         </Example>
         <Example title="Time" description="Just wait and watch">
           <Timer />
+        </Example>
+        <Example title="CSS Component" description="Style with style">
+          <CSSComponent />
         </Example>
       </span>
     </Template>
