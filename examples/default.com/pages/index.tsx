@@ -1,6 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-
 import { Project } from "monobase";
 
 import Template from "../components/Template";
