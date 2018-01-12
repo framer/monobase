@@ -20,13 +20,6 @@ export const page = (project: types.Project, page: string) => {
   const projectPagesPath = path.join(project.path, project.config.pages);
   const projectPageImportPath = path.join(projectPagesPath, page);
 
-  // See if we have a page named like it so we can import it
-  const pages = utils.glob(`${projectPageImportPath}.ts{,x}`);
-
-  if (pages.length > 0) {
-    return null;
-  }
-
   let pageModule, pageModuleError;
 
   try {
@@ -38,13 +31,13 @@ export const page = (project: types.Project, page: string) => {
   // If we could not import a page, let's find out what happened
   if (!pageModule) {
     // If there was no page named like it, throw a 404 not found.
-    if (utils.glob(`${projectPageImportPath}.ts{,x}`).length > 0) {
+    if (utils.glob(`${projectPageImportPath}.ts{,x}`).length === 0) {
       return null;
     }
 
     // If there is a page at that path, some other error occured.
     const error = Error();
-    error.message = `The page module at \`${projectPageImportPath}\` exists, but cannot be imported: \n`;
+    error.message = `The page module at \`${projectPageImportPath}\` exists, but cannot be imported: \n\n`;
     error.message += pageModuleError.message;
     error.stack = pageModuleError.stack;
     throw error;

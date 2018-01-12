@@ -9,11 +9,17 @@ import * as types from "./types";
 
 export const pages = async (project: types.Project, root) => {
   const pagesPath = path.join(project.path, project.config.pages);
-  const pages = await utils.glob(`${pagesPath}/**/*.ts{,x}`);
+  const pages = utils.glob(`${pagesPath}/**/*.ts{,x}`);
 
   for (let pagePath of pages) {
-    const relativePath = path.relative(pagesPath, pagePath);
-    page(project, relativePath, root);
+    const relativePagePath = path.relative(pagesPath, pagePath);
+    try {
+      page(project, relativePagePath, root);
+    } catch (error) {
+      console.error(chalk.red("\nerror"), `/${relativePagePath}\n`);
+      console.error(chalk.grey(error.stack));
+      process.exit();
+    }
   }
 };
 
