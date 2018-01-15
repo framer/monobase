@@ -1,9 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as types from "./types";
 import * as MemoryFS from "memory-fs";
 import * as utils from "./utils";
 import * as webpack from "webpack";
+
+import * as types from "./types";
 
 export const getCompiler = (project: types.Project) => {
   const entries = [];
@@ -38,7 +39,8 @@ export const getCompiler = (project: types.Project) => {
     },
     resolve: {
       // Add `.ts` and `.tsx` as a resolvable extension.
-      extensions: [".ts", ".tsx", ".js"]
+      extensions: [".ts", ".tsx", ".js"],
+      modules: [path.resolve("./src"), "node_modules"]
     },
     externals: {
       react: "React",

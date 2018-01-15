@@ -1,11 +1,10 @@
 import * as React from "react";
-import { Project } from "monobase";
 
-import Template from "../components/Template";
-import Timer from "../components/Timer";
-import Button from "../components/Button";
-import MouseLocation from "../components/MouseLocation";
-import CSSComponent from "../components/CSSComponent";
+import Template from "components/Template";
+import Timer from "components/Timer";
+import Button from "components/Button";
+import MouseLocation from "components/MouseLocation";
+import CSSComponent from "components/CSSComponent";
 
 function Example(props) {
   return (
@@ -19,7 +18,7 @@ function Example(props) {
   );
 }
 
-function render(project: Project) {
+function render(project) {
   return (
     <Template project={project}>
       <span style={{ textAlign: "center" }}>

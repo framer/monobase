@@ -10,6 +10,8 @@ import * as types from "./types";
 import * as compiler from "./compiler";
 
 export const page = (project: types.Project, page: string, cache = false) => {
+  console.log("page.render", page);
+
   if (cache === false) {
     // Make sure we clear all the cache for this project
     for (let path in require.cache) {
@@ -21,6 +23,8 @@ export const page = (project: types.Project, page: string, cache = false) => {
 
   const projectPagesPath = path.join(project.path, project.config.pages);
   const projectPageImportPath = path.join(projectPagesPath, page);
+
+  console.log(projectPageImportPath);
 
   let pageModule, pageModuleError;
 

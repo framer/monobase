@@ -2,8 +2,12 @@
 
 require("ts-node/register");
 
+const tsConfig = require("../tsconfig.json");
+const tsConfigPaths = require("tsconfig-paths");
+
 import * as _ from "lodash";
 import * as path from "path";
+import * as fs from "fs";
 import * as minimist from "minimist";
 import * as openport from "first-open-port";
 import chalk from "chalk";
@@ -39,6 +43,19 @@ const main = async () => {
       componentScript: "/components.js"
     }
   };
+
+  if (!fs.existsSync(path.join(p.path, p.config.pages))) {
+    return console.log(
+      `The path "${
+        p.path
+      }" does not look like a project folder, the pages directory is missing.`
+    );
+  }
+
+  tsConfigPaths.register({
+    baseUrl: p.path,
+    paths: {}
+  });
 
   if (command === "serve") {
     let port = argv.port || argv.p || 3000;

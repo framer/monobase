@@ -3,11 +3,11 @@ import * as path from "path";
 import * as inject from "connect-inject";
 import * as morgan from "morgan";
 import * as express from "express";
-import * as types from "./types";
 import * as unmarkdown from "remove-markdown";
 import chalk from "chalk";
 import { token } from "morgan";
 import { renderToString } from "react-dom/server";
+import * as types from "./types";
 import * as error from "./error";
 
 export const reload = inject({
