@@ -25,7 +25,7 @@ publish: git-check dist
 	-git push
 
 project:
-	cd examples; tar -cvzf ../project.tar.gz default.com
+	cd examples; tar --exclude='.DS_Store' -cvzf ../project.tar.gz default.com
 
 git-check:
 	@status=$$(git status --porcelain); \
