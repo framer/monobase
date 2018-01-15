@@ -1,24 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "es2015",
-      "dom"
-    ],
-    // "module": "commonjs",
-    // "moduleResolution": "node",
-    "types": [
-      "node"
-    ],
+    "lib": ["es2015", "dom"],
+    "module": "commonjs",
     "jsx": "react",
-    "outDir": "dist",
-    "sourceMap": false,
-    "declaration": true,
     "baseUrl": "."
   },
-  "exclude": [
-    "node_modules",
-    "examples",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "**/*.test.ts"]
 }

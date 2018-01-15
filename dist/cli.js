@@ -38,8 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 require("ts-node/register");
+var tsConfig = require("../tsconfig.json");
+var tsConfigPaths = require("tsconfig-paths");
 var _ = require("lodash");
 var path = require("path");
+var fs = require("fs");
 var minimist = require("minimist");
 var openport = require("first-open-port");
 var chalk_1 = require("chalk");
@@ -72,6 +75,13 @@ var main = function () { return __awaiter(_this, void 0, void 0, function () {
                         componentScript: "/components.js"
                     }
                 };
+                if (!fs.existsSync(path.join(p.path, p.config.pages))) {
+                    return [2 /*return*/, console.log("The path \"" + p.path + "\" does not look like a project folder, the pages directory is missing.")];
+                }
+                tsConfigPaths.register({
+                    baseUrl: p.path,
+                    paths: {}
+                });
                 if (!(command === "serve")) return [3 /*break*/, 3];
                 port = argv.port || argv.p || 3000;
                 return [4 /*yield*/, openport(port, port + 100)];

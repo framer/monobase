@@ -24,6 +24,9 @@ publish: git-check dist
 	-git commit -a -m "*** published new version"
 	-git push
 
+project:
+	cd examples; tar -cvzf ../project.tar.gz default.com
+
 git-check:
 	@status=$$(git status --porcelain); \
 	if test "x$${status}" = x; then \
