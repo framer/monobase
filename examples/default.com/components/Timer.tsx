@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Dynamic } from "@monobase";
+import { Dynamic } from "monobase";
 
 class Timer extends React.Component {
   time = Date.now();
