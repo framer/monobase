@@ -42,7 +42,6 @@ var utils = require("./utils");
 var compiler = require("./compiler");
 exports.page = function (project, page, cache) {
     if (cache === void 0) { cache = false; }
-    console.log("page.render", page);
     if (cache === false) {
         // Make sure we clear all the cache for this project
         for (var path_1 in require.cache) {
