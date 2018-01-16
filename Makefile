@@ -1,4 +1,4 @@
-project = examples/default.com
+project = ./project
 
 bootstrap:
 	@test -d ./node_modules || yarn
@@ -26,7 +26,8 @@ publish: git-check dist
 	-git push
 
 project:
-	cd examples; tar --exclude='.DS_Store' -cvf - default.com | gzip -n > ../project.tar.gz
+	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "monobase.ts"
+	md5 project.zip
 
 git-check:
 	@status=$$(git status --porcelain); \
@@ -35,3 +36,6 @@ git-check:
 	else \
 		echo "\n\n!!! Working directory is dirty, commit/push first !!!\n\n" >&2; exit 1 ; \
 	fi
+
+.DEFAULT_GOAL := serve
+.PHONY: project
