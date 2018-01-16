@@ -58,5 +58,5 @@ You can find these in the default project `/components` folder.
 
 #### Todo
 
-* Make project based (non relative) path loading work.
-* Improve dynamic component discovery (automagically).
+* ~~Make project based (non relative) path loading work.~~
+* Improve dynamic component discovery (automagically, tips welcome).
