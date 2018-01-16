@@ -10,8 +10,6 @@ import * as types from "./types";
 import * as compiler from "./compiler";
 
 export const page = (project: types.Project, page: string, cache = false) => {
-  console.log("page.render", page);
-
   if (cache === false) {
     // Make sure we clear all the cache for this project
     for (let path in require.cache) {

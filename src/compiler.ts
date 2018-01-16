@@ -40,7 +40,7 @@ export const getCompiler = (project: types.Project) => {
     resolve: {
       // Add `.ts` and `.tsx` as a resolvable extension.
       extensions: [".ts", ".tsx", ".js"],
-      modules: [path.resolve("./src"), "node_modules"]
+      modules: [project.path, "node_modules"]
     },
     externals: {
       react: "React",
