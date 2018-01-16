@@ -7,3 +7,4 @@ serve: bootstrap
 build: bootstrap
 	./node_modules/.bin/monobase build
 
+.DEFAULT_GOAL := serve

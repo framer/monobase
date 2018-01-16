@@ -4,8 +4,8 @@ A fast and simple React static site generator that let's you build a site from a
 
 #### Quick start
 
-* Download the [default template](https://raw.githubusercontent.com/koenbok/monobase/master/project.zip)
-* `cd ~/Downloads/default.com`
+* Download the [default project template](https://raw.githubusercontent.com/koenbok/monobase/master/project.zip)
+* `cd ~/Downloads/project`
 * `make serve` to start you dev server
 * `make build` to generate your site
 

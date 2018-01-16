@@ -26,7 +26,7 @@ publish: git-check dist
 	-git push
 
 project:
-	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "monobase.ts"
+	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "project/monobase.ts"
 	md5 project.zip
 
 git-check:
@@ -36,6 +36,9 @@ git-check:
 	else \
 		echo "\n\n!!! Working directory is dirty, commit/push first !!!\n\n" >&2; exit 1 ; \
 	fi
+
+test:
+	cd 
 
 .DEFAULT_GOAL := serve
 .PHONY: project
