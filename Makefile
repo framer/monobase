@@ -26,6 +26,7 @@ publish: git-check dist
 	-git push
 
 project:
+	-rm project.zip 
 	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "project/monobase.ts"
 	md5 project.zip
 
@@ -37,8 +38,16 @@ git-check:
 		echo "\n\n!!! Working directory is dirty, commit/push first !!!\n\n" >&2; exit 1 ; \
 	fi
 
+
+
+TEMPDIR := $(shell mktemp -d)
+
 test:
-	cd 
+	cd $(TEMPDIR); \
+		curl -L -O https://raw.githubusercontent.com/koenbok/monobase/master/project.zip; \
+		unzip project.zip; \
+		cd project; \
+		make serve
 
 .DEFAULT_GOAL := serve
 .PHONY: project
