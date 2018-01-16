@@ -9,5 +9,5 @@
     "sourceMap": false,
     "declaration": true
   },
-  "exclude": ["node_modules", "examples", "**/*.test.ts"]
+  "exclude": ["node_modules", "project", "**/*.test.ts"]
 }
