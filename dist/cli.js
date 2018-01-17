@@ -95,7 +95,7 @@ var main = function () { return __awaiter(_this, void 0, void 0, function () {
                 _a.sent();
                 if (open)
                     browser.open(url);
-                console.log(chalk_1.default.green("Serving on " + url));
+                console.log(chalk_1.default.bgWhite.black(" MONOBASE "), chalk_1.default.green(url));
                 return [3 /*break*/, 4];
             case 3:
                 if (command === "build") {
