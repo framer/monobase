@@ -1,36 +1,51 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-// function hashString(str) {
-//   let hash = 5381,
-//     i = str.length;
-//   while (i) {
-//     hash = (hash * 33) ^ str.charCodeAt(--i);
-//   }
-//   /* JavaScript does bitwise operations (like XOR, above) on 32-bit signed
-//    * integers. Since we want the results to be always positive, convert the
-//    * signed int to an unsigned by doing an unsigned bitshift. */
-//   return hash >>> 0;
-// }
-// const getHash = (f: Function) => {
-//   return hashString(f.toString());
-// };
-exports.Dynamic = function (Component) {
-    // const name = `${Component.name}-${getHash(Component)}`;
-    var f = function (props) {
-        return (React.createElement("span", { "data-component": Component.name },
-            React.createElement(Component, __assign({ suppressHydrationWarning: true }, props))));
-    };
-    f["dynamicName"] = Component.name;
-    f["dynamicComponent"] = Component;
-    // console.log(name);
-    return f;
+var path = require("path");
+var fs = require("fs");
+var utils = require("./utils");
+var client_1 = require("./client");
+var getClientScriptImportPath = function () {
+    var clientScriptImportPathTS = path.join(__dirname, "client.ts");
+    var clientScriptImportPathJS = path.join(__dirname, "client.js");
+    if (fs.existsSync(clientScriptImportPathTS)) {
+        return clientScriptImportPathTS;
+    }
+    if (fs.existsSync(clientScriptImportPathJS)) {
+        return clientScriptImportPathJS;
+    }
+};
+exports.discover = function (dir) {
+    var results = {};
+    var paths = utils.glob(dir + "/**/*.ts{,x}");
+    for (var _i = 0, paths_1 = paths; _i < paths_1.length; _i++) {
+        var modulePath = paths_1[_i];
+        try {
+            var module_1 = require(modulePath);
+        }
+        catch (error) {
+            continue;
+        }
+        for (var _a = 0, _b = Object.keys(module); _a < _b.length; _a++) {
+            var key = _b[_a];
+            if (client_1.isDynamicComponent(module[key])) {
+                if (!results[modulePath]) {
+                    results[modulePath] = [];
+                }
+                results[modulePath].push(module[key]);
+            }
+        }
+    }
+    return results;
+};
+var clientScriptImportPath;
+exports.entries = function (project) {
+    if (!clientScriptImportPath) {
+        clientScriptImportPath = getClientScriptImportPath();
+    }
+    if (!clientScriptImportPath) {
+        throw Error("Could not locate client script (client.ts or client.js in monobase");
+    }
+    return Object.keys(exports.discover(path.join(project.path, project.config.components))).concat([
+        clientScriptImportPath
+    ]);
 };

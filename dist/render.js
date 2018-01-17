@@ -40,22 +40,26 @@ var path = require("path");
 var server_1 = require("react-dom/server");
 var utils = require("./utils");
 var compiler = require("./compiler");
+var dynamic = require("./dynamic");
 exports.page = function (project, page, cache) {
     if (cache === void 0) { cache = false; }
+    var pagesPath = path.join(project.path, project.config.pages);
+    var pageImportPath = path.join(pagesPath, page);
+    var componentsPath = path.join(project.path, project.config.components);
     if (cache === false) {
-        // Make sure we clear all the cache for this project
-        for (var path_1 in require.cache) {
-            if (path_1.indexOf(project.path) !== -1) {
-                delete require.cache[path_1];
+        // Make sure we delete the page from the cache
+        delete require.cache[require.resolve(pageImportPath)];
+        // Delete all the components from the cache
+        for (var _i = 0, _a = Object.keys(require.cache); _i < _a.length; _i++) {
+            var key = _a[_i];
+            if (key.indexOf(componentsPath) !== -1) {
+                delete require.cache[key];
             }
         }
     }
-    var projectPagesPath = path.join(project.path, project.config.pages);
-    var projectPageImportPath = path.join(projectPagesPath, page);
-    console.log(projectPageImportPath);
     var pageModule, pageModuleError;
     try {
-        pageModule = require(projectPageImportPath);
+        pageModule = require(pageImportPath);
     }
     catch (error) {
         pageModuleError = error;
@@ -63,27 +67,32 @@ exports.page = function (project, page, cache) {
     // If we could not import a page, let's find out what happened
     if (!pageModule) {
         // If there was no page named like it, throw a 404 not found.
-        if (utils.glob(projectPageImportPath + ".ts{,x}").length === 0) {
+        if (utils.glob(pageImportPath + ".ts{,x}").length === 0) {
             return null;
         }
         // If there is a page at that path, some other error occured.
         var error = Error();
-        error.message = "The page module at `" + projectPageImportPath + "` exists, but cannot be imported: \n\n";
+        error.message = "The page module at `" + pageImportPath + "` exists, but cannot be imported: \n\n";
         error.message += pageModuleError.message;
         error.stack = pageModuleError.stack;
         throw error;
     }
     // If we have a page module, see if it has a default error exposed
     if (typeof pageModule.default !== "function") {
-        throw Error("The page module at " + projectPageImportPath + " does not have a [default export](https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). You can add one by adding `export default render;`.");
+        throw Error("The page module at " + pageImportPath + " does not have a [default export](https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). You can add one by adding `export default render;`.");
     }
     return server_1.renderToString(pageModule.default(project));
 };
 var cmp;
 exports.script = function (project) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
+        // Use a cached compiler for speed
         if (!cmp)
-            cmp = compiler.getCompiler(project);
+            cmp = compiler.setup(project, dynamic.entries(project));
+        // Discover all the dynamic entries and add them
+        // We don't have to remove the changed modules from the cache here,
+        // as the page load should already have taken care of that
+        cmp.options.entry = dynamic.entries(project);
         return [2 /*return*/, new Promise(function (resolve, reject) {
                 cmp.run(function (err, stats) {
                     if (err) {

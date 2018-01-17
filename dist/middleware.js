@@ -5,6 +5,7 @@ var path = require("path");
 var inject = require("connect-inject");
 var morgan = require("morgan");
 var unmarkdown = require("remove-markdown");
+var prettyBytes = require("pretty-bytes");
 var chalk_1 = require("chalk");
 var server_1 = require("react-dom/server");
 var error = require("./error");
@@ -40,8 +41,8 @@ exports.logging = morgan(function (tokens, req, res) {
     return chalk_1.default.gray([
         tokens.method(req, res),
         status,
-        tokens.url(req, res),
-        tokens.res(req, res, "content-length"),
+        chalk_1.default.rgb(170, 170, 170)(tokens.url(req, res)),
+        prettyBytes(parseInt(tokens.res(req, res, "content-length") || "0")),
         "(" + Math.round(parseFloat(tokens["response-time"](req, res)) || 0) + "ms)"
     ].join(" "));
 });
