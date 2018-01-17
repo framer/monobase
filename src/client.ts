@@ -5,6 +5,13 @@ declare var window;
 declare var document;
 declare var __webpack_require__;
 
+export const isDynamicComponent = Component => {
+  return (
+    typeof Component["dynamicName"] !== "undefined" &&
+    typeof Component["dynamicComponent"] !== "undefined"
+  );
+};
+
 // function isClassComponent(component) {
 //   return typeof component === "function" &&
 //     !!component.prototype.isReactComponent
@@ -30,12 +37,11 @@ const hydrate = () => {
     const modules = __webpack_require__(i);
 
     for (let key of Object.keys(modules)) {
-      // const dynamicComponent = modules[key]["dynamicComponent"];
-
-      const { dynamicName, dynamicComponent } = modules[key];
-
-      if (dynamicComponent && dynamicName) {
-        hydrateComponent(dynamicName, dynamicComponent);
+      if (isDynamicComponent(modules[key])) {
+        hydrateComponent(
+          modules[key].dynamicName,
+          modules[key].dynamicComponent
+        );
       }
     }
   }
@@ -47,7 +53,7 @@ const hydrateComponent = (name, Component) => {
   );
 
   if (elements) {
-    console.log("hydrate", name, elements);
+    console.info("monobase.hydrate", name, elements);
   }
 
   for (let element of elements) {

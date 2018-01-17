@@ -1,35 +1,11 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as MemoryFS from "memory-fs";
-import * as utils from "./utils";
 import * as webpack from "webpack";
-
 import * as types from "./types";
+import * as utils from "./utils";
 
-export const getCompiler = (project: types.Project) => {
-  const entries = [];
-
-  const dynamicComponentImportPath = path.join(
-    project.path,
-    project.config.components,
-    "dynamic.ts"
-  );
-
-  const clientScriptImportPathTS = path.join(__dirname, "client.ts");
-  const clientScriptImportPathJS = path.join(__dirname, "client.js");
-
-  if (fs.existsSync(dynamicComponentImportPath)) {
-    entries.push(utils.replaceExtension(dynamicComponentImportPath, ""));
-  }
-
-  if (fs.existsSync(clientScriptImportPathTS)) {
-    entries.push(clientScriptImportPathTS);
-  }
-
-  if (fs.existsSync(clientScriptImportPathJS)) {
-    entries.push(clientScriptImportPathJS);
-  }
-
+export const setup = (project: types.Project, entries: string[] = []) => {
   const compiler = webpack({
     entry: entries,
     output: {

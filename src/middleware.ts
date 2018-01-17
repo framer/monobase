@@ -4,6 +4,7 @@ import * as inject from "connect-inject";
 import * as morgan from "morgan";
 import * as express from "express";
 import * as unmarkdown from "remove-markdown";
+import * as prettyBytes from "pretty-bytes";
 import chalk from "chalk";
 import { token } from "morgan";
 import { renderToString } from "react-dom/server";
@@ -56,8 +57,8 @@ export const logging = morgan((tokens, req, res) => {
     [
       tokens.method(req, res),
       status,
-      tokens.url(req, res),
-      tokens.res(req, res, "content-length"),
+      chalk.rgb(170, 170, 170)(tokens.url(req, res)),
+      prettyBytes(parseInt(tokens.res(req, res, "content-length") || "0")),
       `(${Math.round(parseFloat(tokens["response-time"](req, res)) || 0)}ms)`
     ].join(" ")
   );

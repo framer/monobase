@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as utils from "./utils";
 
 // function hashString(str) {
 //   let hash = 5381,
@@ -31,6 +32,5 @@ export const Dynamic = Component => {
   f["dynamicName"] = Component.name;
   f["dynamicComponent"] = Component;
 
-  // console.log(name);
   return f;
 };

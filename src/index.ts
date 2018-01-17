@@ -1,2 +1,2 @@
 export { Project } from "./types";
-export { Dynamic } from "./dynamic";
+export { Dynamic } from "./component";

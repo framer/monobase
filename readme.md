@@ -40,10 +40,7 @@ More great features:
 
 Some React components are interactive. Monobase generates a single script called components.js containing every _marked_ component and [hydrates](https://reactjs.org/docs/react-dom.html#hydrate) them after the page load so they become interactive. This means the inital html gets loaded statically, and then code attaches itself automatically after page load.
 
-To mark components as interactive:
-
-* Wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/Timer.tsx#L22)]
-* Export them in `/components/dynamic.ts` [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/dynamic.ts#L2)]
+To mark components as interactive wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/Timer.tsx#L22)]
 
 #### Example dynamic components
 
@@ -56,7 +53,14 @@ You can find these in the default project `/components` folder.
 * **Mouse** – A mouse location display.
 * **RandomImage** - An unsplash random image element.
 
+#### Gotchas
+
+* On a page or component edit the current page and every component in the `project/components` will be reloaded. So make sure every file you'd like to use with autoreload is in either the `project/pages` or `project/components` folder.
+* Only the hydrated components get picked up by the React Dev tools, as it uses runtime introspection and can't find static html components.
+
 #### Todo
 
 * ~~Make project based (non relative) path loading work.~~
-* Improve dynamic component discovery (automagically, tips welcome).
+* ~~Improve dynamic component discovery (automagically, tips welcome).~~
+* Harden component hydration with unique names based on component file hashes.
+* Minified `component.js` settings for production.
