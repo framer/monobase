@@ -1,38 +1,33 @@
-import * as React from "react";
-
-import { Dynamic } from "monobase";
-
-const height = 60;
+import * as React from "react"
+import {Dynamic} from "monobase"
+import {pill} from "theme"
 
 const style: React.CSSProperties = {
-  width: 100,
-  padding: "0px 20px",
-  fontWeight: "bold",
-  height: height,
-  display: "inline-block",
-  backgroundColor: "lightblue",
-  userSelect: "none",
-  textAlign: "center",
-  borderRadius: "40px",
-  margin: 10,
-  lineHeight: height - 2 + "px"
-};
-
-class Button extends React.Component {
-  value = 0;
-
-  onClick = () => {
-    this.value++;
-    this.forceUpdate();
-  };
-
-  render() {
-    return (
-      <div style={style} onClick={this.onClick}>
-        Button {this.value}
-      </div>
-    );
-  }
+	...pill,
+	background: "#0AF",
+	color: "#FFF"
 }
 
-export default Dynamic(Button);
+class Button extends React.Component<{}, {count: number}> {
+	constructor(props) {
+		super(props)
+		this.state = {
+			count: 0
+		}
+	}
+
+	onClick = () =>
+		this.setState(({count}) => ({
+			count: count + 1
+		}))
+
+	render() {
+		return (
+			<button style={style} onClick={this.onClick}>
+				Count: {this.state.count}
+			</button>
+		)
+	}
+}
+
+export default Dynamic(Button)
