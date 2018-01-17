@@ -69,7 +69,7 @@ const main = async () => {
 
     if (open) browser.open(url);
 
-    console.log(chalk.green(`Serving on ${url}`));
+    console.log(chalk.bgWhite.black(" MONOBASE "), chalk.green(url));
   } else if (command === "build") {
     const buildPath = argv.path || argv.p || path.join(p.path, "build");
     project.build(p, buildPath);
