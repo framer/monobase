@@ -40,7 +40,8 @@ var _ = require("lodash");
 var https = require("https");
 var express = require("express");
 var socketio = require("socket.io");
-var watch = require("glob-watcher");
+// import * as watch from "glob-watcher";
+var gaze = require("gaze");
 var fs = require("fs");
 var path = require("path");
 var render = require("./render");
@@ -58,7 +59,7 @@ exports.serve = function (project, port) {
     if (port === void 0) { port = 3000; }
     return __awaiter(_this, void 0, void 0, function () {
         var _this = this;
-        var app, ssl, options, server, io;
+        var app, ssl, options, server, io, withExts, exts, globs;
         return __generator(this, function (_a) {
             app = express();
             ssl = path.join(__dirname, "..", "extras", "ssl");
@@ -101,13 +102,15 @@ exports.serve = function (project, port) {
             // Error handler need to be on the bottom
             app.use(middleware.errors(project));
             server.listen(port, function () { return Promise.resolve(); });
-            watch([
-                project.path + "/" + project.config.pages + "/**/*.(js|ts|tsx)",
-                project.path + "/" + project.config.components + "/**/*.(js|ts|tsx)",
-                project.path + "/" + project.config.static + "/**/*.(js|css)"
-            ], function (done) {
-                io.emit("reload");
-                done();
+            withExts = function (path, extensions) {
+                return extensions.map(function (ext) { return "" + path + ext; });
+            };
+            exts = [".ts", ".tsx", ".js"];
+            globs = withExts(project.path + "/" + project.config.pages + "/**/*", exts).concat(withExts(project.path + "/" + project.config.components + "/**/*", exts), withExts(project.path + "/" + project.config.static + "/**/*", exts));
+            gaze(globs, function (err, watcher) {
+                this.on("all", function (event, filepath) {
+                    io.emit("reload");
+                });
             });
             return [2 /*return*/];
         });
