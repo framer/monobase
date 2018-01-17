@@ -23,18 +23,20 @@ export const discover = (dir: string) => {
   const paths = utils.glob(`${dir}/**/*.ts{,x}`);
 
   for (let modulePath of paths) {
+    let importedModule;
+
     try {
-      const module = require(modulePath);
+      importedModule = require(modulePath);
     } catch (error) {
       continue;
     }
 
-    for (let key of Object.keys(module)) {
-      if (isDynamicComponent(module[key])) {
+    for (let key of Object.keys(importedModule)) {
+      if (isDynamicComponent(importedModule[key])) {
         if (!results[modulePath]) {
           results[modulePath] = [];
         }
-        results[modulePath].push(module[key]);
+        results[modulePath].push(importedModule[key]);
       }
     }
   }
