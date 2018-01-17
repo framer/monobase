@@ -5,6 +5,7 @@ import Timer from "components/Timer"
 import Button from "components/Button"
 import MouseLocation from "components/MouseLocation"
 import CSSComponent from "components/CSSComponent"
+import Colors from "components/Colors"
 
 function Example(props) {
 	return (
@@ -38,16 +39,19 @@ function render(project) {
 					<h1>Welcome to Monobase</h1>
 					<p>A simple React based static site generator</p>
 				</section>
-				<Example title="Button" description="Click me">
+				<Example title="Button">
 					<Button />
 				</Example>
-				<Example title="Mouse Location" description="Move your mouse">
+				<Example title="Mouse Location">
 					<MouseLocation />
 				</Example>
-				<Example title="Time" description="Just wait and watch">
+				<Example title="Time">
 					<Timer />
 				</Example>
-				<Example title="CSS Component" description="Style with style">
+				<Example title="Enter a color name">
+					<Colors />
+				</Example>
+				<Example title="CSS Component">
 					<CSSComponent />
 				</Example>
 			</span>
