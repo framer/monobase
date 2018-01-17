@@ -22,12 +22,13 @@ build: bootstrap
 publish: git-check dist
 	yarn publish
 	make project
+	-git add dist/*
 	-git commit -a -m "*** published new version"
 	-git push
 
 project:
 	-rm project.zip 
-	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "project/monobase.ts" -x "project/build"
+	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "project/monobase.ts" -x "project/build/*"
 	md5 project.zip
 
 git-check:
