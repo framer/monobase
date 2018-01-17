@@ -28,6 +28,7 @@
     "express": "^4.16.2",
     "express-ws": "^3.0.0",
     "first-open-port": "^0.1.2",
+    "gaze": "^1.1.2",
     "glob": "^7.1.2",
     "glob-watcher": "^4.0.0",
     "jest": "^22.0.4",

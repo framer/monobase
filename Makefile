@@ -27,7 +27,7 @@ publish: git-check dist
 
 project:
 	-rm project.zip 
-	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "project/monobase.ts"
+	zip -X -r project.zip project -x "*.DS_Store" -x "node_modules" -x "project/monobase.ts" -x "project/build"
 	md5 project.zip
 
 git-check:

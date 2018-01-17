@@ -2,7 +2,8 @@ import * as _ from "lodash";
 import * as https from "https";
 import * as express from "express";
 import * as socketio from "socket.io";
-import * as watch from "glob-watcher";
+// import * as watch from "glob-watcher";
+import * as gaze from "gaze";
 import * as fs from "fs";
 import * as path from "path";
 import * as project from "./project";
@@ -66,15 +67,21 @@ export const serve = async (project: types.Project, port = 3000) => {
 
   server.listen(port, () => Promise.resolve());
 
-  watch(
-    [
-      `${project.path}/${project.config.pages}/**/*.(js|ts|tsx)`,
-      `${project.path}/${project.config.components}/**/*.(js|ts|tsx)`,
-      `${project.path}/${project.config.static}/**/*.(js|css)`
-    ],
-    done => {
+  const withExts = (path: string, extensions: string[]) => {
+    return extensions.map(ext => `${path}${ext}`);
+  };
+
+  const exts = [".ts", ".tsx", ".js"];
+
+  const globs = [
+    ...withExts(`${project.path}/${project.config.pages}/**/*`, exts),
+    ...withExts(`${project.path}/${project.config.components}/**/*`, exts),
+    ...withExts(`${project.path}/${project.config.static}/**/*`, exts)
+  ];
+
+  gaze(globs, function(err, watcher) {
+    this.on("all", function(event, filepath) {
       io.emit("reload");
-      done();
-    }
-  );
+    });
+  });
 };
