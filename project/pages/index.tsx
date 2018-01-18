@@ -6,6 +6,7 @@ import Button from "components/Button";
 import MouseLocation from "components/MouseLocation";
 import CSSComponent from "components/CSSComponent";
 import Colors from "components/Colors";
+import CookieComponent from "components/CookieComponent";
 
 function Example(props) {
   return (
@@ -51,7 +52,10 @@ function render(project) {
         <Example title="Enter a color name">
           <Colors />
         </Example>
-        <Example title="CSS Component">
+        <Example title="Persistent Cookie">
+          <CookieComponent />
+        </Example>
+        <Example title="CSS Styling">
           <CSSComponent />
         </Example>
       </span>
