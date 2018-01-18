@@ -8,6 +8,7 @@ import Button from "components/examples/Button";
 import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
+import Unsplash from "components/examples/Unsplash";
 
 function Example(props) {
   return (
@@ -58,6 +59,9 @@ function render(project) {
         </Example>
         <Example title="CSS Styled">
           <Styled />
+        </Example>
+        <Example title="Random Image">
+          <Unsplash width={400} height={300} />
         </Example>
       </span>
     </Template>
