@@ -11,7 +11,7 @@ const style: React.CSSProperties = {
   border: "1px solid #F0F0F0"
 };
 
-class MouseLocation extends React.Component {
+class Mouse extends React.Component {
   point = { x: 0, y: 0 };
 
   componentDidMount() {
@@ -32,4 +32,4 @@ class MouseLocation extends React.Component {
   }
 }
 
-export default Dynamic(MouseLocation);
+export default Dynamic(Mouse);

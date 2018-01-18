@@ -5,7 +5,7 @@ import { pill } from "components/theme";
 
 const CookieKey = "CookieComponentValue";
 
-class CookieComponent extends React.Component<{}, { value: string }> {
+class Cookie extends React.Component<{}, { value: string }> {
   state = { value: "" };
 
   componentDidMount() {
@@ -35,4 +35,4 @@ class CookieComponent extends React.Component<{}, { value: string }> {
   }
 }
 
-export default Dynamic(CookieComponent);
+export default Dynamic(Cookie);

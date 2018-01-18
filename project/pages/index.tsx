@@ -1,12 +1,13 @@
 import * as React from "react";
 
 import Template from "components/Template";
-import Timer from "components/Timer";
-import Button from "components/Button";
-import MouseLocation from "components/MouseLocation";
-import CSSComponent from "components/CSSComponent";
-import Colors from "components/Colors";
-import CookieComponent from "components/CookieComponent";
+
+import Timer from "components/examples/Timer";
+import Mouse from "components/examples/Mouse";
+import Button from "components/examples/Button";
+import Styled from "components/examples/Styled";
+import Colors from "components/examples/Colors";
+import Cookie from "components/examples/Cookie";
 
 function Example(props) {
   return (
@@ -44,7 +45,7 @@ function render(project) {
           <Button />
         </Example>
         <Example title="Mouse Location">
-          <MouseLocation />
+          <Mouse />
         </Example>
         <Example title="Time">
           <Timer />
@@ -53,10 +54,10 @@ function render(project) {
           <Colors />
         </Example>
         <Example title="Persistent Cookie">
-          <CookieComponent />
+          <Cookie />
         </Example>
-        <Example title="CSS Styling">
-          <CSSComponent />
+        <Example title="CSS Styled">
+          <Styled />
         </Example>
       </span>
     </Template>
