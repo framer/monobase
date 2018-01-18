@@ -3,15 +3,11 @@ import { Dynamic } from "monobase";
 import { pill } from "components/theme";
 
 class Colors extends React.Component<{}, { color: string }> {
-  constructor(props) {
-    super(props);
-    this.state = { color: "" };
-    this.updateInput = this.updateInput.bind(this);
-  }
+  state = { color: "" };
 
-  updateInput(event) {
+  updateInput = event => {
     this.setState({ color: event.target.value });
-  }
+  };
 
   render() {
     return (
