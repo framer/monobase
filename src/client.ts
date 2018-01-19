@@ -48,7 +48,7 @@ const hydrate = () => {
 };
 
 const hydrateComponent = (name, Component) => {
-  const elements = Array.prototype.slice.call(
+  const elements: HTMLElement[] = Array.prototype.slice.call(
     document.querySelectorAll(`[data-component='${name}']`)
   );
 
@@ -57,7 +57,8 @@ const hydrateComponent = (name, Component) => {
   }
 
   for (let element of elements) {
-    ReactDOM.hydrate(React.createElement(Component), element);
+    const props = JSON.parse(element.getAttribute("data-component-props"));
+    ReactDOM.hydrate(React.createElement(Component, props), element);
   }
 };
 

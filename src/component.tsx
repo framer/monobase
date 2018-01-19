@@ -24,7 +24,10 @@ export const Dynamic = Component => {
 
   const f = props => {
     return (
-      <span data-component={Component.name}>
+      <span
+        data-component={Component.name}
+        data-component-props={JSON.stringify(props)}
+      >
         <Component suppressHydrationWarning={true} {...props} />
       </span>
     );
