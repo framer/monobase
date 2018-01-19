@@ -8,7 +8,7 @@ import Button from "components/examples/Button";
 import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
-import Picture from "components/examples/Image";
+import Picture from "components/examples/Picture";
 import Unsplash from "components/examples/Unsplash";
 
 function Example(props) {
