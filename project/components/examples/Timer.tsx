@@ -8,20 +8,19 @@ const style = {
   fontFamily: "monospace"
 };
 
-class Timer extends React.Component {
-  time = Date.now();
+class Timer extends React.Component<{}, { time: number }> {
+  state = { time: 0 };
 
   componentDidMount() {
     setInterval(this.update, 200);
   }
 
   update = () => {
-    this.time = Date.now();
-    this.forceUpdate();
+    this.setState({ time: Date.now() });
   };
 
   render() {
-    return <button style={style}>{this.time}</button>;
+    return <button style={style}>{this.state.time}</button>;
   }
 }
 
