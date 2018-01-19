@@ -19,7 +19,7 @@ class Unsplash extends React.Component<
 
   imageUrl() {
     const size = `${this.props.width}x${this.props.height}`;
-    return `http://source.unsplash.com/random/${size}`;
+    return `//source.unsplash.com/random/${size}`;
   }
 
   render() {
