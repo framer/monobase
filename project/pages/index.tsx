@@ -8,6 +8,7 @@ import Button from "components/examples/Button";
 import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
+import Picture from "components/examples/Image";
 import Unsplash from "components/examples/Unsplash";
 
 function Example(props) {
@@ -62,6 +63,16 @@ function render(project) {
         </Example>
         <Example title="Random Image">
           <Unsplash width={400} height={300} />
+        </Example>
+        <Example title="Picture">
+          <Picture width={400} src="example1.png" alt="Example 1" />
+          <Picture
+            width={400}
+            src="example2.png"
+            alt="Example 2"
+            extensions={["webp"]}
+            hasRetina
+          />
         </Example>
       </span>
     </Template>
