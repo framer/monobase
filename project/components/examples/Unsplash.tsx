@@ -35,6 +35,7 @@ class Unsplash extends React.Component<
       overflow: "hidden",
       background: "rgb(220, 220, 220)",
       border: this.state.loaded ? null : "1px solid rgba(0, 0, 0, 0.1)",
+      boxSizing: "border-box",
       transition: "border .15s ease-in-out"
     };
 
