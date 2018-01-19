@@ -15,6 +15,7 @@ The srcset attribute has an effect only when the <source> element is the direct 
 If the type attribute isn't specified, the media's type is retrieved from the server and checked to see if the user agent can handle it; if it can't be rendered, the next <source> is checked. If the type attribute is specified, it's compared against the types the user agent can present, and if it's not recognized, the server doesn't even get queried; instead, the next <source> element is checked at once. */
 
 import * as React from "react";
+
 interface Picture {
   src: string;
   alt?: string;
@@ -47,10 +48,26 @@ export default ({
   return (
     <picture>
       {extensions
-        ? extensions.map(extension => <source srcSet={getSrcSet(extension)} />)
+        ? extensions.map(extension => {
+            const srcSet = getSrcSet(extension);
+            return <source key={hash(srcSet)} srcSet={srcSet} />;
+          })
         : null}
       <source srcSet={getSrcSet()} />
       <img {...attributes} />
     </picture>
   );
+};
+
+const hash = function(str: string) {
+  var hash = 0,
+    i,
+    chr;
+  if (str.length === 0) return hash;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
 };
