@@ -15,7 +15,6 @@ The srcset attribute has an effect only when the <source> element is the direct 
 If the type attribute isn't specified, the media's type is retrieved from the server and checked to see if the user agent can handle it; if it can't be rendered, the next <source> is checked. If the type attribute is specified, it's compared against the types the user agent can present, and if it's not recognized, the server doesn't even get queried; instead, the next <source> element is checked at once. */
 
 import * as React from "react";
-
 interface Picture {
   src: string;
   alt?: string;
