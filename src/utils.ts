@@ -60,3 +60,16 @@ export const replaceExtension = (dir, ext) => {
     path.basename(dir, path.extname(dir)) + ext
   );
 };
+
+export const hash = (str: string) => {
+  var result = 0,
+    i,
+    chr;
+  if (str.length === 0) return result;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    result = (result << 5) - result + chr;
+    result |= 0; // Convert to 32bit integer
+  }
+  return result;
+};
