@@ -33,8 +33,15 @@ const main = async () => {
   const argv = minimist(process.argv.slice(2));
   const command = _.first(argv._) || "serve";
 
+  let build: "debug" | "production" =
+    command === "build" ? "production" : "debug";
+  if (argv.build === "production" || argv.build === "debug") {
+    build = argv.build;
+  }
+
   const p: types.Project = {
     path: path.resolve(argv.project || process.cwd()),
+    build: build,
     context: {},
     config: {
       pages: "pages",
