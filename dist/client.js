@@ -41,7 +41,8 @@ var hydrateComponent = function (name, Component) {
     }
     for (var _i = 0, elements_1 = elements; _i < elements_1.length; _i++) {
         var element = elements_1[_i];
-        ReactDOM.hydrate(React.createElement(Component), element);
+        var props = JSON.parse(element.getAttribute("data-component-props"));
+        ReactDOM.hydrate(React.createElement(Component, props), element);
     }
 };
 hydrate();

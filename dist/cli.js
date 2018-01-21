@@ -59,14 +59,19 @@ var usage = function () {
     exit();
 };
 var main = function () { return __awaiter(_this, void 0, void 0, function () {
-    var argv, command, p, port, open, url, buildPath;
+    var argv, command, build, p, port, open_1, url, buildPath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 argv = minimist(process.argv.slice(2));
                 command = _.first(argv._) || "serve";
+                build = command === "build" ? "production" : "debug";
+                if (argv.build === "production" || argv.build === "debug") {
+                    build = argv.build;
+                }
                 p = {
                     path: path.resolve(argv.project || process.cwd()),
+                    build: build,
                     context: {},
                     config: {
                         pages: "pages",
@@ -88,12 +93,12 @@ var main = function () { return __awaiter(_this, void 0, void 0, function () {
             case 1:
                 // See if we can actually use the port
                 port = _a.sent();
-                open = argv.browser || true;
+                open_1 = argv.browser || true;
                 url = "https://localhost:" + port;
                 return [4 /*yield*/, project.serve(p, port)];
             case 2:
                 _a.sent();
-                if (open)
+                if (open_1)
                     browser.open(url);
                 console.log(chalk_1.default.bgWhite.black(" MONOBASE "), chalk_1.default.green(url));
                 return [3 /*break*/, 4];

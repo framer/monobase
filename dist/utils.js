@@ -55,3 +55,14 @@ exports.glob = function (pattern) {
 exports.replaceExtension = function (dir, ext) {
     return path.join(path.dirname(dir), path.basename(dir, path.extname(dir)) + ext);
 };
+exports.hash = function (str) {
+    var result = 0, i, chr;
+    if (str.length === 0)
+        return result;
+    for (i = 0; i < str.length; i++) {
+        chr = str.charCodeAt(i);
+        result = (result << 5) - result + chr;
+        result |= 0; // Convert to 32bit integer
+    }
+    return result;
+};
