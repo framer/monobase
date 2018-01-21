@@ -8,18 +8,29 @@ class Unsplash extends React.Component<
   state = { loaded: false };
 
   componentDidMount() {
+    this.load();
+  }
+
+  load() {
     const image = new Image();
     image.src = this.imageUrl();
     image.onload = this.onImageLoad;
+    image.onerror = this.onImageError;
   }
 
   onImageLoad = () => {
     this.setState({ loaded: true });
   };
 
+  onImageError = () => {
+    this.load();
+  };
+
   imageUrl() {
-    const size = `${this.props.width}x${this.props.height}`;
-    return `//source.unsplash.com/random/${size}`;
+    const randomId = Math.floor(Math.random() * 300);
+    return `//picsum.photos/${Math.ceil(this.props.width)}/${Math.ceil(
+      this.props.height
+    )}/?image=${randomId}`;
   }
 
   render() {
@@ -33,15 +44,12 @@ class Unsplash extends React.Component<
       ...base,
       borderRadius: 8,
       overflow: "hidden",
-      background: "rgb(220, 220, 220)",
-      border: this.state.loaded ? null : "1px solid rgba(0, 0, 0, 0.1)",
-      boxSizing: "border-box",
-      transition: "border .15s ease-in-out"
+      background: "rgb(220, 220, 220)"
     };
 
     const imageStyle: React.CSSProperties = {
       ...base,
-      background: `url('${this.imageUrl()}')`,
+      background: this.state.loaded ? `url('${this.imageUrl()}')` : null,
       opacity: this.state.loaded ? 1 : 0,
       transition: "opacity .15s ease-in-out"
     };

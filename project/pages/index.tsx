@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Template from "components/Template";
 
+import Grid from "components/examples/Grid";
 import Timer from "components/examples/Timer";
 import Mouse from "components/examples/Mouse";
 import Button from "components/examples/Button";
@@ -10,30 +11,6 @@ import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
 import Picture from "components/examples/Picture";
 import Unsplash from "components/examples/Unsplash";
-
-function Example(props) {
-  return (
-    <section
-      style={{
-        textAlign: "center",
-        padding: 100
-      }}
-    >
-      <h3
-        style={{
-          fontSize: 30,
-          fontWeight: 700,
-          margin: 0,
-          paddingBottom: 40,
-          lineHeight: 1
-        }}
-      >
-        {props.title}
-      </h3>
-      <div style={{ textAlign: "center" }}>{props.children}</div>
-    </section>
-  );
-}
 
 function render(project) {
   return (
@@ -61,8 +38,8 @@ function render(project) {
         <Example title="CSS Styled">
           <Styled />
         </Example>
-        <Example title="Random Image">
-          <Unsplash width={400} height={300} />
+        <Example title="Random Image Grid">
+          <Grid columns={3} rows={3} gap={10} cell={Unsplash} />
         </Example>
         <Example title="Picture">
           <Picture width={400} src="example1.png" alt="Example 1" />
@@ -76,6 +53,30 @@ function render(project) {
         </Example>
       </span>
     </Template>
+  );
+}
+
+function Example(props) {
+  return (
+    <section
+      style={{
+        textAlign: "center",
+        padding: "80px 10px"
+      }}
+    >
+      <h3
+        style={{
+          fontSize: 30,
+          fontWeight: 700,
+          margin: 0,
+          paddingBottom: 40,
+          lineHeight: 1
+        }}
+      >
+        {props.title}
+      </h3>
+      <div style={{ textAlign: "center" }}>{props.children}</div>
+    </section>
   );
 }
 
