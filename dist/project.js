@@ -37,14 +37,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var chalk_1 = require("chalk");
+var prettyBytes = require("pretty-bytes");
 var utils = require("./utils");
 var server = require("./server");
 var _build = require("./build");
 exports.build = function (project, path) { return __awaiter(_this, void 0, void 0, function () {
+    var stats;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("\nExporting project");
+                console.log("\nExporting project", chalk_1.default.gray("(" + project.build + ")"));
                 console.log(chalk_1.default.gray(path));
                 utils.rmdir(path);
                 utils.mkdir(path);
@@ -60,6 +62,12 @@ exports.build = function (project, path) { return __awaiter(_this, void 0, void 
                 return [4 /*yield*/, _build.assets(project, path)];
             case 3:
                 _a.sent();
+                return [4 /*yield*/, utils.stats(path)];
+            case 4:
+                stats = _a.sent();
+                console.log(chalk_1.default.green("\nBuild completed"));
+                console.log(path);
+                console.log(chalk_1.default.gray(stats.files + " files, " + prettyBytes(stats.bytes)));
                 return [2 /*return*/];
         }
     });

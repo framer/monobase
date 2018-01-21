@@ -8,3 +8,4 @@ export declare const stats: (path: string) => Promise<{
 }>;
 export declare const glob: (pattern: string) => any;
 export declare const replaceExtension: (dir: any, ext: any) => string;
+export declare const hash: (str: string) => number;
