@@ -9,6 +9,7 @@ import Button from "components/examples/Button";
 import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
+import Visible from "components/examples/Visible";
 import Picture from "components/examples/Picture";
 import Unsplash from "components/examples/Unsplash";
 
@@ -34,6 +35,11 @@ function render(project) {
         </Example>
         <Example title="Persistent Cookie">
           <Cookie />
+        </Example>
+        <Example title="Visible">
+          <Visible inset={100}>
+            I'm like a refrigerator light. Or Schrödinger's cat.
+          </Visible>
         </Example>
         <Example title="CSS Styled">
           <Styled />
