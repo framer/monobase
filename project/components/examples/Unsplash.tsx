@@ -5,6 +5,7 @@ class Unsplash extends React.Component<
   { width: number; height: number },
   { loaded: boolean }
 > {
+  count = 0;
   state = { loaded: false };
 
   componentDidMount() {
@@ -12,6 +13,9 @@ class Unsplash extends React.Component<
   }
 
   load() {
+    if (this.count > 3) return;
+    this.count++;
+
     const image = new Image();
     image.src = this.imageUrl();
     image.onload = this.onImageLoad;
