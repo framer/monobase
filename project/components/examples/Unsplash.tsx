@@ -32,9 +32,9 @@ class Unsplash extends React.Component<
 
   imageUrl() {
     const randomId = Math.floor(Math.random() * 300);
-    return `//picsum.photos/${Math.ceil(this.props.width)}/${Math.ceil(
-      this.props.height
-    )}/?image=${randomId}`;
+    const width = Math.ceil(this.props.width * window.devicePixelRatio);
+    const height = Math.ceil(this.props.height * window.devicePixelRatio);
+    return `//picsum.photos/${width}/${height}/?image=${randomId}`;
   }
 
   render() {
@@ -53,9 +53,10 @@ class Unsplash extends React.Component<
 
     const imageStyle: React.CSSProperties = {
       ...base,
-      background: this.state.loaded ? `url('${this.imageUrl()}')` : null,
       opacity: this.state.loaded ? 1 : 0,
-      transition: "opacity .15s ease-in-out"
+      transition: "opacity .15s ease-in-out",
+      backgroundImage: this.state.loaded ? `url('${this.imageUrl()}')` : null,
+      backgroundSize: "100% 100%"
     };
 
     return (

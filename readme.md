@@ -69,10 +69,11 @@ You can find these in the default project `/components/examples` folder.
 * ~~Harden component hydration with unique names based on component file hashes.~~
 * ~~Minified `component.js` settings for production.~~
 * Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.
+* Make a development page listing all components at `/components` where you can click them to see an isolated version.
 
 #### Deployment
 
-The output of `make build` is just a web project that you can deploy anywhere, like Amazon S3 sites. I myselfs also really like [Zeit](https://zeit.co/) for static websites.
+The output of `make build` is just a web project that you can deploy anywhere, like Amazon S3 sites or Netlify. I myselfs also really like [Zeit](https://zeit.co/) for static websites.
 
 * Install Zeit: `yarn --global install now`
 * Build project: `make build`
