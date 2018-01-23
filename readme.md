@@ -40,18 +40,22 @@ More great features:
 
 Some React components are interactive. Monobase generates a single script called components.js containing every _marked_ component and [hydrates](https://reactjs.org/docs/react-dom.html#hydrate) them after the page load so they become interactive. This means the inital html gets loaded statically, and then code attaches itself automatically after page load.
 
-To mark components as interactive wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/Timer.tsx#L22)]
+To mark components as interactive wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/examples/Timer.tsx#L22)]
 
 #### Example dynamic components
 
-You can find these in the default project `/components` folder.
+You can find these in the default project `/components/examples` folder.
 
+* **Grid** - A simple but dynamic grid.
 * **Button** – Just a button you can click.
 * **Timer** - A timer that displays the running time in ms.
-* **Cookie** - An input that stores values in a cookie. [todo]
+* **Cookie** - An input that stores values in a cookie.
 * **Scroll** – An element that responds to page scrolling. [todo]
 * **Mouse** – A mouse location display.
-* **RandomImage** - An unsplash random image element.
+* **Styled** – An example of a static, inline styled component.
+* **Picture** - A responsive image loader.
+* **Visible** - A wrapper that hides the content if offscreen.
+* **Unsplash** - An unsplash random image element.
 
 #### Gotchas
 
@@ -62,5 +66,6 @@ You can find these in the default project `/components` folder.
 
 * ~~Make project based (non relative) path loading work.~~
 * ~~Improve dynamic component discovery (automagically, tips welcome).~~
-* Harden component hydration with unique names based on component file hashes.
-* Minified `component.js` settings for production.
+* ~~Harden component hydration with unique names based on component file hashes.~~
+* ~~Minified `component.js` settings for production.~~
+* Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.
