@@ -28,8 +28,8 @@ function render(project) {
         <Grid
           width={600}
           height={1800}
-          columns={6}
-          rows={30}
+          columns={2}
+          rows={2}
           gap={10}
           cell={Cell}
         />
