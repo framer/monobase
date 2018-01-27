@@ -1,13 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-declare var window;
-// declare var document;
 declare var __webpack_require__;
-
-if (typeof document === "undefined") {
-  const document = {};
-}
 
 export const isDynamicComponent = Component => {
   return (
@@ -32,54 +26,32 @@ const getComponents = () => {
   return components;
 };
 
-const COMPONENTS = getComponents();
-
-const getParents = (element: HTMLElement) => {
-  const elements: HTMLElement[] = [];
-
-  while (element.parentNode) {
-    element = element.parentNode as HTMLElement;
-    elements.push(element);
-  }
-
-  return elements;
-};
-
-const hasParentComponent = (element: HTMLElement) => {
-  for (let parent of getParents(element)) {
-    if (parent.getAttribute && parent.getAttribute("data-component-props")) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const reactize = child => {
-  return React.createElement(
-    COMPONENTS[child.type] || child.type,
-    child.props,
-    child.children.map(reactize)
-  );
-};
-
 const querySelectorAll = (query: string): HTMLElement[] => {
   return Array.prototype.slice.call(document.querySelectorAll(query));
 };
 
-const main = () => {
-  const elements = querySelectorAll("Component");
+const hydrate = () => {
+  const ComponentTagName = "component";
+  const ComponentMap = getComponents();
 
-  for (let element of elements) {
-    // if (hasParentComponent(element)) {
-    //   continue;
-    // }
+  const reactize = child => {
+    return React.createElement(
+      ComponentMap[child.type] || child.type,
+      child.props,
+      child.children.map(reactize)
+    );
+  };
 
-    const props = JSON.parse(element.getAttribute("data-component-props"));
-
-    console.log("hydrate", props.type, element);
-
-    ReactDOM.hydrate(reactize(props), element);
+  for (let element of querySelectorAll(ComponentTagName)) {
+    try {
+      const props = ReactDOM.hydrate(
+        reactize(JSON.parse(element.getAttribute("data-component-props"))),
+        element
+      );
+    } catch (error) {
+      console.error("Could not hydrate component", element, error);
+    }
   }
 };
 
-main();
+document.addEventListener("DOMContentLoaded", hydrate);

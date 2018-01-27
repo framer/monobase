@@ -8,6 +8,7 @@ const Grid = (props: {
   gap?: number;
   cell?: (
     props: {
+      key: string;
       index: number;
       row: number;
       column: number;
@@ -43,6 +44,7 @@ const Grid = (props: {
 
       const cell = props.cell({
         ...size,
+        key: `cell[${column}:${row}]`,
         index: index,
         column: column,
         row: row

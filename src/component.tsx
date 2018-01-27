@@ -4,7 +4,7 @@ import * as PropTypes from "prop-types";
 const serializeElement = child => {
   return {
     type: serializeType(child),
-    props: serializeProps(child.props),
+    props: serializeProps(child.props, child.key),
     children: serializeChildren(child.props.children)
   };
 };
@@ -13,36 +13,45 @@ const serializeType = child => {
   if (child.type && child.type.dynamicName) {
     return child.type.dynamicName;
   }
+
   if (typeof child.type == "string") {
     return child.type;
   }
+
   console.dir(child);
+
   throw Error(`Unknown type`);
 };
 
-const serializeChildren = children => {
-  if (!children) {
-    return [];
-  }
-  if (!Array.isArray(children)) {
-    children = [children];
-  }
-  return children.map(serializeElement);
-};
-
-const serializeProps = props => {
+const serializeProps = (props, key?) => {
   if (!props) {
     return null;
   }
 
   const propsCopy = Object.assign({}, props);
   delete propsCopy.children;
-
+  if (key) {
+    propsCopy.key = key;
+  }
   return propsCopy;
+};
+
+const serializeChildren = children => {
+  if (!children) {
+    return [];
+  }
+
+  if (!Array.isArray(children)) {
+    children = [children];
+  }
+
+  return children.map(serializeElement);
 };
 
 // Create a special dynamic wrapper so we can denote the root of a component tree
 class DynamicContext extends React.Component {
+  static childContextTypes = { __dynamic: PropTypes.bool };
+
   getChildContext() {
     return { __dynamic: true };
   }
@@ -52,46 +61,37 @@ class DynamicContext extends React.Component {
   }
 }
 
-DynamicContext["childContextTypes"] = {
-  __dynamic: PropTypes.bool
-};
-
 export const Dynamic = Component => {
   const componentName = `Component.${Component.name}`;
 
-  // Todo: Maybe try React.createElement("Component")
-
-  console.log("Dynamic", componentName);
-
-  const f = (props, context) => {
-    console.log("context", context);
-
+  const dynamicWrapper = (props, context) => {
+    // If there is a context, that likely means that we are a child in a component tree.
     if (context.__dynamic) {
       return <Component suppressHydrationWarning={true} {...props} />;
     }
 
-    const instance = (
-      <DynamicContext>
-        <Component suppressHydrationWarning={true} {...props} />
-      </DynamicContext>
+    // If this is the root of a component tree, serialize the whole tree
+    const serialized = JSON.stringify(
+      serializeElement({ type: componentName, props: props })
     );
 
     return React.createElement(
       "component",
       {
-        "data-component": componentName,
-        "data-component-props": JSON.stringify(
-          serializeElement({ type: componentName, props: props })
-        )
+        "data-component-props": serialized
       },
-      instance
+      <DynamicContext>
+        <Component suppressHydrationWarning={true} {...props} />
+      </DynamicContext>
     );
   };
-  f["dynamicName"] = componentName;
-  f["dynamicComponent"] = Component;
-  f["contextTypes"] = {
+
+  // Add some properties to the component so we can pick it up on the client side
+  dynamicWrapper["dynamicName"] = componentName;
+  dynamicWrapper["dynamicComponent"] = Component;
+  dynamicWrapper["contextTypes"] = {
     __dynamic: PropTypes.bool
   };
 
-  return f;
+  return dynamicWrapper;
 };
