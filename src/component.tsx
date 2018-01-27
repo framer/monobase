@@ -66,7 +66,7 @@ class DynamicContext extends React.Component {
 export const Dynamic = Component => {
   const componentName = `Component.${Component.name}`;
 
-  const dynamicWrapper = (props, context) => {
+  const dynamicWrapper = (props, context?) => {
     // If there is a context, that likely means that we are a child in a component tree.
     if (context.__dynamic) {
       return <Component suppressHydrationWarning={true} {...props} />;
