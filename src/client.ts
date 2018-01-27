@@ -32,19 +32,62 @@ export const isDynamicComponent = Component => {
 //     : false;
 // }
 
+const getComponents = () => {
+  const components = {};
+
+  for (let i = 0; i < module["i"]; i++) {
+    const modules = __webpack_require__(i);
+
+    for (let key of Object.keys(modules)) {
+      if (isDynamicComponent(modules[key])) {
+        components[modules[key].dynamicName] = modules[key].dynamicComponent;
+      }
+    }
+  }
+
+  return components;
+};
+
+const COMPONENTS = getComponents();
+
+console.log(COMPONENTS);
+
 const hydrate = () => {
   for (let i = 0; i < module["i"]; i++) {
     const modules = __webpack_require__(i);
 
     for (let key of Object.keys(modules)) {
       if (isDynamicComponent(modules[key])) {
-        hydrateComponent(
-          modules[key].dynamicName,
-          modules[key].dynamicComponent
-        );
+        hydrateComponent(modules[key].dynamicName, modules[key]);
       }
     }
   }
+};
+
+const getParents = (element: HTMLElement) => {
+  const elements: HTMLElement[] = [];
+
+  while (element.parentNode) {
+    element = element.parentNode as HTMLElement;
+    elements.push(element);
+  }
+
+  return elements;
+};
+
+const hasParentComponent = (element: HTMLElement) => {
+  for (let parent of getParents(element)) {
+    if (parent.getAttribute && parent.getAttribute("data-component")) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const reactize = child => {
+  const el = COMPONENTS[child.type] || child.type;
+
+  return React.createElement(el, child.props, child.children.map(reactize));
 };
 
 const hydrateComponent = (name, Component) => {
@@ -57,8 +100,13 @@ const hydrateComponent = (name, Component) => {
   }
 
   for (let element of elements) {
+    if (hasParentComponent(element)) {
+      continue;
+    }
+
     const props = JSON.parse(element.getAttribute("data-component-props"));
-    ReactDOM.hydrate(React.createElement(Component, props), element);
+
+    ReactDOM.hydrate(reactize(props), element);
   }
 };
 
