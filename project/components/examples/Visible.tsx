@@ -38,6 +38,8 @@ class Visible extends React.Component<
     const rect = el.getBoundingClientRect();
     const visible = intersect(rect, this.viewRect());
 
+    console.log(rect);
+
     if (this.state.visible != visible) {
       this.setState({ visible: visible });
     }
@@ -47,6 +49,7 @@ class Visible extends React.Component<
     const style = {
       visibility: this.state.visible ? "" : "hidden"
     };
+
     return (
       <div ref="el" style={style}>
         {this.props.children}
