@@ -58,7 +58,15 @@ export const page = (project: types.Project, page: string, cache = false) => {
     );
   }
 
-  return renderToString(pageModule.default(project));
+  try {
+    return renderToString(pageModule.default(project));
+  } catch (error) {
+    if (error.message == "window is not defined") {
+      error.message =
+        "window is not defined. You are using the `window` object in a page render, which is not available in Node, only in the browser. Make sure your render function does not reference `window`. Other methods _can_ use `window`.";
+    }
+    throw error;
+  }
 };
 
 let cmp;
