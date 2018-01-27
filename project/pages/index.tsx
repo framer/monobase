@@ -15,7 +15,7 @@ import Unsplash from "components/examples/Unsplash";
 
 const Cell = props => {
   return (
-    <Visible inset={100}>
+    <Visible inset={100} {...props}>
       <Unsplash {...props} />
     </Visible>
   );
@@ -29,7 +29,7 @@ function render(project) {
           width={600}
           height={1800}
           columns={2}
-          rows={2}
+          rows={30}
           gap={10}
           cell={Cell}
         />

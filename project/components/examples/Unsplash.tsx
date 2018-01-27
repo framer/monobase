@@ -31,9 +31,10 @@ class Unsplash extends React.Component<
   };
 
   imageUrl() {
+    const s = 100;
     const randomId = Math.floor(Math.random() * 300);
-    const width = Math.ceil(this.props.width * window.devicePixelRatio);
-    const height = Math.ceil(this.props.height * window.devicePixelRatio);
+    const width = Math.ceil(this.props.width || s * window.devicePixelRatio);
+    const height = Math.ceil(this.props.height || s * window.devicePixelRatio);
     return `//picsum.photos/${width}/${height}/?image=${randomId}`;
   }
 
