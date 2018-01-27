@@ -34,18 +34,20 @@ const hydrate = () => {
   const ComponentTagName = "component";
   const ComponentMap = getComponents();
 
-  const reactize = child => {
+  const createElement = (child: any[]) => {
+    const [type, props, children] = child;
+
     return React.createElement(
-      ComponentMap[child.type] || child.type,
-      child.props,
-      child.children.map(reactize)
+      ComponentMap[type] || type,
+      props,
+      children.map(createElement)
     );
   };
 
   for (let element of querySelectorAll(ComponentTagName)) {
     try {
       const props = ReactDOM.hydrate(
-        reactize(JSON.parse(element.getAttribute("data-component-props"))),
+        createElement(JSON.parse(element.getAttribute("data-component-props"))),
         element
       );
     } catch (error) {

@@ -2,11 +2,11 @@ import * as React from "react";
 import * as PropTypes from "prop-types";
 
 const serializeElement = child => {
-  return {
-    type: serializeType(child),
-    props: serializeProps(child.props, child.key),
-    children: serializeChildren(child.props.children)
-  };
+  return [
+    serializeType(child),
+    serializeProps(child.props, child.key),
+    serializeChildren(child.props.children)
+  ];
 };
 
 const serializeType = child => {
@@ -30,9 +30,11 @@ const serializeProps = (props, key?) => {
 
   const propsCopy = Object.assign({}, props);
   delete propsCopy.children;
+
   if (key) {
     propsCopy.key = key;
   }
+
   return propsCopy;
 };
 
