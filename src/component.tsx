@@ -68,7 +68,7 @@ export const Dynamic = Component => {
 
   const dynamicWrapper = (props, context?) => {
     // If there is a context, that likely means that we are a child in a component tree.
-    if (context.__dynamic) {
+    if (context && context.__dynamic) {
       return <Component suppressHydrationWarning={true} {...props} />;
     }
 
