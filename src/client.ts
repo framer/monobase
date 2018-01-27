@@ -2,8 +2,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 declare var window;
-declare var document;
+// declare var document;
 declare var __webpack_require__;
+
+if (typeof document === "undefined") {
+  const document = {};
+}
 
 export const isDynamicComponent = Component => {
   return (
@@ -11,26 +15,6 @@ export const isDynamicComponent = Component => {
     typeof Component["dynamicComponent"] !== "undefined"
   );
 };
-
-// function isClassComponent(component) {
-//   return typeof component === "function" &&
-//     !!component.prototype.isReactComponent
-//     ? true
-//     : false;
-// }
-
-// function isFunctionComponent(component) {
-//   return typeof component === "function" &&
-//     String(component).includes("return React.createElement")
-//     ? true
-//     : false;
-// }
-
-// function isReactComponent(component) {
-//   return isClassComponent(component) || isFunctionComponent(component)
-//     ? true
-//     : false;
-// }
 
 const getComponents = () => {
   const components = {};
@@ -50,20 +34,6 @@ const getComponents = () => {
 
 const COMPONENTS = getComponents();
 
-console.log(COMPONENTS);
-
-const hydrate = () => {
-  for (let i = 0; i < module["i"]; i++) {
-    const modules = __webpack_require__(i);
-
-    for (let key of Object.keys(modules)) {
-      if (isDynamicComponent(modules[key])) {
-        hydrateComponent(modules[key].dynamicName, modules[key]);
-      }
-    }
-  }
-};
-
 const getParents = (element: HTMLElement) => {
   const elements: HTMLElement[] = [];
 
@@ -77,7 +47,7 @@ const getParents = (element: HTMLElement) => {
 
 const hasParentComponent = (element: HTMLElement) => {
   for (let parent of getParents(element)) {
-    if (parent.getAttribute && parent.getAttribute("data-component")) {
+    if (parent.getAttribute && parent.getAttribute("data-component-props")) {
       return true;
     }
   }
@@ -85,29 +55,31 @@ const hasParentComponent = (element: HTMLElement) => {
 };
 
 const reactize = child => {
-  const el = COMPONENTS[child.type] || child.type;
-
-  return React.createElement(el, child.props, child.children.map(reactize));
+  return React.createElement(
+    COMPONENTS[child.type] || child.type,
+    child.props,
+    child.children.map(reactize)
+  );
 };
 
-const hydrateComponent = (name, Component) => {
-  const elements: HTMLElement[] = Array.prototype.slice.call(
-    document.querySelectorAll(`[data-component='${name}']`)
-  );
+const querySelectorAll = (query: string): HTMLElement[] => {
+  return Array.prototype.slice.call(document.querySelectorAll(query));
+};
 
-  if (elements) {
-    console.info("monobase.hydrate", name, elements);
-  }
+const main = () => {
+  const elements = querySelectorAll("Component");
 
   for (let element of elements) {
-    if (hasParentComponent(element)) {
-      continue;
-    }
+    // if (hasParentComponent(element)) {
+    //   continue;
+    // }
 
     const props = JSON.parse(element.getAttribute("data-component-props"));
+
+    console.log("hydrate", props.type, element);
 
     ReactDOM.hydrate(reactize(props), element);
   }
 };
 
-hydrate();
+main();
