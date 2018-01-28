@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 
-const serializeElement = child => {
+const serializeElement = element => {
   return [
-    serializeType(child),
-    serializeProps(child.props, child.key),
-    serializeChildren(child.props.children)
+    serializeType(element),
+    serializeProps(element.props, element.key),
+    serializeChildren(element.props.children)
   ];
 };
 
@@ -14,11 +14,9 @@ const serializeType = child => {
     return child.type.dynamicName;
   }
 
-  if (typeof child.type == "string") {
+  if (typeof child.type === "string") {
     return child.type;
   }
-
-  console.dir(child);
 
   throw Error(`Unknown type`);
 };
@@ -41,6 +39,10 @@ const serializeProps = (props, key?) => {
 const serializeChildren = children => {
   if (!children) {
     return [];
+  }
+
+  if (typeof children === "string") {
+    return children;
   }
 
   if (!Array.isArray(children)) {
