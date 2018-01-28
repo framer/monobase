@@ -9,7 +9,7 @@ class Cookie extends React.Component<{}, { value: string }> {
   state = { value: "" };
 
   componentDidMount() {
-    this.setState({ value: cookies.get(CookieKey) });
+    this.setState({ value: cookies.get(CookieKey) || "" });
   }
 
   onChange = event => {
