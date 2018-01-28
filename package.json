@@ -21,6 +21,7 @@
     "@types/react-dom": "^16.0.3",
     "@types/watch": "^1.0.0",
     "@types/webpack": "^3.8.1",
+    "cache-loader": "^1.2.0",
     "chalk": "^2.3.0",
     "commander": "^2.12.2",
     "connect-inject": "^0.4.0",

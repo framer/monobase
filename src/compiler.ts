@@ -17,7 +17,20 @@ export const setup = (project: types.Project, entries: string[] = []) => {
       modules: [project.path, "node_modules"]
     },
     module: {
-      rules: [{ test: /\.tsx?$/, loader: "ts-loader" }]
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: [
+            {
+              loader: "cache-loader",
+              options: {
+                cacheDirectory: path.join(project.path, ".cache")
+              }
+            },
+            "ts-loader"
+          ]
+        }
+      ]
     },
     plugins: project.build === "production" ? productionPlugins : []
   });

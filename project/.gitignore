@@ -1,4 +1,4 @@
-# OS generated files #
+# Operating System
 .DS_Store
 .DS_Store?
 ._*
@@ -7,5 +7,7 @@
 ehthumbs.db
 Thumbs.db
 
+# Monobase
+.cache
 build
 node_modules
