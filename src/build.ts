@@ -35,7 +35,7 @@ const page = (project: types.Project, dir, root) => {
 
   utils.mkdir(path.dirname(pagePath));
 
-  fs.writeFileSync(pagePath, render.page(project, dir, true));
+  fs.writeFileSync(pagePath, render.page(project, dir));
 
   console.log(
     chalk.gray(`/${pageRelativePath}`),

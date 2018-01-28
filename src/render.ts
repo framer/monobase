@@ -11,22 +11,10 @@ import * as compiler from "./compiler";
 import * as dynamic from "./dynamic";
 import { discover } from "./dynamic";
 
-export const page = (project: types.Project, page: string, cache = false) => {
+export const page = (project: types.Project, page: string) => {
   const pagesPath = path.join(project.path, project.config.pages);
   const pageImportPath = path.join(pagesPath, page);
   const componentsPath = path.join(project.path, project.config.components);
-
-  if (cache === false) {
-    // Make sure we delete the page from the cache
-    delete require.cache[require.resolve(pageImportPath)];
-
-    // Delete all the components from the cache
-    for (let key of Object.keys(require.cache)) {
-      if (key.indexOf(componentsPath) !== -1) {
-        delete require.cache[key];
-      }
-    }
-  }
 
   let pageModule, pageModuleError;
 

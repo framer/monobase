@@ -11,6 +11,7 @@ import * as types from "./types";
 import * as render from "./render";
 import * as middleware from "./middleware";
 import * as utils from "./utils";
+import * as invalidate from "invalidate-module";
 
 const modulePath = (url: string) => {
   if (_.endsWith(url, "/")) {
@@ -71,16 +72,24 @@ export const serve = async (project: types.Project, port = 3000) => {
     return extensions.map(ext => `${path}${ext}`);
   };
 
-  const exts = [".ts", ".tsx", ".js"];
+  const scriptExts = [".ts", ".tsx", ".js"];
+  const staticExts = [".css", ".js", ".gif", ".png", ".jpg", ".webp"];
 
   const globs = [
-    ...withExts(`${project.path}/${project.config.pages}/**/*`, exts),
-    ...withExts(`${project.path}/${project.config.components}/**/*`, exts),
-    ...withExts(`${project.path}/${project.config.static}/**/*`, exts)
+    ...withExts(`${project.path}/${project.config.pages}/**/*`, scriptExts),
+    ...withExts(
+      `${project.path}/${project.config.components}/**/*`,
+      scriptExts
+    ),
+    ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts)
   ];
 
   gaze(globs, function(err, watcher) {
     this.on("all", function(event, filepath) {
+      // Invalidate the changed module from the cache
+      invalidate(require.resolve(filepath));
+
+      // Reload the page in the browser
       io.emit("reload");
     });
   });
