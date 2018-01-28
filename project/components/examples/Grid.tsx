@@ -8,13 +8,14 @@ const Grid = (props: {
   gap?: number;
   cell?: (
     props: {
+      key: string;
       index: number;
       row: number;
       column: number;
       width: number;
       height: number;
     }
-  ) => React.ReactElement<any>;
+  ) => JSX.Element;
 }) => {
   // Make sure we have a good set of defaults
   props = Object.assign({}, GridDefaults, props);
@@ -33,14 +34,17 @@ const Grid = (props: {
         position: "absolute",
         width: size.width,
         height: size.height,
-        transform: `
-          translate(
-            ${column * (size.width + props.gap)}px,
-            ${row * (size.height + props.gap)}px)`
+        left: column * (size.width + props.gap),
+        top: row * (size.height + props.gap)
+        // transform: `
+        //   translate(
+        //     ${column * (size.width + props.gap)}px,
+        //     ${row * (size.height + props.gap)}px)`
       };
 
       const cell = props.cell({
         ...size,
+        key: `cell[${column}:${row}]`,
         index: index,
         column: column,
         row: row

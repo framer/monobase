@@ -1,8 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-declare var window;
-declare var document;
 declare var __webpack_require__;
 
 export const isDynamicComponent = Component => {
@@ -12,54 +10,50 @@ export const isDynamicComponent = Component => {
   );
 };
 
-// function isClassComponent(component) {
-//   return typeof component === "function" &&
-//     !!component.prototype.isReactComponent
-//     ? true
-//     : false;
-// }
+const getComponents = () => {
+  const components = {};
 
-// function isFunctionComponent(component) {
-//   return typeof component === "function" &&
-//     String(component).includes("return React.createElement")
-//     ? true
-//     : false;
-// }
-
-// function isReactComponent(component) {
-//   return isClassComponent(component) || isFunctionComponent(component)
-//     ? true
-//     : false;
-// }
-
-const hydrate = () => {
   for (let i = 0; i < module["i"]; i++) {
     const modules = __webpack_require__(i);
 
     for (let key of Object.keys(modules)) {
       if (isDynamicComponent(modules[key])) {
-        hydrateComponent(
-          modules[key].dynamicName,
-          modules[key].dynamicComponent
-        );
+        components[modules[key].dynamicName] = modules[key].dynamicComponent;
       }
+    }
+  }
+
+  return components;
+};
+
+const querySelectorAll = (query: string): HTMLElement[] => {
+  return Array.prototype.slice.call(document.querySelectorAll(query));
+};
+
+const hydrate = () => {
+  const ComponentTagName = "component";
+  const ComponentMap = getComponents();
+
+  const createElement = (child: any[]) => {
+    const [type, props, children] = child;
+
+    return React.createElement(
+      ComponentMap[type] || type,
+      props,
+      Array.isArray(children) ? children.map(createElement) : children
+    );
+  };
+
+  for (let element of querySelectorAll(ComponentTagName)) {
+    try {
+      const props = ReactDOM.hydrate(
+        createElement(JSON.parse(element.getAttribute("data-component-props"))),
+        element
+      );
+    } catch (error) {
+      console.error("Could not hydrate component", element, error);
     }
   }
 };
 
-const hydrateComponent = (name, Component) => {
-  const elements: HTMLElement[] = Array.prototype.slice.call(
-    document.querySelectorAll(`[data-component='${name}']`)
-  );
-
-  if (elements) {
-    console.info("monobase.hydrate", name, elements);
-  }
-
-  for (let element of elements) {
-    const props = JSON.parse(element.getAttribute("data-component-props"));
-    ReactDOM.hydrate(React.createElement(Component, props), element);
-  }
-};
-
-hydrate();
+document.addEventListener("DOMContentLoaded", hydrate);

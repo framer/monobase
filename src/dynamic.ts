@@ -3,7 +3,12 @@ import * as fs from "fs";
 import * as utils from "./utils";
 import * as types from "./types";
 
-import { isDynamicComponent } from "./client";
+export const isDynamicComponent = Component => {
+  return (
+    typeof Component["dynamicName"] !== "undefined" &&
+    typeof Component["dynamicComponent"] !== "undefined"
+  );
+};
 
 const getClientScriptImportPath = () => {
   const clientScriptImportPathTS = path.join(__dirname, "client.ts");

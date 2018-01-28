@@ -45,7 +45,18 @@ function render(project) {
           <Styled />
         </Example>
         <Example title="Random Image Grid">
-          <Grid columns={3} rows={3} gap={10} cell={Unsplash} />
+          <Grid
+            width={600}
+            height={300}
+            columns={4}
+            rows={4}
+            gap={10}
+            cell={props => (
+              <Visible>
+                <Unsplash {...props} />
+              </Visible>
+            )}
+          />
         </Example>
         <Example title="Picture">
           <Picture width={400} src="example1.png" alt="Example 1" />

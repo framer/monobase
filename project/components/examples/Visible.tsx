@@ -47,6 +47,7 @@ class Visible extends React.Component<
     const style = {
       visibility: this.state.visible ? "" : "hidden"
     };
+
     return (
       <div ref="el" style={style}>
         {this.props.children}
