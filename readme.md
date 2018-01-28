@@ -68,7 +68,7 @@ You can find these in the default project `/components/examples` folder.
 * ~~Improve dynamic component discovery (automagically, tips welcome).~~
 * ~~Harden component hydration with unique names based on component file hashes.~~
 * ~~Minified `component.js` settings for production.~~
-* Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.
+* ~~Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.~~
 * Make a development page listing all components at `/components` where you can click them to see an isolated version.
 
 #### Deployment
