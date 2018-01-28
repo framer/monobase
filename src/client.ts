@@ -40,7 +40,7 @@ const hydrate = () => {
     return React.createElement(
       ComponentMap[type] || type,
       props,
-      children.map(createElement)
+      Array.isArray(children) ? children.map(createElement) : children
     );
   };
 
