@@ -1,4 +1,5 @@
 .DS_Store
 node_modules
 yarn-error.log
-/examples/default.com/yarn.lock
+/project/yarn.lock
+/dist
