@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as countFiles from "count-files";
 import * as _glob from "glob";
+import * as prettyBytes from "pretty-bytes";
 import { ncp } from "ncp";
 
 export const mkdir = path => {
@@ -72,4 +73,8 @@ export const hash = (str: string) => {
     result |= 0; // Convert to 32bit integer
   }
   return result;
+};
+
+export const fileSize = (path: string) => {
+  return prettyBytes(fs.statSync(path).size);
 };

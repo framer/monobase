@@ -39,6 +39,7 @@ const page = (project: types.Project, dir, root) => {
 
   console.log(
     chalk.gray(`/${pageRelativePath}`),
+    chalk.gray(utils.fileSize(pagePath)),
     chalk.gray(`(${Math.round(Date.now() - time)}ms)`)
   );
 };
@@ -62,6 +63,7 @@ export const script = async (project: types.Project, root) => {
   fs.writeFileSync(scriptPath, script);
   console.log(
     chalk.gray(`${project.config.componentScript}`),
+    chalk.gray(utils.fileSize(scriptPath)),
     chalk.gray(`(${Math.round(Date.now() - time)}ms)`)
   );
 };
