@@ -22,7 +22,6 @@ build: bootstrap
 publish: git-check dist
 	yarn publish
 	make project
-	-git add dist/*
 	-git commit -a -m "*** published new version"
 	-git push
 
