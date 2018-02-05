@@ -1,3 +1,5 @@
+![monobase](https://cl.ly/3U1l2y2o092I/monobase.jpg)
+
 ### Monobase
 
 A fast and simple React static site generator that let's you build a site from a set of components.
