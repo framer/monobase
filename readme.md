@@ -1,8 +1,13 @@
+
+<h2 align="center">Monobase</h2>
+
+<div align="center">
+  A fast and simple React static site generator that let's you build a site from a set of components.
+</div>
+
+<br />
+
 ![monobase](https://cl.ly/3s3O3x2N1j0t/Frame@2x.png)
-
-### Monobase
-
-A fast and simple React static site generator that let's you build a site from a set of components.
 
 #### Quick start
 
