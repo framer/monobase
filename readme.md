@@ -11,6 +11,8 @@
 
 <hr />
 
+[See an example of the default deployed project.](https://build-swdurwnoqe.now.sh/)
+
 #### Quick start
 
 * Download the [default project template](https://raw.githubusercontent.com/koenbok/monobase/master/project.zip)
