@@ -1,4 +1,4 @@
-![monobase](https://cl.ly/3U1l2y2o092I/monobase.jpg)
+![monobase](https://cl.ly/3s3O3x2N1j0t/Frame@2x.png)
 
 ### Monobase
 
