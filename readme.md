@@ -1,5 +1,5 @@
 
-<h2 align="center">Monobase</h2>
+<h1 align="center">Monobase</h1>
 
 <div align="center">
   A fast and simple React static site generator that let's you build a site from a set of components.
@@ -8,6 +8,8 @@
 <br />
 
 ![monobase](https://cl.ly/3s3O3x2N1j0t/Frame@2x.png)
+
+<hr />
 
 #### Quick start
 
