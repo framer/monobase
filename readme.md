@@ -2,7 +2,7 @@
 <h1 align="center">Monobase</h1>
 
 <div align="center">
-  A fast and simple React static site generator that let's you build a site from a set of components.
+  A fast and simple React static site generator that builds sites from components.
 </div>
 
 <br />
@@ -20,7 +20,7 @@
 
 #### Why is it great?
 
-Monobase let's you build sites in a [component based way](https://reactjs.org/docs/react-component.html), allowing you to isolate and re-use every part of your website. Don't build a site, build a site _system_.
+Monobase let's you build sites in a [component based way](https://reactjs.org/docs/react-component.html), allowing you to isolate and re-use every part of your website. Don't build a site, build a site _system_, and re-use it everywhere.
 
 More great features:
 
