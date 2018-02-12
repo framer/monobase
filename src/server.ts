@@ -86,8 +86,10 @@ export const serve = async (project: types.Project, port = 3000) => {
 
   gaze(globs, function(err, watcher) {
     this.on("all", function(event, filepath) {
-      // Invalidate the changed module from the cache
-      invalidate(require.resolve(filepath));
+      // Try to invalidate the changed module from the cache
+      try {
+        invalidate(require.resolve(filepath));
+      } catch (error) {}
 
       // Reload the page in the browser
       io.emit("reload");
