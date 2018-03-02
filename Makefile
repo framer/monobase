@@ -49,7 +49,7 @@ TEMPDIR := $(shell mktemp -d)
 
 test:
 	cd $(TEMPDIR); \
-		curl -L -O https://raw.githubusercontent.com/koenbok/monobase/master/project.zip; \
+		curl -L -O https://github.com/koenbok/monobase/raw/master/project.zip; \
 		unzip project.zip; \
 		cd project; \
 		make serve

@@ -1,4 +1,3 @@
-
 <h1 align="center">Monobase</h1>
 
 <div align="center">
@@ -15,7 +14,7 @@
 
 #### Quick start
 
-* Download the [default project template](https://raw.githubusercontent.com/koenbok/monobase/master/project.zip)
+* Download the [default project template](https://github.com/koenbok/monobase/raw/master/project.zip)
 * `cd ~/Downloads/project`
 * `make serve` to start you dev server
 * `make build` to generate your site
