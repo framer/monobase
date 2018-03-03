@@ -53,8 +53,11 @@ export const logging = morgan((tokens, req, res) => {
     status = chalk.red(status);
   }
 
+  // const remoteAddress = req.socket.address().address;
+
   return chalk.gray(
     [
+      // _.last(remoteAddress.split(":")),
       tokens.method(req, res),
       status,
       chalk.rgb(170, 170, 170)(tokens.url(req, res)),

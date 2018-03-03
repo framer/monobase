@@ -7,9 +7,13 @@ const tsConfigPaths = require("tsconfig-paths");
 
 import * as _ from "lodash";
 import * as path from "path";
+import * as os from "os";
 import * as fs from "fs";
 import * as minimist from "minimist";
 import * as openport from "first-open-port";
+import * as address from "my-local-ip";
+import * as reachable from "is-reachable";
+
 import chalk from "chalk";
 
 import * as browser from "./browser";
@@ -71,8 +75,23 @@ const main = async () => {
     port = await openport(port, port + 100);
 
     const open = argv.browser || true;
-    const url = `https://localhost:${port}`;
     await project.serve(p, port);
+
+    const prettyHost = async (hosts: string[], port: number) => {
+      for (let host of hosts) {
+        const result = await reachable(`${host}:${port}`, { timeout: 200 });
+        if (result) {
+          return Promise.resolve(host);
+        }
+      }
+    };
+
+    const local = await prettyHost(
+      [os.hostname().toLowerCase(), address(), "0.0.0.0", "127.0.0.1"],
+      port
+    );
+
+    const url = `https://${local}:${port}`;
 
     if (open) browser.open(url);
 
