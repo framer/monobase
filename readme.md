@@ -85,6 +85,6 @@ You can find these in the default project `/components/examples` folder.
 
 The output of `make build` is just a web project that you can deploy anywhere, like Amazon S3 sites or Netlify. I myselfs also really like [Zeit](https://zeit.co/) for static websites.
 
-* Install Zeit: `yarn --global install now`
+* Install Zeit: `yarn global add now`
 * Build project: `make build`
 * Upload: `now ./build`
