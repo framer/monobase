@@ -69,7 +69,7 @@ const main = async () => {
   });
 
   if (command === "serve") {
-    let port = argv.port || argv.p || 3000;
+    let port = argv.port || argv.p || 1234;
 
     // See if we can actually use the port
     port = await openport(port, port + 100);
