@@ -28,9 +28,10 @@ publish: git-check dist
 project:
 	-rm project.zip 
 	zip -X -r project.zip project \
-		-x "project/monobase.ts" \
 		-x "*.DS_Store" \
 		-x "project/.*" \
+		-x "project/monobase.ts" \
+		-x "project/yarn.lock" \
 		-x "project/node_modules/*" \
 		-x "project/build/*"
 	md5 project.zip
