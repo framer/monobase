@@ -13,16 +13,6 @@ import * as middleware from "./middleware";
 import * as utils from "./utils";
 import * as invalidate from "invalidate-module";
 
-const modulePath = (url: string) => {
-  if (_.endsWith(url, "/")) {
-    return `${url}/index`;
-  }
-
-  if (_.endsWith(url, ".html")) {
-    return utils.replaceExtension(url, "");
-  }
-};
-
 export const serve = async (project: types.Project, port = 3000) => {
   const app = express();
   const ssl = path.join(__dirname, "..", "extras", "ssl");
@@ -47,23 +37,20 @@ export const serve = async (project: types.Project, port = 3000) => {
     res.send(await render.script(project));
   });
 
+  // Catch all handler for all pages
   app.get("*", (req, res) => {
-    let pageModulePath = modulePath(req.url);
-
-    if (!pageModulePath) {
-      return res.status(404).send(render.page(project, "404"));
-    }
-
-    const page = render.page(project, pageModulePath);
+    const pagePath = path.join(project.config.pages, req.url);
+    const page = render.page(project, utils.projectPageForPath(pagePath));
 
     if (!page) {
-      return res.status(404).send(render.page(project, "404"));
+      const path404 = path.join(project.config.pages, "404");
+      return res.status(404).send(render.page(project, path404));
     }
 
     res.send(page);
   });
 
-  // Error handler need to be on the bottom
+  // Error handler needs to be on the bottom
   app.use(middleware.errors(project));
 
   server.listen(port, () => Promise.resolve());

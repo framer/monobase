@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as types from "./types";
 import * as React from "react";
-import * as Markdown from "react-markdown";
+import * as Markdown from "react-remarkable";
 
 export const render = (error: Error, project: types.Project) => {
   const projectPath = project.path;

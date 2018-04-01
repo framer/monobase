@@ -9,17 +9,16 @@ import * as utils from "./utils";
 import * as types from "./types";
 import * as compiler from "./compiler";
 import * as dynamic from "./dynamic";
-import { discover } from "./dynamic";
 
 export const page = (project: types.Project, page: string) => {
-  const pagesPath = path.join(project.path, project.config.pages);
-  const pageImportPath = path.join(pagesPath, page);
-  const componentsPath = path.join(project.path, project.config.components);
+  if (!page) {
+    return;
+  }
 
   let pageModule, pageModuleError;
 
   try {
-    pageModule = require(pageImportPath);
+    pageModule = require(page);
   } catch (error) {
     pageModuleError = error;
   }
@@ -27,13 +26,13 @@ export const page = (project: types.Project, page: string) => {
   // If we could not import a page, let's find out what happened
   if (!pageModule) {
     // If there was no page named like it, throw a 404 not found.
-    if (utils.glob(`${pageImportPath}.ts{,x}`).length === 0) {
+    if (utils.glob(`${page}.ts{,x}`).length === 0) {
       return null;
     }
 
     // If there is a page at that path, some other error occured.
     const error = Error();
-    error.message = `The page module at \`${pageImportPath}\` exists, but cannot be imported: \n\n`;
+    error.message = `The page module at \`${page}\` exists, but cannot be imported: \n\n`;
     error.message += pageModuleError.message;
     error.stack = pageModuleError.stack;
     throw error;
@@ -42,12 +41,16 @@ export const page = (project: types.Project, page: string) => {
   // If we have a page module, see if it has a default error exposed
   if (typeof pageModule.default !== "function") {
     throw Error(
-      `The page module at ${pageImportPath} does not have a [default export](https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). You can add one by adding \`export default render;\`.`
+      `The page module at ${page} does not have a [default export](https://stackoverflow.com/questions/21117160/what-is-export-default-in-javascript). You can add one by adding \`export default render;\`.`
     );
   }
 
+  const context = {
+    page: page
+  };
+
   try {
-    return renderToString(pageModule.default(project));
+    return renderToString(pageModule.default(project, context));
   } catch (error) {
     if (error.message == "window is not defined") {
       error.message =

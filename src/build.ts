@@ -28,18 +28,21 @@ export const pages = async (project: types.Project, root) => {
   }
 };
 
-const page = (project: types.Project, dir, root) => {
+const page = (project: types.Project, pagePath, root) => {
   const time = Date.now();
-  const pageRelativePath = utils.replaceExtension(dir, ".html");
-  const pagePath = path.join(root, pageRelativePath);
 
-  utils.mkdir(path.dirname(pagePath));
+  const pageOutPath = utils.projectPathForPage(pagePath);
 
-  fs.writeFileSync(pagePath, render.page(project, dir));
+  utils.mkdir(path.dirname(pageOutPath));
+
+  fs.writeFileSync(
+    pageOutPath,
+    render.page(project, path.join(root, pagePath))
+  );
 
   console.log(
-    chalk.gray(`/${pageRelativePath}`),
-    chalk.gray(utils.fileSize(pagePath)),
+    chalk.gray(`/${pagePath} ${chalk.white("→")} /${pageOutPath}`),
+    chalk.gray(utils.fileSize(pageOutPath)),
     chalk.gray(`(${Math.round(Date.now() - time)}ms)`)
   );
 };
