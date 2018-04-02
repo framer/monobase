@@ -31,17 +31,18 @@ export const pages = async (project: types.Project, root) => {
 const page = (project: types.Project, pagePath, root) => {
   const time = Date.now();
 
-  const pageOutPath = utils.projectPathForPage(pagePath);
+  const relativePageOutPath = utils.projectPathForPage(pagePath);
+  const pageOutPath = path.join(root, relativePageOutPath);
 
-  utils.mkdir(path.dirname(path.join(root, pageOutPath)));
+  utils.mkdir(path.dirname(pageOutPath));
 
   fs.writeFileSync(
-    path.join(root, pageOutPath),
+    path.join(root, relativePageOutPath),
     render.page(project, path.join(project.config.pages, pagePath))
   );
 
   console.log(
-    chalk.gray(`/${pagePath} ${chalk.white("→")} /${pageOutPath}`),
+    chalk.gray(`/${pagePath} ${chalk.white("→")} /${relativePageOutPath}`),
     chalk.gray(utils.fileSize(pageOutPath)),
     chalk.gray(`(${Math.round(Date.now() - time)}ms)`)
   );

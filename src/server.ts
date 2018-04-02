@@ -40,14 +40,16 @@ export const serve = async (project: types.Project, port = 3000) => {
   // Catch all handler for all pages
   app.get("*", (req, res) => {
     const pagePath = path.join(project.config.pages, req.url);
-    const page = render.page(project, utils.projectPageForPath(pagePath));
+    const projectPagePath = utils.projectPageForPath(pagePath);
 
-    if (!page) {
+    try {
+      require.resolve(projectPagePath);
+    } catch (error) {
       const path404 = path.join(project.config.pages, "404");
       return res.status(404).send(render.page(project, path404));
     }
 
-    res.send(page);
+    res.send(render.page(project, projectPagePath));
   });
 
   // Error handler needs to be on the bottom
