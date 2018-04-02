@@ -10,7 +10,7 @@
 
 <hr />
 
-[See an example of the default deployed project.](https://build-swdurwnoqe.now.sh/)
+[See an example of the default deployed project.](https://romantic-williams-000b9b.netlify.com/)
 
 #### Quick start
 
@@ -87,7 +87,7 @@ If you want to build something that resembles a blog, you will need a list of ar
 
 #### Deployment
 
-The output of `make build` is just a web project that you can deploy anywhere, like Amazon S3 sites or Netlify. I myselfs also really like [Zeit](https://zeit.co/) for static websites.
+The output of `make build` is just a web project that you can deploy anywhere, like Amazon S3 sites or Netlify. I myselfs also really like [Zeit](https://zeit.co/) or [Netlify](https://netlify.com) for static websites.
 
 * Install Zeit: `yarn --global install now`
 * Build project: `make build`
