@@ -1,33 +1,35 @@
 import * as fs from "fs";
+import * as path from "path";
 import * as React from "react";
+
 import Template from "components/Template";
 
-function getContext(path: string) {
+function getArticleContext(filePath: string) {
   try {
-    return require(`./${path}`).context;
+    return require(`./${filePath}`).context;
   } catch (error) {
     return {};
   }
 }
 
-function render(project, context) {
-  const files = fs.readdirSync(__dirname);
+function getArticles(filePath: string) {
+  return fs
+    .readdirSync(filePath)
+    .filter(item => path.basename(item, path.extname(item)) !== "index");
+}
 
+function render(project, context) {
   return (
     <Template project={project}>
       <h4>{context.path}</h4>
       <p>
         <ul>
-          {fs.readdirSync(__dirname).map(name => {
-            if (name === "index.tsx") {
-              return;
-            }
-
-            const context = getContext(name);
+          {getArticles(__dirname).map(name => {
+            const article = getArticleContext(name);
             return (
-              <li>
-                <a href={name.replace(".tsx", "")}>{context.title}</a>{" "}
-                {context.date.toString()}
+              <li key={name}>
+                <a href={name.replace(".tsx", "")}>{article.title}</a>{" "}
+                {article.date.toString()}
               </li>
             );
           })}

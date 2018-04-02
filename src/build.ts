@@ -33,11 +33,11 @@ const page = (project: types.Project, pagePath, root) => {
 
   const pageOutPath = utils.projectPathForPage(pagePath);
 
-  utils.mkdir(path.dirname(pageOutPath));
+  utils.mkdir(path.dirname(path.join(root, pageOutPath)));
 
   fs.writeFileSync(
-    pageOutPath,
-    render.page(project, path.join(root, pagePath))
+    path.join(root, pageOutPath),
+    render.page(project, path.join(project.config.pages, pagePath))
   );
 
   console.log(

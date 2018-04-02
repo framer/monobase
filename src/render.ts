@@ -77,8 +77,7 @@ export const script = async (project: types.Project) => {
         console.error("ERROR:", err);
       }
       if (stats.hasErrors()) {
-        const { errors, warnings } = stats["compilation"];
-        console.error(errors.map(e => e.message).join("\n"));
+        console.error(stats.toString({ chunks: false, colors: true }));
       } else {
         resolve(cmp.outputFileSystem.data["bundle.js"].toString());
       }

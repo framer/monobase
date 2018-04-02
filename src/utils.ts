@@ -124,3 +124,7 @@ export const projectPageForPath = (url: string) => {
     return `${url}`;
   }
 };
+
+export const removeExtension = (filePath: string) => {
+  return path.basename(filePath, path.extname(filePath));
+};

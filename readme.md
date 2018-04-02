@@ -25,25 +25,25 @@ Monobase let's you build sites in a [component based way](https://reactjs.org/do
 
 More great features:
 
-* Components can be optionally be interactive (if marked dynamic).
+* Components can be optionally be interactive (if marked with `Dynamic()`).
 * Style and correctness enforcing through [TypeScript](https://www.typescriptlang.org/) and [Prettier](https://prettier.io/).
-* Automatic browser reloading on changes.
+* Automatic fast browser reloading on changes.
 * Fast with even huge sites through incremental rendering.
 * Easily extendable with existing React components.
-* Extra fast reloading on css only file changes [todo].
 * Automatic port selection if default is taken.
 * Secure SSL serving by default.
 * Nicely formatted terminal logging.
 * Extensive error page with hints for common issues.
+* Optimized builds for production.
 
 #### Project layout
 
 * `/Makefile` Shorthands for commands to quickly build or install.
 * `/pages` The html pages including site structure.
-* `/pages/index.ts` Default index page.
-* `/pages/404.ts` File not found page.
+* `/pages/index.tsx` Default index page.
+* `/pages/404.tsx` File not found page.
 * `/components` The React Components used by the pages.
-* `/components/template.ts` Default page template.
+* `/components/template.tsx` Default page template.
 * `/static` Just static files like css, images, fonts and downloads.
 
 #### Dynamic components
@@ -67,10 +67,14 @@ You can find these in the default project `/components/examples` folder.
 * **Visible** - A wrapper that hides the content if offscreen.
 * **Unsplash** - An unsplash random image element.
 
+#### Blog or article example
+
+If you want to build something that resembles a blog, you will need a list of articles wit optional extra info like a date, title, etc.
+
 #### Gotchas
 
 * On a page or component edit the current page and every component in the `project/components` will be reloaded. So make sure every file you'd like to use with autoreload is in either the `project/pages` or `project/components` folder.
-* Only the hydrated components get picked up by the React Dev tools, as it uses runtime introspection and can't find static html components.
+* Only the hydrated components will show in the React Dev tools, as it uses runtime introspection and can't find static html components.
 
 #### Todo
 
