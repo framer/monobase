@@ -27,7 +27,9 @@
     "@types/react": "^16.0.31",
     "@types/react-dom": "^16.0.3",
     "@types/watch": "^1.0.0",
-    "@types/webpack": "^3.8.1",
+    "@types/webpack": "^3.8.1"
+  },
+  "dependencies": {
     "cache-loader": "^1.2.0",
     "chalk": "^2.3.0",
     "commander": "^2.12.2",
@@ -62,9 +64,7 @@
     "tsconfig-paths": "^3.1.1",
     "typescript": "^2.6.2",
     "watch": "^1.0.2",
-    "webpack": "^3.10.0"
-  },
-  "dependencies": {
+    "webpack": "^3.10.0",
     "mkdirp": "^0.5.1",
     "react-remarkable": "^1.1.3"
   }
