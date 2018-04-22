@@ -1,6 +1,10 @@
 {
   "name": "monobase-project",
   "version": "1.0.0",
+  "scripts": {
+    "start": "monobase serve",
+    "build": "monobase build"
+  },
   "dependencies": {
     "monobase": "*",
     "react": "^16.2.0",
