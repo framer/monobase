@@ -44,8 +44,8 @@ class Visible extends React.Component<
   }
 
   render() {
-    const style = {
-      visibility: this.state.visible ? "" : "hidden"
+    const style: React.CSSProperties = {
+      visibility: this.state.visible ? "visible" : "hidden"
     };
 
     return (
