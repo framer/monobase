@@ -42,7 +42,7 @@
     "count-files": "^2.6.2",
     "cross-spawn": "^5.1.0",
     "express": "^4.16.2",
-    "express-ws": "^3.0.0",
+    "express-ws": "^4.0.0",
     "first-open-port": "^0.1.2",
     "gaze": "^1.1.2",
     "glob": "^7.1.2",
