@@ -45,6 +45,61 @@ export const page = (project: types.Project, pagePath: string) => {
   }
 };
 
+// export const page = async (project: types.Project, pagePath: string) => {
+//   let pageModule;
+
+//   // try {
+//   //   pageModule = require(pagePath);
+//   // } catch (moduleError) {
+//   //   const error = Error();
+//   //   error.message = `The page module at \`${pagePath}\` exists, but cannot be imported: \n\n`;
+//   //   error.message += moduleError.message;
+//   //   error.stack = moduleError.stack;
+//   //   throw error;
+//   // }
+
+//   cmp = compiler.setup(project, [pagePath], {
+//     libraryTarget: "var",
+//     library: "bundle"
+//   });
+
+//   const context = {
+//     page: pagePath
+//   };
+
+//   return new Promise((resolve, reject) => {
+//     cmp.run((err, stats: webpack.Stats) => {
+//       if (err) {
+//         console.error("ERROR:", err);
+//       }
+//       if (stats.hasErrors()) {
+//         console.error(stats.toString({ chunks: false, colors: true }));
+//       } else {
+//         const pageCode = cmp.outputFileSystem.data["bundle.js"].toString();
+
+//         // console.log("pageCode", pageCode);
+
+//         console.log(eval(pageCode + "\nbundle.default()"));
+
+//         const pageModule = eval(
+//           pageCode + `\nbundle.default(${JSON.stringify(project)})`
+//         );
+
+//         try {
+//           resolve(renderToString(pageModule));
+//           // return renderToString(pageModule);
+//         } catch (error) {
+//           if (error.message == "window is not defined") {
+//             error.message =
+//               "window is not defined. You are using the `window` object in a page render, which is not available in Node, only in the browser. Make sure your render function does not reference `window`. Other methods _can_ use `window`.";
+//           }
+//           throw error;
+//         }
+//       }
+//     });
+//   });
+// };
+
 let cmp;
 
 export const script = async (project: types.Project) => {

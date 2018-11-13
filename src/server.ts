@@ -38,7 +38,7 @@ export const serve = async (project: types.Project, port = 3000) => {
   });
 
   // Catch all handler for all pages
-  app.get("*", (req, res) => {
+  app.get("*", async (req, res) => {
     const pagePath = path.join(project.config.pages, req.url);
     const projectPagePath = utils.projectPageForPath(pagePath);
 
