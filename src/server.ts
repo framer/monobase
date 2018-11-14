@@ -46,10 +46,10 @@ export const serve = async (project: types.Project, port = 3000) => {
       require.resolve(projectPagePath);
     } catch (error) {
       const path404 = path.join(project.config.pages, "404");
-      return res.status(404).send(render.page(project, path404));
+      return res.status(404).send(await render.page(project, path404));
     }
 
-    res.send(render.page(project, projectPagePath));
+    res.send(await render.page(project, projectPagePath));
   });
 
   // Error handler needs to be on the bottom

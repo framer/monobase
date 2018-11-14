@@ -5,27 +5,28 @@ import * as webpack from "webpack";
 import * as types from "./types";
 import * as utils from "./utils";
 
-export const setup = (
-  project: types.Project,
-  entries: string[] = [],
-  output: any = {}
+export const Config = (
+  path: string,
+  entries: string[],
+  production = false,
+  cache = false
 ) => {
-  const compiler = webpack({
+  return {
+    watch: false,
     entry: entries,
-    output: { ...output, filename: "bundle.js", path: "/" },
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
-      modules: [project.path, "node_modules"]
+      modules: [path, "node_modules"]
     },
     module: {
       rules: [
         {
           test: [/\.m?js$/, /\.tsx?$/],
-          exclude: /(node_modules|bower_components)/,
+          exclude: /(node_modules)/,
           use: {
             loader: "babel-loader",
             options: {
-              cacheDirectory: true,
+              cacheDirectory: cache,
               presets: ["@babel/env", "@babel/typescript", "@babel/react"],
               plugins: [
                 "@babel/proposal-class-properties",
@@ -36,12 +37,61 @@ export const setup = (
         }
       ]
     },
-    plugins: project.build === "production" ? productionPlugins : []
-  });
+    plugins: production ? productionPlugins : []
+  };
+};
 
-  compiler.outputFileSystem = new MemoryFS();
+export class Compiler {
+  private _config: any;
+  private _webpack: any;
+  private _output: string = "";
 
-  return compiler;
+  constructor(config) {
+    if (!config.output) {
+      config.output = {};
+    } else {
+      throw Error("Compiler: config.output will be overridden");
+    }
+
+    const name = "bundle";
+
+    config.output = {
+      filename: `${name}.js`,
+      path: "/",
+      libraryTarget: "var",
+      library: name
+    };
+
+    this._config = config;
+    this._webpack = webpack(this._config);
+    this._webpack.outputFileSystem = new MemoryFS();
+  }
+
+  get output() {
+    return this._output;
+  }
+
+  async compile() {
+    return new Promise((resolve, reject) => {
+      this._webpack.run((err, stats: webpack.Stats) => {
+        if (err) {
+          console.error("Compiler error:", err);
+        }
+        if (stats.hasErrors()) {
+          console.error(stats.toString({ chunks: false, colors: true }));
+        } else {
+          this._output = this._webpack.outputFileSystem.data[
+            this._config.output.filename
+          ].toString();
+          resolve(this._output);
+        }
+      });
+    });
+  }
+}
+
+export const setup = (project: types.Project, entries: string[] = []) => {
+  return new Compiler(Config(project.path, entries));
 };
 
 const productionPlugins = [

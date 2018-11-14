@@ -49,6 +49,9 @@ git-check:
 TEMPDIR := $(shell mktemp -d)
 
 test:
+	yarn jest --watch
+
+test-install:
 	cd $(TEMPDIR); \
 		curl -L -O https://github.com/koenbok/monobase/raw/master/project.zip; \
 		unzip project.zip; \
