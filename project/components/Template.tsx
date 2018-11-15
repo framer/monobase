@@ -10,6 +10,10 @@ const { StyleSheet } = __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS;
 StyleSheet.reset(true);
 
 const Styled: React.SFC<{ app: React.ReactNode }> = props => {
+  if (typeof props.app == "string") {
+    return null;
+  }
+
   const sheet = new ServerStyleSheet();
   const html = renderToString(sheet.collectStyles(props.app));
   return (sheet.getStyleElement() as any) as React.ReactElement<any>;
