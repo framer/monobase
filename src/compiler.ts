@@ -17,15 +17,21 @@ export const Config = (
   entries: string[],
   options?: Partial<ConfigOptions>
 ) => {
-  options = Object.assign({}, options, ConfigDefaults);
+  options = { ...ConfigDefaults, ...options };
 
   return {
+    devtool: false,
     watch: false,
     entry: entries,
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
       modules: [path, "node_modules"]
     },
+    // externals: {
+    //   react: "React",
+    //   "react-dom": "ReactDOM",
+    //   "react-router": "ReactRouter"
+    // },
     module: {
       rules: [
         {

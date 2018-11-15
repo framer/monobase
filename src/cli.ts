@@ -19,6 +19,7 @@ import chalk from "chalk";
 import * as browser from "./browser";
 import * as project from "./project";
 import * as types from "./types";
+import { env } from "./env";
 
 process.on("unhandledRejection", (reason, p) => {
   console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
@@ -43,28 +44,22 @@ const main = async () => {
     build = argv.build;
   }
 
-  const p: types.Project = {
+  env.project = {
+    ...env.project,
     path: path.resolve(argv.project || process.cwd()),
-    build: build,
-    context: {},
-    config: {
-      pages: "pages",
-      static: "static",
-      components: "components",
-      componentScript: "/components.js"
-    }
+    build: build
   };
 
-  if (!fs.existsSync(path.join(p.path, p.config.pages))) {
+  if (!fs.existsSync(path.join(env.project.path, env.project.config.pages))) {
     return console.log(
       `The path "${
-        p.path
+        env.project.path
       }" does not look like a project folder, the pages directory is missing.`
     );
   }
 
   tsConfigPaths.register({
-    baseUrl: p.path,
+    baseUrl: env.project.path,
     paths: {}
   });
 
@@ -75,7 +70,7 @@ const main = async () => {
     port = await openport(port, port + 100);
 
     const open = argv.browser || true;
-    await project.serve(p, port);
+    await project.serve(env.project, port);
 
     const prettyHost = async (hosts: string[], port: number) => {
       for (let host of hosts) {
@@ -97,8 +92,9 @@ const main = async () => {
 
     console.log(chalk.bgWhite.black(" MONOBASE "), chalk.green(url));
   } else if (command === "build") {
-    const buildPath = argv.path || argv.p || path.join(p.path, "build");
-    project.build(p, buildPath);
+    const buildPath =
+      argv.path || argv.p || path.join(env.project.path, "build");
+    project.build(env.project, buildPath);
   } else {
     usage();
   }

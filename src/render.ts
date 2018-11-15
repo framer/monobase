@@ -23,8 +23,10 @@ export const page = async (project: types.Project, pagePath: string) => {
 };
 
 export const script = async (project: types.Project) => {
-  const compiler = new Compiler(
-    Config(project.path, dynamic.entries(project), { cache: true })
-  );
+  const config = Config(project.path, dynamic.entries(project), {
+    cache: true
+  });
+
+  const compiler = new Compiler(config);
   return compiler.compile();
 };

@@ -18,9 +18,9 @@ const Button = styled.div`
 function Styled(props) {
   return (
     <div>
-      <Button>Hello</Button>
-      <Button>Hello</Button>
-      <Button>Hello</Button>
+      <Button>Koen</Button>
+      <Button>Is</Button>
+      <Button>Gek</Button>
     </div>
   );
 }

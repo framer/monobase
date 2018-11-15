@@ -13,9 +13,9 @@ import Visible from "components/examples/Visible";
 import Picture from "components/examples/Picture";
 import Unsplash from "components/examples/Unsplash";
 
-function render(project) {
+export default function render() {
   return (
-    <Template project={project}>
+    <Template>
       <span style={{ textAlign: "center" }}>
         <section style={{ padding: "60px" }}>
           <h1>Welcome to Monobase</h1>
@@ -96,5 +96,3 @@ function Example(props) {
     </section>
   );
 }
-
-export default render;
