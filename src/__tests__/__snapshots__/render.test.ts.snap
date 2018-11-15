@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compiler output2 1`] = `
+"<html data-reactroot=\\"\\"><head><style data-styled=\\"kQLOQP\\" data-styled-version=\\"4.1.1\\">
+/* sc-component-id: render-data1__Button-w23gjt-0 */
+.kQLOQP{border:2px solid palevioletred;border-radius:3px;}</style></head><body><div><button class=\\"render-data1__Button-w23gjt-0 kQLOQP\\"></button></div></body></html>"
+`;

@@ -7,13 +7,15 @@ import * as webpack from "webpack";
 import * as prettyBytes from "pretty-bytes";
 import * as utils from "./utils";
 import * as types from "./types";
-import * as compiler from "./compiler";
 import * as dynamic from "./dynamic";
+import { Compiler, Config } from "./compiler";
 
 export const page = async (project: types.Project, pagePath: string) => {
-  const cmp = compiler.setup(project, [pagePath]);
-  await cmp.compile();
-  const pageModule = cmp.module.default(project);
+  const compiler = new Compiler(
+    Config(project.path, [pagePath], { cache: true })
+  );
+  await compiler.compile();
+  const pageModule = compiler.module.default(project);
 
   return new Promise((resolve, reject) => {
     resolve(renderToString(pageModule));
@@ -21,6 +23,8 @@ export const page = async (project: types.Project, pagePath: string) => {
 };
 
 export const script = async (project: types.Project) => {
-  const cmp = compiler.setup(project, dynamic.entries(project));
-  return cmp.compile();
+  const compiler = new Compiler(
+    Config(project.path, dynamic.entries(project), { cache: true })
+  );
+  return compiler.compile();
 };

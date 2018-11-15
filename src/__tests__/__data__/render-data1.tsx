@@ -1,10 +1,9 @@
 import * as React from "react";
-import { Project } from "monobase";
 
-import { ServerStyleSheet, StyleSheetManager } from "styled-components";
+import { renderToString } from "react-dom/server";
+import styled, { ServerStyleSheet } from "styled-components";
 
 // The hack starts here
-import { renderToString } from "react-dom/server";
 import { __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS } from "styled-components";
 const { StyleSheet } = __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS;
 StyleSheet.reset(true);
@@ -15,22 +14,24 @@ const Styled: React.SFC<{ app: React.ReactNode }> = props => {
   return (sheet.getStyleElement() as any) as React.ReactElement<any>;
 };
 
-const Template: React.SFC<{
-  project: Project;
-  children?: React.ReactNode;
-}> = props => {
+const Button = styled.button`
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+`;
+
+const app = (
+  <div>
+    <Button />
+  </div>
+);
+
+export default () => {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="/static/styles.css" />
-        <Styled app={props.children} />
+        <Styled app={app} />
       </head>
-      <body>
-        {props.children}
-        <script src={props.project.config.componentScript} />
-      </body>
+      <body>{app}</body>
     </html>
   );
 };
-
-export default Template;

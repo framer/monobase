@@ -21,6 +21,9 @@ function render(project) {
           <h1>Welcome to Monobase</h1>
           <p>A simple React based static site generator</p>
         </section>
+        <Example title="CSS Styled Component">
+          <Styled />
+        </Example>
         <Example title="Button">
           <Button />
         </Example>
@@ -40,9 +43,6 @@ function render(project) {
           <Visible inset={100}>
             I'm like a refrigerator light. Or Schrödinger's cat.
           </Visible>
-        </Example>
-        <Example title="CSS Styled">
-          <Styled />
         </Example>
         <Example title="Random Image Grid">
           <Grid

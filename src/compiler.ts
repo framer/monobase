@@ -5,12 +5,20 @@ import * as webpack from "webpack";
 import * as types from "./types";
 import * as utils from "./utils";
 
+export const ConfigDefaults = {
+  production: false,
+  cache: false
+};
+
+type ConfigOptions = typeof ConfigDefaults;
+
 export const Config = (
   path: string,
   entries: string[],
-  production = false,
-  cache = false
+  options?: Partial<ConfigOptions>
 ) => {
+  options = Object.assign({}, options, ConfigDefaults);
+
   return {
     watch: false,
     entry: entries,
@@ -26,18 +34,19 @@ export const Config = (
           use: {
             loader: "babel-loader",
             options: {
-              cacheDirectory: cache,
+              cacheDirectory: options.cache,
               presets: ["@babel/env", "@babel/typescript", "@babel/react"],
               plugins: [
                 "@babel/proposal-class-properties",
-                "@babel/proposal-object-rest-spread"
+                "@babel/proposal-object-rest-spread",
+                "babel-plugin-styled-components"
               ]
             }
           }
         }
       ]
     },
-    plugins: production ? productionPlugins : []
+    plugins: options.production ? productionPlugins : []
   };
 };
 
@@ -94,10 +103,6 @@ export class Compiler {
     return eval([this._output, script].join("\n"));
   }
 }
-
-export const setup = (project: types.Project, entries: string[] = []) => {
-  return new Compiler(Config(project.path, entries));
-};
 
 const productionPlugins = [
   new webpack.DefinePlugin({
