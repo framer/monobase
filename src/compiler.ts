@@ -88,6 +88,11 @@ export class Compiler {
       });
     });
   }
+
+  get module() {
+    const script = `${this._config.output.library}`;
+    return eval([this._output, script].join("\n"));
+  }
 }
 
 export const setup = (project: types.Project, entries: string[] = []) => {

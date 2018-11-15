@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`The configuration stays stable 1`] = `
+exports[`compiler output 1`] = `
 "var bundle =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -81,7 +81,7 @@ module.exports = __webpack_require__(1);
 \\"use strict\\";
 Object.defineProperty(__webpack_exports__, \\"__esModule\\", { value: true });
 /* harmony default export */ __webpack_exports__[\\"default\\"] = (function () {
-  console.log(\\"Hello world!\\");
+  return \\"Hello world!\\";
 });
 
 /***/ })

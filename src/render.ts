@@ -12,16 +12,8 @@ import * as dynamic from "./dynamic";
 
 export const page = async (project: types.Project, pagePath: string) => {
   const cmp = compiler.setup(project, [pagePath]);
-
-  const context = {
-    page: pagePath
-  };
-
-  const pageCode = await cmp.compile();
-
-  const pageModule = eval(
-    pageCode + `\nbundle.default(${JSON.stringify(project)})`
-  );
+  await cmp.compile();
+  const pageModule = cmp.module.default(project);
 
   return new Promise((resolve, reject) => {
     resolve(renderToString(pageModule));
