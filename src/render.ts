@@ -24,7 +24,8 @@ export const page = async (project: types.Project, pagePath: string) => {
 
 export const script = async (project: types.Project) => {
   const config = Config(project.path, dynamic.entries(project), {
-    cache: true
+    cache: true,
+    production: project.build === "production"
   });
 
   const compiler = new Compiler(config);

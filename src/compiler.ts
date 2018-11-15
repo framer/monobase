@@ -27,11 +27,6 @@ export const Config = (
       extensions: [".ts", ".tsx", ".js"],
       modules: [path, "node_modules"]
     },
-    // externals: {
-    //   react: "React",
-    //   "react-dom": "ReactDOM",
-    //   "react-router": "ReactRouter"
-    // },
     module: {
       rules: [
         {
