@@ -32,12 +32,6 @@ export default function render() {
         <Example title="Time">
           <Timer />
         </Example>
-        <Example title="Enter a color name">
-          <Colors />
-        </Example>
-        <Example title="Persistent Cookie">
-          <Cookie />
-        </Example>
         <Example title="Visible">
           <Visible inset={100}>
             I'm like a refrigerator light. Or Schrödinger's cat.
@@ -56,6 +50,12 @@ export default function render() {
               </Visible>
             )}
           />
+        </Example>
+        <Example title="Enter a color name">
+          <Colors />
+        </Example>
+        <Example title="Persistent Cookie">
+          <Cookie />
         </Example>
       </span>
     </Template>
