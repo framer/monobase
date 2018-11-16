@@ -57,15 +57,14 @@ export const entries = (project: types.Project) => {
   }
 
   if (!clientScriptImportPath) {
-    throw Error(
-      "Could not locate client script (client.ts or client.js in monobase"
+    throw new Error(
+      "Could not locate client script client.ts or client.js in monobase"
     );
   }
 
-  return [
-    ...Object.keys(
-      discover(path.join(project.path, project.config.components))
-    ),
-    clientScriptImportPath
-  ];
+  const dynamicComponents = discover(
+    path.join(project.path, project.config.components)
+  );
+
+  return [...Object.keys(dynamicComponents), clientScriptImportPath];
 };

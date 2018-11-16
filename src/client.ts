@@ -1,30 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-declare var __webpack_require__;
-
-export const isDynamicComponent = Component => {
-  return (
-    typeof Component["dynamicName"] !== "undefined" &&
-    typeof Component["dynamicComponent"] !== "undefined"
-  );
-};
-
-const getComponents = () => {
-  const components = {};
-
-  for (let i = 0; i < module["i"]; i++) {
-    const modules = __webpack_require__(i);
-
-    for (let key of Object.keys(modules)) {
-      if (isDynamicComponent(modules[key])) {
-        components[modules[key].dynamicName] = modules[key].dynamicComponent;
-      }
-    }
-  }
-
-  return components;
-};
+import { getDynamicComponents } from "./component";
 
 const querySelectorAll = (query: string): HTMLElement[] => {
   return Array.prototype.slice.call(document.querySelectorAll(query));
@@ -32,7 +8,7 @@ const querySelectorAll = (query: string): HTMLElement[] => {
 
 const hydrate = () => {
   const ComponentTagName = "component";
-  const ComponentMap = getComponents();
+  const ComponentMap = getDynamicComponents();
 
   const createElement = (child: any[]) => {
     const [type, props, children] = child;
