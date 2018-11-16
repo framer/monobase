@@ -10,7 +10,6 @@ import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
 import Visible from "components/examples/Visible";
-import Picture from "components/examples/Picture";
 import Unsplash from "components/examples/Unsplash";
 
 export default function render() {
@@ -56,16 +55,6 @@ export default function render() {
                 <Unsplash {...props} />
               </Visible>
             )}
-          />
-        </Example>
-        <Example title="Picture">
-          <Picture width={400} src="example1.png" alt="Example 1" />
-          <Picture
-            width={400}
-            src="example2.png"
-            alt="Example 2"
-            extensions={["webp"]}
-            hasRetina
           />
         </Example>
       </span>

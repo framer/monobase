@@ -13,6 +13,9 @@ const Button = styled.div`
   font-size: 24px;
   background: #0af;
   color: #fff;
+  &:hover {
+    background: #555;
+  }
 `;
 
 function Styled(props) {
