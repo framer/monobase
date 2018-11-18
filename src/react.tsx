@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as React from "react";
 import { renderToString } from "react-dom/server";
 import * as styled from "styled-components";
@@ -11,12 +12,13 @@ StyleSheet.reset(true);
 
 // Component to inline styled component css
 export const StyledSheet: React.SFC<{ app: React.ReactNode }> = props => {
-  if (typeof props.app == "string") {
-    return null;
-  }
-
   const sheet = new styled.ServerStyleSheet();
-  const html = renderToString(sheet.collectStyles(props.app));
+
+  try {
+    // This chokes on strings, lists, etc.
+    renderToString(sheet.collectStyles(props.app));
+  } catch (error) {}
+
   return (sheet.getStyleElement() as any) as React.ReactElement<any>;
 };
 
@@ -31,4 +33,13 @@ export const Development = () => {
 // Hook to use the current project
 export const useProject = () => {
   return env.project;
+};
+
+// Todo
+export const usePageContext = () => {
+  return env.context;
+};
+
+export const relative = (to: string) => {
+  return path.relative(env.context.path || "/", to);
 };
