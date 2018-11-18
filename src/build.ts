@@ -38,7 +38,10 @@ const page = async (project: types.Project, pagePath, root) => {
 
   fs.writeFileSync(
     path.join(root, relativePageOutPath),
-    await render.page(project, path.join(project.config.pages, pagePath))
+    await render.page(
+      project,
+      path.join(project.config.pages, utils.removeExtension(pagePath))
+    )
   );
 
   console.log(
