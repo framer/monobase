@@ -61,7 +61,8 @@ class DynamicContext extends React.Component {
   }
 
   render() {
-    return this.props.children;
+    // I have no idea why react complains about props here
+    return this["props"].children;
   }
 }
 
