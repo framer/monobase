@@ -18,10 +18,11 @@ export const Config = (
 ) => {
   options = { ...ConfigDefaults, ...options };
 
-  return {
-    devtool: false,
+  const config = {
     watch: false,
     entry: entries,
+    devtool: options.production ? false : "cheap-eval-source-map",
+    mode: options.production ? "production" : "development",
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
       modules: [path, "node_modules"]
@@ -35,6 +36,7 @@ export const Config = (
             loader: "babel-loader",
             options: {
               cacheDirectory: options.cache,
+              // sourceMaps: "inline",
               presets: ["@babel/env", "@babel/typescript", "@babel/react"],
               plugins: [
                 "@babel/proposal-class-properties",
@@ -46,16 +48,17 @@ export const Config = (
         }
       ]
     },
-    plugins: options.production
-      ? productionPlugins
-      : [
-          new webpack.DefinePlugin({
-            "process.env": {
-              context: JSON.stringify(options.context)
-            }
-          })
-        ]
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env.context": JSON.stringify(options.context),
+        "process.env.NODE_ENV": options.production
+          ? JSON.stringify("production")
+          : JSON.stringify("debug")
+      })
+    ]
   };
+
+  return config;
 };
 
 export class Compiler {
@@ -111,22 +114,3 @@ export class Compiler {
     return eval([this._output, script].join("\n"));
   }
 }
-
-const productionPlugins = [
-  new webpack.DefinePlugin({
-    "process.env.NODE_ENV": JSON.stringify("production")
-  }),
-  new webpack.optimize.UglifyJsPlugin({
-    mangle: false,
-    compress: {
-      warnings: false,
-      conditionals: true,
-      unused: true,
-      comparisons: true,
-      dead_code: true,
-      evaluate: true,
-      if_return: true,
-      join_vars: true
-    }
-  })
-];

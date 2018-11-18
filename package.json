@@ -84,6 +84,6 @@
     "tsconfig-paths": "^3.1.1",
     "typescript": "^3.1.6",
     "watch": "^1.0.2",
-    "webpack": "^3.10.0"
+    "webpack": "^4.25.1"
   }
 }
