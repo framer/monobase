@@ -1,18 +1,19 @@
 import * as React from "react";
-import { Project } from "monobase";
+import { relative, Development, StyledSheet, useContext } from "monobase";
 
-function Template(props: { project: Project; children?: React.ReactNode }) {
+export default function Template(props) {
+  const context = useContext();
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="/static/styles.css" />
+        <StyledSheet app={props.children} />
+        <link rel="stylesheet" href={relative("/static/styles.css")} />
       </head>
       <body>
         {props.children}
-        <script src={props.project.config.componentScript} />
+        {/* The Development component adds auto reloading */}
+        <Development />
       </body>
     </html>
   );
 }
-
-export default Template;

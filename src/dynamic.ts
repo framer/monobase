@@ -33,6 +33,11 @@ export const discover = (dir: string) => {
     try {
       importedModule = require(modulePath);
     } catch (error) {
+      console.error(
+        `Could not import module for Dynamic() discovery:\n${modulePath}\n> ${
+          error.message
+        }`
+      );
       continue;
     }
 
@@ -45,7 +50,6 @@ export const discover = (dir: string) => {
       }
     }
   }
-
   return results;
 };
 
@@ -57,15 +61,14 @@ export const entries = (project: types.Project) => {
   }
 
   if (!clientScriptImportPath) {
-    throw Error(
-      "Could not locate client script (client.ts or client.js in monobase"
+    throw new Error(
+      "Could not locate client script client.ts or client.js in monobase"
     );
   }
 
-  return [
-    ...Object.keys(
-      discover(path.join(project.path, project.config.components))
-    ),
-    clientScriptImportPath
-  ];
+  const dynamicComponents = discover(
+    path.join(project.path, project.config.components)
+  );
+
+  return [...Object.keys(dynamicComponents), clientScriptImportPath];
 };

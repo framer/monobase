@@ -125,6 +125,19 @@ export const projectPageForPath = (url: string) => {
   }
 };
 
+export const projectURLForPath = (url: string) => {
+  // pages/index -> /
+  // pages/about -> /about/
+
+  const parts = url.split("/");
+  parts.shift(); // Get rid of the pages part
+
+  url = `/${parts.join("/")}/`;
+  url = url.replace("index/", "");
+
+  return url;
+};
+
 export const removeExtension = (filePath: string) => {
   return path.basename(filePath, path.extname(filePath));
 };

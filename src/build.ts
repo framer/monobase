@@ -15,7 +15,7 @@ export const pages = async (project: types.Project, root) => {
   for (let pagePath of pages) {
     const relativePagePath = path.relative(pagesPath, pagePath);
     try {
-      page(project, relativePagePath, root);
+      await page(project, relativePagePath, root);
     } catch (error) {
       console.error(
         `${chalk.red("\nerror")} /${relativePagePath}\n\n${unmarkdown(
@@ -28,7 +28,7 @@ export const pages = async (project: types.Project, root) => {
   }
 };
 
-const page = (project: types.Project, pagePath, root) => {
+const page = async (project: types.Project, pagePath, root) => {
   const time = Date.now();
 
   const relativePageOutPath = utils.projectPathForPage(pagePath);
@@ -38,7 +38,7 @@ const page = (project: types.Project, pagePath, root) => {
 
   fs.writeFileSync(
     path.join(root, relativePageOutPath),
-    render.page(project, path.join(project.config.pages, pagePath))
+    await render.page(project, path.join(project.config.pages, pagePath))
   );
 
   console.log(
@@ -46,6 +46,8 @@ const page = (project: types.Project, pagePath, root) => {
     chalk.gray(utils.fileSize(pageOutPath)),
     chalk.gray(`(${Math.round(Date.now() - time)}ms)`)
   );
+
+  return Promise.resolve();
 };
 
 export const assets = async (project: types.Project, root) => {

@@ -13,15 +13,12 @@ import * as minimist from "minimist";
 import * as openport from "first-open-port";
 import * as address from "my-local-ip";
 import * as reachable from "is-reachable";
-
 import chalk from "chalk";
-
 import * as browser from "./browser";
-import * as project from "./project";
-import * as types from "./types";
+import * as commands from "./commands";
 
 process.on("unhandledRejection", (reason, p) => {
-  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+  console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
 });
 
 const exit = () => {
@@ -43,10 +40,9 @@ const main = async () => {
     build = argv.build;
   }
 
-  const p: types.Project = {
+  const project = {
     path: path.resolve(argv.project || process.cwd()),
     build: build,
-    context: {},
     config: {
       pages: "pages",
       static: "static",
@@ -55,16 +51,10 @@ const main = async () => {
     }
   };
 
-  if (!fs.existsSync(path.join(p.path, p.config.pages))) {
-    return console.log(
-      `The path "${
-        p.path
-      }" does not look like a project folder, the pages directory is missing.`
-    );
-  }
+  commands.check(project);
 
   tsConfigPaths.register({
-    baseUrl: p.path,
+    baseUrl: project.path,
     paths: {}
   });
 
@@ -75,7 +65,7 @@ const main = async () => {
     port = await openport(port, port + 100);
 
     const open = argv.browser || true;
-    await project.serve(p, port);
+    await commands.serve(project, port);
 
     const prettyHost = async (hosts: string[], port: number) => {
       for (let host of hosts) {
@@ -97,8 +87,8 @@ const main = async () => {
 
     console.log(chalk.bgWhite.black(" MONOBASE "), chalk.green(url));
   } else if (command === "build") {
-    const buildPath = argv.path || argv.p || path.join(p.path, "build");
-    project.build(p, buildPath);
+    const buildPath = argv.path || argv.p || path.join(project.path, "build");
+    commands.build(project, buildPath);
   } else {
     usage();
   }

@@ -13,12 +13,6 @@ serve: bootstrap
 build: bootstrap
 	./node_modules/.bin/ts-node -P $(project) src/cli.ts build --project=$(project)
 
-# test: bootstrap
-# 	./node_modules/.bin/jest --watch
-
-# docs: bootstrap
-# 	./node_modules/.bin/typedoc --out dist/docs
-
 publish: git-check dist
 	yarn publish
 	make project
@@ -49,6 +43,9 @@ git-check:
 TEMPDIR := $(shell mktemp -d)
 
 test:
+	yarn jest --watch
+
+test-install:
 	cd $(TEMPDIR); \
 		curl -L -O https://github.com/koenbok/monobase/raw/master/project.zip; \
 		unzip project.zip; \

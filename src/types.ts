@@ -7,7 +7,12 @@ export type ProjectConfiguration = {
 
 export type Project = {
   path: string;
-  context: any;
   config: ProjectConfiguration;
   build: "debug" | "production";
+};
+
+export type Context = {
+  project: Project;
+  path: string;
+  url: string;
 };

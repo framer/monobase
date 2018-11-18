@@ -2,11 +2,9 @@ import * as _ from "lodash";
 import * as https from "https";
 import * as express from "express";
 import * as socketio from "socket.io";
-// import * as watch from "glob-watcher";
 import * as gaze from "gaze";
 import * as fs from "fs";
 import * as path from "path";
-import * as project from "./project";
 import * as types from "./types";
 import * as render from "./render";
 import * as middleware from "./middleware";
@@ -38,7 +36,7 @@ export const serve = async (project: types.Project, port = 3000) => {
   });
 
   // Catch all handler for all pages
-  app.get("*", (req, res) => {
+  app.get("*", async (req, res) => {
     const pagePath = path.join(project.config.pages, req.url);
     const projectPagePath = utils.projectPageForPath(pagePath);
 
@@ -46,10 +44,10 @@ export const serve = async (project: types.Project, port = 3000) => {
       require.resolve(projectPagePath);
     } catch (error) {
       const path404 = path.join(project.config.pages, "404");
-      return res.status(404).send(render.page(project, path404));
+      return res.status(404).send(await render.page(project, path404));
     }
 
-    res.send(render.page(project, projectPagePath));
+    res.send(await render.page(project, projectPagePath));
   });
 
   // Error handler needs to be on the bottom

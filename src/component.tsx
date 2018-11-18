@@ -65,6 +65,12 @@ class DynamicContext extends React.Component {
   }
 }
 
+const DynamicComponents = {};
+
+export const getDynamicComponents = () => {
+  return { ...DynamicComponents };
+};
+
 export const Dynamic = Component => {
   const componentName = `Component.${Component.name}`;
 
@@ -96,6 +102,8 @@ export const Dynamic = Component => {
   dynamicWrapper["contextTypes"] = {
     __dynamic: PropTypes.bool
   };
+
+  DynamicComponents[componentName] = Component;
 
   return dynamicWrapper;
 };

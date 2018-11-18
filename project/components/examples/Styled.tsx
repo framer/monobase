@@ -1,38 +1,32 @@
 import * as React from "react";
-import { pill } from "components/theme";
 
-// Define some styles, you could put these in a central css.ts
+import styled from "styled-components";
 
-// Declare an interface so autocomplete etc works
-interface CSSCollection {
-  [key: string]: React.CSSProperties;
-}
+const Button = styled.div`
+  display: inline-block;
+  margin: 0 10px;
+  padding: 24px 50px 26px;
+  user-select: none;
+  border-radius: 8px;
+  border: 0;
+  outline: 0;
+  line-height: 1;
+  font-size: 24px;
+  background: #0af;
+  color: #fff;
+  &:hover {
+    background: #555;
+  }
+`;
 
-const padding: CSSCollection = {
-  small: { display: "inline-block", padding: 40 },
-  large: { display: "inline-block", padding: 100 }
-};
-
-const backgrounds: CSSCollection = {
-  yellow: { backgroundColor: "papayawhip" },
-  blue: { backgroundColor: "blue" }
-};
-
-// You can merge the styles nicely with the spread operater
-function CSSComponent(props) {
+function Styled(props) {
   return (
-    <span
-      style={{
-        ...pill,
-        ...padding.large,
-        ...backgrounds.yellow,
-        color: "hotpink",
-        fontWeight: 500
-      }}
-    >
-      Hello
-    </span>
+    <div>
+      <Button>Example</Button>
+      <Button>Styled</Button>
+      <Button>Component</Button>
+    </div>
   );
 }
 
-export default CSSComponent;
+export default Styled;

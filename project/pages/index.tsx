@@ -10,17 +10,19 @@ import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
 import Visible from "components/examples/Visible";
-import Picture from "components/examples/Picture";
 import Unsplash from "components/examples/Unsplash";
 
-function render(project) {
+export default function render() {
   return (
-    <Template project={project}>
+    <Template>
       <span style={{ textAlign: "center" }}>
         <section style={{ padding: "60px" }}>
           <h1>Welcome to Monobase</h1>
           <p>A simple React based static site generator</p>
         </section>
+        <Example title="CSS Styled Component">
+          <Styled />
+        </Example>
         <Example title="Button">
           <Button />
         </Example>
@@ -30,19 +32,10 @@ function render(project) {
         <Example title="Time">
           <Timer />
         </Example>
-        <Example title="Enter a color name">
-          <Colors />
-        </Example>
-        <Example title="Persistent Cookie">
-          <Cookie />
-        </Example>
         <Example title="Visible">
           <Visible inset={100}>
             I'm like a refrigerator light. Or Schrödinger's cat.
           </Visible>
-        </Example>
-        <Example title="CSS Styled">
-          <Styled />
         </Example>
         <Example title="Random Image Grid">
           <Grid
@@ -58,15 +51,11 @@ function render(project) {
             )}
           />
         </Example>
-        <Example title="Picture">
-          <Picture width={400} src="example1.png" alt="Example 1" />
-          <Picture
-            width={400}
-            src="example2.png"
-            alt="Example 2"
-            extensions={["webp"]}
-            hasRetina
-          />
+        <Example title="Enter a color name">
+          <Colors />
+        </Example>
+        <Example title="Persistent Cookie">
+          <Cookie />
         </Example>
       </span>
     </Template>
@@ -96,5 +85,3 @@ function Example(props) {
     </section>
   );
 }
-
-export default render;

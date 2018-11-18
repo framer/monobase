@@ -1,14 +1,11 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import Template from "components/Template";
 
-function render(project) {
+export default function render() {
   return (
-    <Template project={project}>
+    <Template>
       <h3>404 File not found</h3>
     </Template>
   );
 }
-
-export default render;
