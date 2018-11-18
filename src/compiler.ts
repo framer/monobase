@@ -21,7 +21,7 @@ export const Config = (
   const config = {
     watch: false,
     entry: entries,
-    devtool: options.production ? false : "cheap-eval-source-map",
+    devtool: options.production ? false : "eval",
     mode: options.production ? "production" : "development",
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
