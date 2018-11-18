@@ -4,9 +4,10 @@ import styled from "styled-components";
 
 const Button = styled.div`
   display: inline-block;
+  margin: 0 10px;
   padding: 24px 50px 26px;
   user-select: none;
-  border-radius: 8;
+  border-radius: 8px;
   border: 0;
   outline: 0;
   line-height: 1;
@@ -21,9 +22,9 @@ const Button = styled.div`
 function Styled(props) {
   return (
     <div>
-      <Button>Koen</Button>
-      <Button>Is</Button>
-      <Button>Gek</Button>
+      <Button>Example</Button>
+      <Button>Styled</Button>
+      <Button>Component</Button>
     </div>
   );
 }
