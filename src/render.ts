@@ -1,11 +1,5 @@
 import * as _ from "lodash";
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
 import { renderToString } from "react-dom/server";
-import * as webpack from "webpack";
-import * as prettyBytes from "pretty-bytes";
-import * as utils from "./utils";
 import * as types from "./types";
 import * as dynamic from "./dynamic";
 import { Compiler, Config } from "./compiler";
