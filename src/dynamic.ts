@@ -33,6 +33,11 @@ export const discover = (dir: string) => {
     try {
       importedModule = require(modulePath);
     } catch (error) {
+      console.error(
+        `Could not import module for Dynamic() discovery:\n${modulePath}\n> ${
+          error.message
+        }`
+      );
       continue;
     }
 
@@ -45,7 +50,6 @@ export const discover = (dir: string) => {
       }
     }
   }
-
   return results;
 };
 
