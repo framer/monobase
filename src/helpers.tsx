@@ -4,12 +4,6 @@ import { renderToString } from "react-dom/server";
 import * as styled from "styled-components";
 import * as types from "./types";
 
-// The hack starts here
-const { StyleSheet } = styled[
-  "__DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS"
-];
-StyleSheet.reset(true);
-
 // Component to inline styled component css
 export const StyledSheet: React.SFC<{ app: React.ReactNode }> = props => {
   const sheet = new styled.ServerStyleSheet();

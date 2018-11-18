@@ -1,5 +1,3 @@
-import * as fs from "fs";
-import * as path from "path";
 import * as MemoryFS from "memory-fs";
 import * as webpack from "webpack";
 
