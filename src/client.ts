@@ -13,8 +13,15 @@ const hydrate = () => {
   const createElement = (child: any[]) => {
     const [type, props, children] = child;
 
+    if (!ComponentMap[type]) {
+      console.warn(`Could not find dynamic component for: ${type}`);
+      console.warn(`Did you wrap the component in Dynamic()?`);
+      console.info("Dynamic components:", ComponentMap);
+      return null;
+    }
+
     return React.createElement(
-      ComponentMap[type] || type,
+      ComponentMap[type],
       props,
       Array.isArray(children) ? children.map(createElement) : children
     );
