@@ -2,12 +2,11 @@ import * as fs from "fs";
 import * as path from "path";
 import * as MemoryFS from "memory-fs";
 import * as webpack from "webpack";
-import * as types from "./types";
-import * as utils from "./utils";
 
 export const ConfigDefaults = {
   production: false,
-  cache: false
+  cache: false,
+  context: {}
 };
 
 type ConfigOptions = typeof ConfigDefaults;
@@ -47,7 +46,15 @@ export const Config = (
         }
       ]
     },
-    plugins: options.production ? productionPlugins : []
+    plugins: options.production
+      ? productionPlugins
+      : [
+          new webpack.DefinePlugin({
+            "process.env": {
+              context: JSON.stringify(options.context)
+            }
+          })
+        ]
   };
 };
 

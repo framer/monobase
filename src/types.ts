@@ -10,3 +10,9 @@ export type Project = {
   config: ProjectConfiguration;
   build: "debug" | "production";
 };
+
+export type Context = {
+  project: Project;
+  path: string;
+  url: string;
+};

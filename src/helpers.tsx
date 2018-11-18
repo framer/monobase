@@ -2,7 +2,7 @@ import * as path from "path";
 import * as React from "react";
 import { renderToString } from "react-dom/server";
 import * as styled from "styled-components";
-import { env } from "./env";
+import * as types from "./types";
 
 // The hack starts here
 const { StyleSheet } = styled[
@@ -23,23 +23,29 @@ export const StyledSheet: React.SFC<{ app: React.ReactNode }> = props => {
 };
 
 export const Development = () => {
-  if (env.project.build === "debug") {
-    return <script src={env.project.config.componentScript} />;
+  const context = useContext();
+  if (context.project.build === "debug") {
+    return <script src={context.project.config.componentScript} />;
   } else {
     return null;
   }
 };
 
-// Hook to use the current project
-export const useProject = () => {
-  return env.project;
+export const useContext = (): types.Context => {
+  if (!process.env["context"]) {
+    throw Error(
+      "process.env.context is missing. You might be using useContext in a Dynamic component? "
+    );
+  }
+  // This gets inserted by webpack on build
+  return (process.env["context"] as any) as types.Context;
 };
 
-// Todo
-export const usePageContext = () => {
-  return env.context;
+export const useProject = (): types.Project => {
+  return useContext().project;
 };
 
 export const relative = (to: string) => {
-  return path.relative(env.context.path || "/", to);
+  const context = useContext();
+  return path.relative(context.url, to);
 };

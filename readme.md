@@ -100,12 +100,24 @@ Monobase generates a combined bundle for all of your pages, which contains all t
 
 #### Todo
 
+v1
+
 - ~~Make project based (non relative) path loading work.~~
 - ~~Improve dynamic component discovery (automagically, tips welcome).~~
 - ~~Harden component hydration with unique names based on component file hashes.~~
 - ~~Minified `component.js` settings for production.~~
 - ~~Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.~~
 - Make a development page listing all components at `/components` where you can click them to see an isolated version.
+
+v2
+
+- Set of great helpers (context, project, relative paths, url to path)
+- Optimize performance
+  - Reduce parsing
+  - Make React external?
+- Redesign hydration
+- Best debugging experience
+- Testing / CI setup out of the box
 
 #### Deployment
 
