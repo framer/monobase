@@ -7,4 +7,7 @@ serve: bootstrap
 build: bootstrap
 	@./node_modules/.bin/monobase build
 
+upgrade:
+	yarn add monobase@latest
+
 .DEFAULT_GOAL := serve
