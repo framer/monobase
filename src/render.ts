@@ -22,12 +22,18 @@ export const page = async (project: types.Project, pagePath: string) => {
   });
 };
 
+// We memoize the script compiler based on the config for fast reloads
+// as long as the dynamic components have not changed on disk.
+const scriptCompiler = _.memoize(config => {
+  return new Compiler(config);
+}, JSON.stringify);
+
 export const script = async (project: types.Project) => {
   const config = Config(project.path, dynamic.entries(project), {
     cache: true,
     production: project.build === "production"
   });
 
-  const compiler = new Compiler(config);
+  const compiler = scriptCompiler(config);
   return compiler.compile();
 };
