@@ -69,6 +69,8 @@ export class Compiler {
   private _config: any;
   private _webpack: any;
   private _output: string = "";
+  private _running = false;
+  private _resolvers = [];
 
   constructor(config) {
     if (!config.output) {
@@ -97,19 +99,8 @@ export class Compiler {
 
   async compile() {
     return new Promise((resolve, reject) => {
-      this._webpack.run((err, stats: webpack.Stats) => {
-        if (err) {
-          console.error("Compiler error:", err);
-        }
-        if (stats.hasErrors()) {
-          console.error(stats.toString({ chunks: false, colors: true }));
-        } else {
-          this._output = this._webpack.outputFileSystem.data[
-            this._config.output.filename
-          ].toString();
-          resolve(this._output);
-        }
-      });
+      this._resolvers.push(resolve);
+      this._run();
     });
   }
 
@@ -117,4 +108,30 @@ export class Compiler {
     const script = `${this._config.output.library}`;
     return eval([this._output, script].join("\n"));
   }
+
+  private _run = () => {
+    if (this._running) return;
+    this._running = true;
+    this._webpack.run(this._onReady);
+  };
+
+  private _onReady = (err, stats: webpack.Stats) => {
+    this._running = false;
+    if (err) {
+      console.error("Compiler error:", err);
+      this._output = null;
+    }
+    if (stats.hasErrors()) {
+      console.error(stats.toString({ chunks: false, colors: true }));
+      this._output = null;
+    } else {
+      this._output = this._webpack.outputFileSystem.data[
+        this._config.output.filename
+      ].toString();
+
+      while (this._resolvers.length) {
+        this._resolvers.pop()(this._output);
+      }
+    }
+  };
 }
