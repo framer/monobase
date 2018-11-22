@@ -8,10 +8,7 @@ import * as types from "./types";
 export const StyledSheet: React.SFC<{ app: React.ReactNode }> = props => {
   const sheet = new styled.ServerStyleSheet();
 
-  try {
-    // This chokes on strings, lists, etc.
-    renderToString(sheet.collectStyles(props.app));
-  } catch (error) {}
+  renderToString(sheet.collectStyles(<>{props.app}</>));
 
   return (sheet.getStyleElement() as any) as React.ReactElement<any>;
 };
