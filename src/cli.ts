@@ -69,6 +69,7 @@ const main = async () => {
 
     const prettyHost = async (hosts: string[], port: number) => {
       for (let host of hosts) {
+        if (!host) continue;
         const result = await reachable(`${host}:${port}`, { timeout: 200 });
         if (result) {
           return Promise.resolve(host);
