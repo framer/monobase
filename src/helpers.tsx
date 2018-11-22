@@ -15,11 +15,7 @@ export const StyledSheet: React.SFC<{ app: React.ReactNode }> = props => {
 
 export const Development = () => {
   const context = useContext();
-  if (context.project.build === "debug") {
-    return <script src={context.project.config.componentScript} />;
-  } else {
-    return null;
-  }
+  return <script src={relative(context.project.config.componentScript)} />;
 };
 
 export const useContext = (): types.Context => {
