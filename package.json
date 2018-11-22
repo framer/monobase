@@ -79,6 +79,7 @@
     "remove-markdown": "^0.2.2",
     "socketio": "^1.0.0",
     "styled-components": "^4.1.1",
+    "terser-webpack-plugin": "^1.1.0",
     "ts-jest": "^23.10.4",
     "ts-node": "^4.0.2",
     "tsconfig-paths": "^3.1.1",

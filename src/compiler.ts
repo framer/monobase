@@ -1,5 +1,6 @@
 import * as MemoryFS from "memory-fs";
 import * as webpack from "webpack";
+import * as TerserPlugin from "terser-webpack-plugin";
 
 export const ConfigDefaults = {
   production: false,
@@ -21,6 +22,17 @@ export const Config = (
     entry: entries,
     devtool: options.production ? false : "eval",
     mode: options.production ? "production" : "development",
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            mangle: true,
+            keep_fnames: true,
+            keep_classnames: true
+          }
+        })
+      ]
+    },
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
       modules: [path, "node_modules"],
