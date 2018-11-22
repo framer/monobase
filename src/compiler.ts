@@ -23,7 +23,13 @@ export const Config = (
     mode: options.production ? "production" : "development",
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
-      modules: [path, "node_modules"]
+      modules: [path, "node_modules"],
+      alias: {
+        // You never want two styled component instances as that creates a mess
+        // So we always alias it to the styled-components library in your project
+        // https://www.styled-components.com/docs/faqs#duplicated-module-in-node_modules
+        "styled-components": require.resolve("styled-components")
+      }
     },
     module: {
       rules: [
