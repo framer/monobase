@@ -37,8 +37,6 @@ export const serve = async (project: types.Project, port = 3000) => {
   app.get("*", async (req, res) => {
     const page = resolve.pageForURL(project, req.url);
 
-    console.log("page", page);
-
     if (!page) {
       const page404 = await render.page(project, "404");
       return res.status(404).send(page404);
