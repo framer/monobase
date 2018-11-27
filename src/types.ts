@@ -3,6 +3,7 @@ export type ProjectConfiguration = {
   components: string;
   static: string;
   componentScript: string;
+  extensions: string[];
 };
 
 export type Project = {

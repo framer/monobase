@@ -34,8 +34,7 @@ const main = async () => {
   const argv = minimist(process.argv.slice(2));
   const command = _.first(argv._) || "serve";
 
-  let build: "debug" | "production" =
-    command === "build" ? "production" : "debug";
+  let build: "debug" | "production" = command === "build" ? "production" : "debug";
   if (argv.build === "production" || argv.build === "debug") {
     build = argv.build;
   }
@@ -47,7 +46,8 @@ const main = async () => {
       pages: "pages",
       static: "static",
       components: "components",
-      componentScript: "/components.js"
+      componentScript: "/components.js",
+      extensions: ["js", "ts", "tsx", "mdx"]
     }
   };
 
@@ -77,10 +77,7 @@ const main = async () => {
       }
     };
 
-    const local = await prettyHost(
-      [os.hostname().toLowerCase(), address(), "0.0.0.0", "127.0.0.1"],
-      port
-    );
+    const local = await prettyHost([os.hostname().toLowerCase(), address(), "0.0.0.0", "127.0.0.1"], port);
 
     const url = `https://${local}:${port}`;
 

@@ -9,6 +9,7 @@ import * as types from "./types";
 import * as render from "./render";
 import * as middleware from "./middleware";
 import * as utils from "./utils";
+import * as resolve from "./resolve";
 import * as invalidate from "invalidate-module";
 
 export const serve = async (project: types.Project, port = 3000) => {
@@ -26,28 +27,24 @@ export const serve = async (project: types.Project, port = 3000) => {
   app.use(middleware.reload);
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
-  app.use(
-    "/static",
-    express.static(path.join(project.path, project.config.static))
-  );
+  app.use("/static", express.static(path.join(project.path, project.config.static)));
 
   app.get(project.config.componentScript, async (req, res) => {
     res.send(await render.script(project));
   });
 
-  // Catch all handler for all pages
+  // Default page handler
   app.get("*", async (req, res) => {
-    const pagePath = path.join(project.config.pages, req.url);
-    const projectPagePath = utils.projectPageForPath(pagePath);
+    const page = resolve.pageForURL(project, req.url);
 
-    try {
-      require.resolve(projectPagePath);
-    } catch (error) {
-      const path404 = path.join(project.config.pages, "404");
-      return res.status(404).send(await render.page(project, path404));
+    console.log("page", page);
+
+    if (!page) {
+      const page404 = await render.page(project, "404");
+      return res.status(404).send(page404);
     }
 
-    res.send(await render.page(project, projectPagePath));
+    res.send(await render.page(project, page));
   });
 
   // Error handler needs to be on the bottom
@@ -59,15 +56,12 @@ export const serve = async (project: types.Project, port = 3000) => {
     return extensions.map(ext => `${path}${ext}`);
   };
 
-  const scriptExts = [".ts", ".tsx", ".js"];
+  const scriptExts = [".ts", ".tsx", ".js", ".mdx"];
   const staticExts = [".css", ".js", ".gif", ".png", ".jpg", ".webp"];
 
   const globs = [
     ...withExts(`${project.path}/${project.config.pages}/**/*`, scriptExts),
-    ...withExts(
-      `${project.path}/${project.config.components}/**/*`,
-      scriptExts
-    ),
+    ...withExts(`${project.path}/${project.config.components}/**/*`, scriptExts),
     ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts)
   ];
 

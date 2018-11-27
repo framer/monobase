@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as _ from "lodash";
 import { renderToString } from "react-dom/server";
 import { Compiler, Config } from "./compiler";
@@ -11,7 +12,9 @@ const getCachedCompiler = _.memoize(config => {
   return new Compiler(config);
 }, JSON.stringify);
 
-export const page = async (project: types.Project, pagePath: string) => {
+export const page = async (project: types.Project, page: string) => {
+  const pagePath = path.join(project.config.pages, page);
+
   const config = Config(project.path, [pagePath], {
     context: context.create(project, pagePath),
     cache: true
