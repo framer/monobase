@@ -10,7 +10,6 @@ import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
 import Visible from "components/examples/Visible";
-import Unsplash from "components/examples/Unsplash";
 
 export default function render() {
   return (
@@ -33,23 +32,7 @@ export default function render() {
           <Timer />
         </Example>
         <Example title="Visible">
-          <Visible inset={100}>
-            I'm like a refrigerator light. Or Schrödinger's cat.
-          </Visible>
-        </Example>
-        <Example title="Random Image Grid">
-          <Grid
-            width={600}
-            height={300}
-            columns={4}
-            rows={4}
-            gap={10}
-            cell={props => (
-              <Visible>
-                <Unsplash {...props} />
-              </Visible>
-            )}
-          />
+          <Visible inset={100}>I'm like a refrigerator light. Or Schrödinger's cat.</Visible>
         </Example>
         <Example title="Enter a color name">
           <Colors />
