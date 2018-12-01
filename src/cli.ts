@@ -5,10 +5,9 @@ require("ts-node/register");
 const tsConfig = require("../tsconfig.json");
 const tsConfigPaths = require("tsconfig-paths");
 
-import * as _ from "lodash";
 import * as path from "path";
 import * as os from "os";
-import * as fs from "fs";
+import * as _ from "lodash";
 import * as minimist from "minimist";
 import * as openport from "first-open-port";
 import * as address from "my-local-ip";
@@ -16,6 +15,7 @@ import * as reachable from "is-reachable";
 import chalk from "chalk";
 import * as browser from "./browser";
 import * as commands from "./commands";
+import * as config from "./config";
 
 process.on("unhandledRejection", (reason, p) => {
   console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
@@ -34,22 +34,16 @@ const main = async () => {
   const argv = minimist(process.argv.slice(2));
   const command = _.first(argv._) || "serve";
 
-  let build: "debug" | "production" = command === "build" ? "production" : "debug";
+  let build: "debug" | "production" =
+    command === "build" ? "production" : "debug";
   if (argv.build === "production" || argv.build === "debug") {
     build = argv.build;
   }
 
-  const project = {
-    path: path.resolve(argv.project || process.cwd()),
-    build: build,
-    config: {
-      pages: "pages",
-      static: "static",
-      components: "components",
-      componentScript: "/components.js",
-      extensions: ["js", "ts", "tsx", "mdx"]
-    }
-  };
+  const project = config.project(
+    path.resolve(argv.project || process.cwd()),
+    build
+  );
 
   commands.check(project);
 
@@ -77,7 +71,10 @@ const main = async () => {
       }
     };
 
-    const local = await prettyHost([os.hostname().toLowerCase(), address(), "0.0.0.0", "127.0.0.1"], port);
+    const local = await prettyHost(
+      [os.hostname().toLowerCase(), address(), "0.0.0.0", "127.0.0.1"],
+      port
+    );
 
     const url = `https://${local}:${port}`;
 

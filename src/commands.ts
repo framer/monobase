@@ -2,7 +2,6 @@ import * as webpack from "webpack";
 import chalk from "chalk";
 
 import * as fs from "fs";
-import * as _ from "lodash";
 import * as path from "path";
 import * as prettyBytes from "pretty-bytes";
 import * as utils from "./utils";

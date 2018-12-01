@@ -10,7 +10,11 @@ export const ConfigDefaults = {
 
 type ConfigOptions = typeof ConfigDefaults;
 
-export const Config = (path: string, entries: string[], options?: Partial<ConfigOptions>) => {
+export const Config = (
+  path: string,
+  entries: string[],
+  options?: Partial<ConfigOptions>
+) => {
   options = { ...ConfigDefaults, ...options };
 
   const config = {
@@ -50,7 +54,11 @@ export const Config = (path: string, entries: string[], options?: Partial<Config
               options: {
                 cacheDirectory: options.cache,
                 presets: ["@babel/env", "@babel/react"],
-                plugins: ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread", "babel-plugin-styled-components"]
+                plugins: [
+                  "@babel/proposal-class-properties",
+                  "@babel/proposal-object-rest-spread",
+                  "babel-plugin-styled-components"
+                ]
               }
             },
             "@mdx-js/loader"
@@ -64,7 +72,11 @@ export const Config = (path: string, entries: string[], options?: Partial<Config
             options: {
               cacheDirectory: options.cache,
               presets: ["@babel/env", "@babel/typescript", "@babel/react"],
-              plugins: ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread", "babel-plugin-styled-components"]
+              plugins: [
+                "@babel/proposal-class-properties",
+                "@babel/proposal-object-rest-spread",
+                "babel-plugin-styled-components"
+              ]
             }
           }
         }
@@ -73,7 +85,9 @@ export const Config = (path: string, entries: string[], options?: Partial<Config
     plugins: [
       new webpack.DefinePlugin({
         "process.env.context": JSON.stringify(options.context),
-        "process.env.NODE_ENV": options.production ? JSON.stringify("production") : JSON.stringify("debug")
+        "process.env.NODE_ENV": options.production
+          ? JSON.stringify("production")
+          : JSON.stringify("debug")
       })
     ]
   };
@@ -141,7 +155,9 @@ export class Compiler {
       console.error(stats.toString({ chunks: false, colors: true }));
       this._output = null;
     } else {
-      this._output = this._webpack.outputFileSystem.data[this._config.output.filename].toString();
+      this._output = this._webpack.outputFileSystem.data[
+        this._config.output.filename
+      ].toString();
 
       while (this._resolvers.length) {
         this._resolvers.pop()(this._output);

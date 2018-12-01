@@ -1,7 +1,5 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as _ from "lodash";
-import * as types from "./types";
 import * as countFiles from "count-files";
 import * as _glob from "glob";
 import * as prettyBytes from "pretty-bytes";
@@ -55,7 +53,10 @@ export const glob = (pattern: string): string[] => {
 };
 
 export const replaceExtension = (dir, ext) => {
-  return path.join(path.dirname(dir), path.basename(dir, path.extname(dir)) + ext);
+  return path.join(
+    path.dirname(dir),
+    path.basename(dir, path.extname(dir)) + ext
+  );
 };
 
 export const hash = (str: string) => {
@@ -79,14 +80,22 @@ export const removeExtension = (filePath: string) => {
   return path.basename(filePath, path.extname(filePath));
 };
 
-export const replaceBegin = (str: string, needle: string, replace: string = "") => {
+export const replaceBegin = (
+  str: string,
+  needle: string,
+  replace: string = ""
+) => {
   if (str.startsWith(needle)) {
     return replace + str.substring(needle.length, str.length);
   }
   return str;
 };
 
-export const replaceEnd = (str: string, needle: string, replace: string = "") => {
+export const replaceEnd = (
+  str: string,
+  needle: string,
+  replace: string = ""
+) => {
   if (str.endsWith(needle)) {
     return str.substring(0, str.length - needle.length) + replace;
   }
