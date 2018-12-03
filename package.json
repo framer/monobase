@@ -61,7 +61,7 @@
     "gaze": "^1.1.2",
     "glob": "^7.1.2",
     "invalidate-module": "^1.0.0",
-    "is-reachable": "^2.4.0",
+    "is-reachable": "^3.0.0",
     "jest": "^22.0.4",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
