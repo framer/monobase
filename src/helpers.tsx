@@ -1,8 +1,8 @@
-import * as path from "path";
 import * as React from "react";
 import { renderToString } from "react-dom/server";
 import * as styled from "styled-components";
 import * as types from "./types";
+import * as _relative from "relative";
 
 // The hack starts here
 const { StyleSheet } = styled[
@@ -38,7 +38,7 @@ export const useProject = (): types.Project => {
   return useContext().project;
 };
 
-export const relative = (to: string) => {
+export const relative = (from: string) => {
   const context = useContext();
-  return path.relative(context.url, to);
+  return _relative(context.url, from);
 };

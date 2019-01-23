@@ -87,5 +87,8 @@
     "typescript": "^3.1.6",
     "watch": "^1.0.2",
     "webpack": "^4.25.1"
+  },
+  "devDependencies": {
+    "relative": "^3.0.2"
   }
 }

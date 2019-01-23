@@ -43,6 +43,9 @@ export const Config = (
         "styled-components": require.resolve("styled-components")
       }
     },
+    node: {
+      fs: "empty"
+    },
     module: {
       rules: [
         {
