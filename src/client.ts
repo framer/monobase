@@ -15,7 +15,7 @@ const hydrate = () => {
 
     if (!ComponentMap[type]) {
       console.warn(`Could not find dynamic component for: ${type}`);
-      console.warn(`Did you wrap the component in Dynamic()?`);
+      console.warn(`Did you wrap the component in Dynamic() and export it?`);
       console.info("Dynamic components:", ComponentMap);
       return null;
     }
