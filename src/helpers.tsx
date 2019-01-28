@@ -38,7 +38,6 @@ export const useProject = (): types.Project => {
   return useContext().project;
 };
 
-export const relative = (from: string) => {
-  const context = useContext();
-  return _relative(context.url, from);
+export const relative = (from: string, url?: string) => {
+  return _relative(url || useContext().url, from);
 };
