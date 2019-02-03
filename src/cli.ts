@@ -16,6 +16,7 @@ import chalk from "chalk";
 import * as browser from "./browser";
 import * as commands from "./commands";
 import * as config from "./config";
+import * as cert from "./cert";
 
 process.on("unhandledRejection", (reason, p) => {
   console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
@@ -53,13 +54,30 @@ const main = async () => {
   });
 
   if (command === "serve") {
-    let port = argv.port || argv.p || 1234;
+    const p = argv.port || argv.p || 1234;
+    const port = await openport(p, p + 100);
+    const hosts = [
+      os.hostname().toLowerCase(),
+      address(),
+      "localhost",
+      "0.0.0.0",
+      "127.0.0.1"
+    ];
 
-    // See if we can actually use the port
-    port = await openport(port, port + 100);
+    // See if we can use a generated certificate
+    let ssl = await cert.mkcert(hosts);
+
+    if (ssl) {
+      console.log(chalk.gray("Using mkcert signed certificate"));
+    } else {
+      ssl = cert.fallback();
+      console.log(
+        chalk.gray("For valid ssl: `brew install mkcert; mkcert -install`")
+      );
+    }
 
     const open = argv.browser || true;
-    await commands.serve(project, port);
+    await commands.serve(project, ssl, port);
 
     const prettyHost = async (hosts: string[], port: number) => {
       for (let host of hosts) {
@@ -71,10 +89,7 @@ const main = async () => {
       }
     };
 
-    const local = await prettyHost(
-      [os.hostname().toLowerCase(), address(), "0.0.0.0", "127.0.0.1"],
-      port
-    );
+    const local = await prettyHost(hosts, port);
 
     const url = `https://${local}:${port}`;
 

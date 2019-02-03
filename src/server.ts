@@ -12,13 +12,14 @@ import * as utils from "./utils";
 import * as resolve from "./resolve";
 import * as invalidate from "invalidate-module";
 
-export const serve = async (project: types.Project, port = 3000) => {
+export const serve = async (
+  project: types.Project,
+  cert: { cert: string; key: string },
+  port = 3000
+) => {
   const app = express();
   const ssl = path.join(__dirname, "..", "extras", "ssl");
-  const options = {
-    key: fs.readFileSync(path.join(ssl, "key.pem")),
-    cert: fs.readFileSync(path.join(ssl, "cert.pem"))
-  };
+  const options = { ...cert };
   const server = https.createServer(options, app);
   const io = socketio(server);
 
@@ -27,7 +28,10 @@ export const serve = async (project: types.Project, port = 3000) => {
   app.use(middleware.reload);
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
-  app.use("/static", express.static(path.join(project.path, project.config.static)));
+  app.use(
+    "/static",
+    express.static(path.join(project.path, project.config.static))
+  );
 
   app.get(project.config.componentScript, async (req, res) => {
     res.send(await render.script(project));
@@ -59,7 +63,10 @@ export const serve = async (project: types.Project, port = 3000) => {
 
   const globs = [
     ...withExts(`${project.path}/${project.config.pages}/**/*`, scriptExts),
-    ...withExts(`${project.path}/${project.config.components}/**/*`, scriptExts),
+    ...withExts(
+      `${project.path}/${project.config.components}/**/*`,
+      scriptExts
+    ),
     ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts)
   ];
 
