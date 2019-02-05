@@ -67,6 +67,14 @@ You can find these in the default project `/components/examples` folder.
 - **Visible** - A wrapper that hides the content if offscreen.
 - **Unsplash** - An unsplash random image element.
 
+#### SSL on localhost
+
+Monobase uses ssl / https on localhost. By default you'll have to click some warning away everytime. To make ssl work on localhost you can install mkcert
+
+- `brew install mkcert`
+- `mkcert -install`
+- Restart your browser
+
 #### Gotchas
 
 - On a page or component edit the current page and every component in the `project/components` will be reloaded. So make sure every file you'd like to use with autoreload is in either the `project/pages` or `project/components` folder.
@@ -107,15 +115,12 @@ v1
 - ~~Harden component hydration with unique names based on component file hashes.~~
 - ~~Minified `component.js` settings for production.~~
 - ~~Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.~~
-- Make a development page listing all components at `/components` where you can click them to see an isolated version.
-
-v2
+- ~~Figure out something for localhost ssl errors.~~
 
 - Set of great helpers (context, project, relative paths, url to path)
 - Optimize performance
   - Reduce parsing
   - Make React external?
-- Redesign hydration
 - Best debugging experience
 - Testing / CI setup out of the box
 
@@ -126,7 +131,3 @@ The output of `make build` is just a web project that you can deploy anywhere, l
 - Install Zeit: `yarn --global install now`
 - Build project: `make build`
 - Upload: `now ./build`
-
-```
-
-```
