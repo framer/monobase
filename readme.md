@@ -69,7 +69,7 @@ You can find these in the default project `/components/examples` folder.
 
 #### SSL on localhost
 
-Monobase uses ssl / https on localhost. By default you'll have to click some warning away everytime. To make ssl work on localhost you can install mkcert
+Monobase uses ssl / https on localhost. By default you'll have to click some warning away everytime. To make ssl work on localhost you can install [mkcert](https://github.com/FiloSottile/mkcert).
 
 - `brew install mkcert`
 - `mkcert -install`
