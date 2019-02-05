@@ -3,14 +3,13 @@ import * as https from "https";
 import * as express from "express";
 import * as socketio from "socket.io";
 import * as gaze from "gaze";
-import * as fs from "fs";
 import * as path from "path";
 import * as types from "./types";
 import * as render from "./render";
 import * as middleware from "./middleware";
-import * as utils from "./utils";
 import * as resolve from "./resolve";
 import * as invalidate from "invalidate-module";
+import * as favicon from "serve-favicon";
 
 export const serve = async (
   project: types.Project,
@@ -18,7 +17,6 @@ export const serve = async (
   port = 3000
 ) => {
   const app = express();
-  const ssl = path.join(__dirname, "..", "extras", "ssl");
   const options = { ...cert };
   const server = https.createServer(options, app);
   const io = socketio(server);
@@ -28,10 +26,10 @@ export const serve = async (
   app.use(middleware.reload);
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
-  app.use(
-    "/static",
-    express.static(path.join(project.path, project.config.static))
-  );
+
+  const staticPath = path.join(project.path, project.config.static);
+  app.use("/static", express.static(staticPath));
+  app.use(favicon(path.join(staticPath, "favicon.ico")));
 
   app.get(project.config.componentScript, async (req, res) => {
     res.send(await render.script(project));
