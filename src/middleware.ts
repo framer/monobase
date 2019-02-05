@@ -49,7 +49,7 @@ export const logging = morgan((tokens, req, res) => {
 
   let status = tokens.status(req, res);
 
-  if (status !== "200") {
+  if (status.startsWith("4") || status.startsWith("5")) {
     status = chalk.red(status);
   }
 
