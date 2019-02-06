@@ -49,6 +49,12 @@ export const logging = morgan((tokens, req, res) => {
 
   let status = tokens.status(req, res);
 
+  // Filter out all entries that have no status for some reason
+  // Todo: maybe investigate this further
+  if (!status) {
+    return null;
+  }
+
   if (status.startsWith("4") || status.startsWith("5")) {
     status = chalk.red(status);
   }
