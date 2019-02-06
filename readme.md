@@ -50,7 +50,7 @@ More great features:
 
 Some React components are interactive. Monobase generates a single script called components.js containing every _marked_ component and [hydrates](https://reactjs.org/docs/react-dom.html#hydrate) them after the page load so they become interactive. This means the inital html gets loaded statically, and then code attaches itself automatically after page load.
 
-To mark components as interactive wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/examples/default.com/components/examples/Timer.tsx#L22)]
+To mark components as interactive wrap them in the `Dynamic` component [[example](https://github.com/koenbok/monobase/blob/master/project/components/examples/Timer.tsx#L27)]
 
 #### Example dynamic components
 
@@ -84,7 +84,7 @@ Monobase uses ssl / https on localhost. By default you'll have to click some war
 
 It's easy to use Styled Components with Monobase. Just import `StyledSheet` and use it in your template to inline all the generated css. To get a great experience in VSCode, make sure to use the [Styled Components Extension](https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components).
 
-```
+```.jsx
 import { Development, StyledSheet } from "monobase";
 
 export default function Template(props) {
@@ -116,7 +116,6 @@ v1
 - ~~Minified `component.js` settings for production.~~
 - ~~Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.~~
 - ~~Figure out something for localhost ssl errors.~~
-
 - Set of great helpers (context, project, relative paths, url to path)
 - Optimize performance
   - Reduce parsing
