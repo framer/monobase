@@ -26,7 +26,7 @@ export const pages = async (project: types.Project, root: string) => {
         )}\n\n`
       );
       console.error(chalk.grey(error.stack));
-      process.exit();
+      process.exit(1);
     }
   }
 };
