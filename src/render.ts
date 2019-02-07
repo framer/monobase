@@ -28,9 +28,7 @@ export const page = async (project: types.Project, page: string) => {
   // An eval runtime could happen here
   const pageModule = compiler.module.default(project);
 
-  return new Promise((resolve, reject) => {
-    resolve(renderToString(pageModule));
-  });
+  return renderToString(pageModule);
 };
 
 export const script = async (project: types.Project) => {
