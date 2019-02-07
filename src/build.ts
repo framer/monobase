@@ -47,8 +47,6 @@ const page = async (project: types.Project, page: string, root: string) => {
     chalk.gray(utils.fileSize(pageOutFullPath)),
     chalk.gray(`(${Math.round(Date.now() - time)}ms)`)
   );
-
-  return Promise.resolve();
 };
 
 export const favicon = async (project: types.Project, root) => {
