@@ -19,11 +19,13 @@ import * as config from "./config";
 import * as cert from "./cert";
 
 process.on("unhandledRejection", (reason, p) => {
-  console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
+  console.error("Unhandled Rejection at: Promise");
+  console.error(p);
+  exit(1);
 });
 
-const exit = () => {
-  process.exit();
+const exit = (code = 0) => {
+  process.exit(code);
 };
 
 const usage = () => {
@@ -98,10 +100,13 @@ const main = async () => {
     console.log(chalk.bgWhite.black(" MONOBASE "), chalk.green(url));
   } else if (command === "build") {
     const buildPath = argv.path || argv.p || path.join(project.path, "build");
-    commands.build(project, buildPath);
+    await commands.build(project, buildPath);
   } else {
     usage();
   }
 };
 
-main();
+main().catch(err => {
+  console.error(err);
+  exit(1);
+});

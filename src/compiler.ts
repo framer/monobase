@@ -1,6 +1,7 @@
 import * as MemoryFS from "memory-fs";
 import * as webpack from "webpack";
 import * as TerserPlugin from "terser-webpack-plugin";
+import { promisify } from "util";
 
 export const ConfigDefaults = {
   production: false,
@@ -99,13 +100,12 @@ export const Config = (
 };
 
 export class Compiler {
-  private _config: any;
-  private _webpack: any;
+  private _config: webpack.Configuration;
+  private _webpack: webpack.Compiler;
   private _output: string = "";
-  private _running = false;
-  private _resolvers = [];
+  private _result: Promise<string> | null = null;
 
-  constructor(config) {
+  constructor(config: webpack.Configuration) {
     if (!config.output) {
       config.output = {};
     } else {
@@ -131,10 +131,7 @@ export class Compiler {
   }
 
   async compile() {
-    return new Promise((resolve, reject) => {
-      this._resolvers.push(resolve);
-      this._run();
-    });
+    return await this._run();
   }
 
   get module() {
@@ -143,28 +140,33 @@ export class Compiler {
   }
 
   private _run = () => {
-    if (this._running) return;
-    this._running = true;
-    this._webpack.run(this._onReady);
+    if (this._result) return this._result;
+
+    const run: webpack.Compiler["run"] = this._webpack.run.bind(this._webpack);
+    this._result = promisify(run)()
+      .then(this._onReady)
+      .catch(err => {
+        this._result = null;
+        return Promise.reject(err);
+      });
+
+    return this._result;
   };
 
-  private _onReady = (err, stats: webpack.Stats) => {
-    this._running = false;
-    if (err) {
-      console.error("Compiler error:", err);
-      this._output = null;
-    }
+  private _onReady = async (stats: webpack.Stats) => {
+    this._result = null;
+
     if (stats.hasErrors()) {
-      console.error(stats.toString({ chunks: false, colors: true }));
       this._output = null;
+      const msg =
+        "Compiler error in " + stats.toString({ chunks: false, colors: true });
+      throw new Error(msg);
     } else {
       this._output = this._webpack.outputFileSystem.data[
         this._config.output.filename
       ].toString();
-
-      while (this._resolvers.length) {
-        this._resolvers.pop()(this._output);
-      }
     }
+
+    return this._output;
   };
 }

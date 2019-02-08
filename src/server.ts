@@ -10,6 +10,17 @@ import * as middleware from "./middleware";
 import * as resolve from "./resolve";
 import * as invalidate from "invalidate-module";
 import * as favicon from "serve-favicon";
+import { NextFunction } from "connect";
+
+function asyncHandler(
+  fn: (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => Promise<any>
+): express.RequestHandler {
+  return (...args) => fn(...args).catch(args[args.length - 1] as NextFunction);
+}
 
 export const serve = async (
   project: types.Project,
@@ -31,21 +42,27 @@ export const serve = async (
   app.use("/static", express.static(staticPath));
   app.use(favicon(path.join(staticPath, "favicon.ico")));
 
-  app.get(project.config.componentScript, async (req, res) => {
-    res.send(await render.script(project));
-  });
+  app.get(
+    project.config.componentScript,
+    asyncHandler(async (req, res) => {
+      res.send(await render.script(project));
+    })
+  );
 
   // Default page handler
-  app.get("*", async (req, res) => {
-    const page = resolve.pageForURL(project, req.url);
+  app.get(
+    "*",
+    asyncHandler(async (req, res) => {
+      const page = resolve.pageForURL(project, req.url);
 
-    if (!page) {
-      const page404 = await render.page(project, "404");
-      return res.status(404).send(page404);
-    }
+      if (!page) {
+        const page404 = await render.page(project, "404");
+        return res.status(404).send(page404);
+      }
 
-    res.send(await render.page(project, page));
-  });
+      res.send(await render.page(project, page));
+    })
+  );
 
   // Error handler needs to be on the bottom
   app.use(middleware.errors(project));
