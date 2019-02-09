@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import * as _ from "lodash";
 import * as https from "https";
 import * as express from "express";
@@ -40,7 +41,11 @@ export const serve = async (
 
   const staticPath = path.join(project.path, project.config.static);
   app.use("/static", express.static(staticPath));
-  app.use(favicon(path.join(staticPath, "favicon.ico")));
+
+  const favicoPath = path.join(staticPath, "favicon.ico");
+  if (fs.existsSync(favicoPath)) {
+    app.use(favicon(path.join(staticPath, "favicon.ico")));
+  }
 
   app.get(
     project.config.componentScript,
