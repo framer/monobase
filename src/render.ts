@@ -28,8 +28,8 @@ export const page = async (project: types.Project, page: string) => {
   await compiler.compile();
 
   // Temporary write the generated javascript for this page for debug purposes
-  const pageScriptPath = path.join(project.path, "build", page + ".js");
-  fs.writeFileSync(pageScriptPath, compiler._output);
+  // const pageScriptPath = path.join(project.path, "build", page + ".js");
+  // fs.writeFileSync(pageScriptPath, compiler._output);
 
   if (!compiler.module["default"]) {
     throw Error(
@@ -42,7 +42,7 @@ export const page = async (project: types.Project, page: string) => {
   const html = renderToString(pageModule);
 
   // Clean up the generated javascript file
-  fs.unlinkSync(pageScriptPath);
+  // fs.unlinkSync(pageScriptPath);
 
   return html;
 };
