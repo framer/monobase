@@ -8,26 +8,18 @@ const style: React.CSSProperties = {
   color: "#fff"
 };
 
-class Button extends React.Component<{}, { count: number }> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 1
-    };
+function Button() {
+  const [count, setCount] = React.useState(0);
+
+  function onClick() {
+    setCount(count + 1);
   }
 
-  onClick = () =>
-    this.setState(({ count }) => ({
-      count: count + 1
-    }));
-
-  render() {
-    return (
-      <button style={style} onClick={this.onClick}>
-        Count: {this.state.count}
-      </button>
-    );
-  }
+  return (
+    <button style={style} onClick={onClick}>
+      Count: {count}
+    </button>
+  );
 }
 
 export default Dynamic(Button);

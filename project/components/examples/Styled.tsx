@@ -1,32 +1,39 @@
 import * as React from "react";
 
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import { Dynamic } from "monobase";
 
-const Button = styled.div`
-  display: inline-block;
-  margin: 0 10px;
-  padding: 24px 50px 26px;
-  user-select: none;
-  border-radius: 8px;
-  border: 0;
-  outline: 0;
-  line-height: 1;
-  font-size: 24px;
-  background: #0af;
-  color: #fff;
-  &:hover {
-    background: #555;
-  }
+// Define our button
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+
+  /* Color the border and text with theme.main */
+  color: ${props => props.theme.main};
+  border: 2px solid ${props => props.theme.main};
 `;
+
+// Define what main theme will look like
+const theme = {
+  main: "mediumseagreen"
+};
 
 function Styled(props) {
   return (
     <div>
-      <Button>Example</Button>
-      <Button>Styled</Button>
-      <Button>Component</Button>
+      <div>
+        <Button theme={{ main: "royalblue" }}>Ad hoc theme</Button>
+        <ThemeProvider theme={theme}>
+          <div>
+            <Button>Themed</Button>
+            <Button theme={{ main: "darkorange" }}>Overidden</Button>
+          </div>
+        </ThemeProvider>
+      </div>
     </div>
   );
 }
 
-export default Styled;
+export default Dynamic(Styled);

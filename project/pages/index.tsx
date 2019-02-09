@@ -2,7 +2,6 @@ import * as React from "react";
 
 import Template from "components/Template";
 
-import Grid from "components/examples/Grid";
 import Timer from "components/examples/Timer";
 import Mouse from "components/examples/Mouse";
 import Button from "components/examples/Button";
@@ -10,6 +9,7 @@ import Styled from "components/examples/Styled";
 import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
 import Visible from "components/examples/Visible";
+import Context from "components/examples/Context";
 
 export default function render() {
   return (
@@ -32,13 +32,18 @@ export default function render() {
           <Timer />
         </Example>
         <Example title="Visible">
-          <Visible inset={100}>I'm like a refrigerator light. Or Schrödinger's cat.</Visible>
+          <Visible inset={100}>
+            I'm like a refrigerator light. Or Schrödingers cat.
+          </Visible>
         </Example>
         <Example title="Enter a color name">
           <Colors />
         </Example>
         <Example title="Persistent Cookie">
           <Cookie />
+        </Example>
+        <Example title="Contexts">
+          <Context />
         </Example>
       </span>
     </Template>
