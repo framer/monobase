@@ -2,10 +2,13 @@ import * as MemoryFS from "memory-fs";
 import * as webpack from "webpack";
 import * as TerserPlugin from "terser-webpack-plugin";
 import { promisify } from "util";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export const ConfigDefaults = {
   production: false,
   cache: false,
+  externals: true,
   context: {}
 };
 
@@ -34,6 +37,27 @@ export const Config = (
         })
       ]
     },
+    // To execute in Node we need externals, because since React Hooks, the React instance
+    // in Node and the one in the generated script need to be the same instance. So basically
+    // pages always need externals but the components script does not.
+    externals: options.externals
+      ? [
+          {
+            react: {
+              root: "React",
+              commonjs2: "react",
+              commonjs: "react",
+              amd: "react"
+            },
+            "react-dom": {
+              root: "ReactDOM",
+              commonjs2: "react-dom",
+              commonjs: "react-dom",
+              amd: "react-dom"
+            }
+          }
+        ]
+      : [],
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
       modules: [path, "node_modules"],
@@ -71,18 +95,20 @@ export const Config = (
         {
           test: [/\.m?js$/, /\.tsx?$/],
           exclude: /(node_modules)/,
-          use: {
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: options.cache,
-              presets: ["@babel/env", "@babel/typescript", "@babel/react"],
-              plugins: [
-                "@babel/proposal-class-properties",
-                "@babel/proposal-object-rest-spread",
-                "babel-plugin-styled-components"
-              ]
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                cacheDirectory: options.cache,
+                presets: ["@babel/env", "@babel/typescript", "@babel/react"],
+                plugins: [
+                  "@babel/proposal-class-properties",
+                  "@babel/proposal-object-rest-spread",
+                  "babel-plugin-styled-components"
+                ]
+              }
             }
-          }
+          ]
         }
       ]
     },
@@ -102,7 +128,7 @@ export const Config = (
 export class Compiler {
   private _config: webpack.Configuration;
   private _webpack: webpack.Compiler;
-  private _output: string = "";
+  _output: string = "";
   private _result: Promise<string> | null = null;
 
   constructor(config: webpack.Configuration) {
@@ -117,9 +143,12 @@ export class Compiler {
     config.output = {
       filename: `${name}.js`,
       path: "/",
-      libraryTarget: "var",
-      library: name
+      libraryTarget: "umd"
     };
+
+    // This is to make UMD compatible with Node, because it normally relies on the window
+    config.output["globalObject"] =
+      "(typeof window !== 'undefined' ? window : this)";
 
     this._config = config;
     this._webpack = webpack(this._config);
@@ -135,8 +164,19 @@ export class Compiler {
   }
 
   get module() {
-    const script = `${this._config.output.library}`;
-    return eval([this._output, script].join("\n"));
+    // Expose the external packages to the generated script
+    const require = (name: string) => {
+      if (name === "react") return React;
+      if (name === "react-dom" || name === "ReactDOM") return ReactDOM;
+      throw Error(`Component loader: Can't require ${name}`);
+    };
+
+    // Evaluate the generated script and return the exports from the module
+    const fn = new Function("module", "exports", "require", this._output);
+    const mod = { exports: {} };
+    fn(mod, mod.exports, require);
+
+    return mod.exports;
   }
 
   private _run = () => {

@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as _ from "lodash";
+import * as fs from "fs";
 import { renderToString } from "react-dom/server";
 import { Compiler, Config } from "./compiler";
 import * as types from "./types";
@@ -17,7 +18,8 @@ export const page = async (project: types.Project, page: string) => {
 
   const config = Config(project.path, [pagePath], {
     context: context.create(project, pagePath),
-    cache: true
+    cache: true,
+    externals: true
   });
 
   const compiler = getCachedCompiler(config);
@@ -25,17 +27,32 @@ export const page = async (project: types.Project, page: string) => {
   // A syntax error could occur here
   await compiler.compile();
 
-  // An eval runtime could happen here
-  const pageModule = compiler.module.default(project);
+  // Temporary write the generated javascript for this page for debug purposes
+  const pageScriptPath = path.join(project.path, "build", page + ".js");
+  fs.writeFileSync(pageScriptPath, compiler._output);
 
-  return renderToString(pageModule);
+  if (!compiler.module["default"]) {
+    throw Error(
+      `Missing default export for page ${page}. Did you maybe forget to add "export default"`
+    );
+  }
+
+  // An eval runtime could happen here
+  const pageModule = compiler.module["default"](project);
+  const html = renderToString(pageModule);
+
+  // Clean up the generated javascript file
+  fs.unlinkSync(pageScriptPath);
+
+  return html;
 };
 
 export const script = async (project: types.Project) => {
   const entries = dynamic.entries(project);
   const config = Config(project.path, entries, {
     production: project.build === "production",
-    cache: true
+    cache: true,
+    externals: false
   });
 
   const compiler = getCachedCompiler(config);
