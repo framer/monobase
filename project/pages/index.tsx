@@ -19,9 +19,6 @@ export default function render() {
           <h1>Welcome to Monobase</h1>
           <p>A simple React based static site generator</p>
         </section>
-        <Example title="CSS Styled Component">
-          <Styled />
-        </Example>
         <Example title="Button">
           <Button />
         </Example>
@@ -30,6 +27,9 @@ export default function render() {
         </Example>
         <Example title="Time">
           <Timer />
+        </Example>
+        <Example title="CSS Styled Component">
+          <Styled />
         </Example>
         <Example title="Visible">
           <Visible inset={100}>

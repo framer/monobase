@@ -20,10 +20,36 @@ const theme = {
   main: "mediumseagreen"
 };
 
+const ButtonB = styled.button<{ error: boolean }>`
+  background: ${props => (props.error ? "#F44" : "#09F")};
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  font-size: 1em;
+  margin: 1em;
+  outline: 0;
+  padding: 0.25em 1em;
+`;
+
+function ErrorButton() {
+  const [error, setError] = React.useState(false);
+
+  function handleClick() {
+    setError(!error);
+  }
+
+  return (
+    <ButtonB onClick={handleClick} error={error}>
+      Click Error
+    </ButtonB>
+  );
+}
+
 function Styled(props) {
   return (
     <div>
       <div>
+        <ErrorButton />
         <Button theme={{ main: "royalblue" }}>Ad hoc theme</Button>
         <ThemeProvider theme={theme}>
           <div>

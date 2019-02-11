@@ -4,12 +4,6 @@ import * as styled from "styled-components";
 import * as types from "./types";
 import * as _relative from "relative";
 
-// The hack starts here
-const { StyleSheet } = styled[
-  "__DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS"
-];
-StyleSheet.reset(true);
-
 const getContext = (): types.Context | null => {
   if (!process.env["context"]) return null;
   if (Object.keys(process.env["context"]).length === 0) return null;
