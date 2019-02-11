@@ -54,5 +54,5 @@ export const useProject = (): types.Project => {
 };
 
 export const relative = (from: string, url?: string) => {
-  return _relative(url || useContext().url, from);
+  return _relative(url || usePath(), from);
 };
