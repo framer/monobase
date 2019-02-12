@@ -28,6 +28,9 @@ export const discover = (dir: string) => {
   const paths = utils.glob(`${dir}/**/*.ts{,x}`);
 
   for (let modulePath of paths) {
+    // Ignore files that have an obvious test pattern
+    if (modulePath.includes(".test.")) continue;
+
     let importedModule;
 
     try {
