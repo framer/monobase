@@ -34,7 +34,7 @@ export const pages = async (project: types.Project, root: string) => {
 const page = async (project: types.Project, page: string, root: string) => {
   const time = Date.now();
 
-  const pageOutPath = resolve.pathForPage(project.config.pages, page);
+  const pageOutPath = resolve.pathForPage(project, page);
   const pageOutFullPath = path.join(root, pageOutPath);
   const content = await render.page(project, page);
 

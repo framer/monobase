@@ -7,7 +7,6 @@ const tsConfigPaths = require("tsconfig-paths");
 
 import * as path from "path";
 import * as os from "os";
-import * as _ from "lodash";
 import * as minimist from "minimist";
 import * as openport from "first-open-port";
 import * as address from "my-local-ip";
@@ -35,7 +34,7 @@ const usage = () => {
 
 const main = async () => {
   const argv = minimist(process.argv.slice(2));
-  const command = _.first(argv._) || "serve";
+  const command = argv._[0] || "serve";
 
   let build: "debug" | "production" =
     command === "build" ? "production" : "debug";
@@ -43,10 +42,11 @@ const main = async () => {
     build = argv.build;
   }
 
-  const project = config.project(
-    path.resolve(argv.project || process.cwd()),
-    build
-  );
+  const project = config.project({
+    path: path.resolve(argv.project || process.cwd()),
+    build: build,
+    urlPrefix: argv.prefix,
+  });
 
   commands.check(project);
 

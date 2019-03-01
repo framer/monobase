@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import * as path from "path";
 import * as inject from "connect-inject";
 import * as morgan from "morgan";
@@ -43,7 +42,7 @@ export const addslash = (req, res, next) => {
 
 export const logging = morgan((tokens, req, res) => {
   // Filter out all paths starting with /_ like socket.io
-  if (_.startsWith(tokens.url(req, res), "/_")) {
+  if (tokens.url(req, res).startsWith("/_")) {
     return null;
   }
 
@@ -63,7 +62,6 @@ export const logging = morgan((tokens, req, res) => {
 
   return chalk.gray(
     [
-      // _.last(remoteAddress.split(":")),
       tokens.method(req, res),
       status,
       chalk.rgb(170, 170, 170)(tokens.url(req, res)),
@@ -76,7 +74,7 @@ export const logging = morgan((tokens, req, res) => {
 export const errors = (project: types.Project) => {
   return (err: Error, req, res, next) => {
     const shortStack =
-      _.slice(err.stack.split("\n"), 1, 4).join("\n") + "\n    [...]";
+      err.stack.split("\n").slice(1, 4).join("\n") + "\n    [...]";
 
     console.error(chalk.white("Error:"), chalk.red(unmarkdown(err.message)));
     console.error(chalk.gray(shortStack));

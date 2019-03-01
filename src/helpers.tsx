@@ -1,8 +1,8 @@
 import * as React from "react";
+import * as _relative from "relative";
 import { renderToString } from "react-dom/server";
 import * as styled from "styled-components";
 import * as types from "./types";
-import * as _relative from "relative";
 
 const getContext = (): types.Context | null => {
   if (!process.env["context"]) return null;
@@ -20,8 +20,10 @@ export const StyledSheet: React.SFC<{ app: React.ReactNode }> = props => {
 };
 
 export const Development = () => {
-  const context = useContext();
-  return <script src={relative(context.project.config.componentScript)} />;
+  const project = useProject();
+  const {componentScript, urlPrefix} = project.config;
+  const src = urlPrefix ? urlFor(componentScript) : relative(componentScript);
+  return <script src={src} />;
 };
 
 export const useContext = (): types.Context => {
@@ -45,6 +47,24 @@ export const usePath = (): string => {
 
 export const useProject = (): types.Project => {
   return useContext().project;
+};
+
+export const urlFor = (path: string) => {
+  const project = useProject();
+  const {urlPrefix, static: staticPath, pages: pagesPath} = project.config;
+  path = path.replace(/^\.?\/+/, '');
+
+  if (path.startsWith(staticPath)) {
+    return `${urlPrefix}/${path}`;
+  }
+
+  if (path.startsWith(pagesPath)) {
+    path = path.split('.').slice(0, -1).join('.');
+    path = path.replace(/\/index$/, '')
+    return `${urlPrefix}/${path}`;
+  }
+
+  return `${urlPrefix}/${path}`
 };
 
 export const relative = (from: string, url?: string) => {

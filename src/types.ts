@@ -4,6 +4,7 @@ export type ProjectConfiguration = {
   static: string;
   componentScript: string;
   extensions: string[];
+  urlPrefix: string;
 };
 
 export type Project = {

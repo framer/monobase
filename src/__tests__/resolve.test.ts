@@ -1,4 +1,3 @@
-import React from "react";
 import { urlForPage } from "../resolve";
 
 test("resolve", () => {

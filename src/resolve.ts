@@ -23,6 +23,11 @@ export const fileExistsWithExtensions = (
  * Looks up a page path for a project.
  */
 export const pageForURL = (project: types.Project, url: string) => {
+  // Strip out the urlPrefix
+  if (url.indexOf(project.config.urlPrefix) === 0) {
+    url = url.substr(project.config.urlPrefix.length)
+  }
+
   // Strip last slash
   url = trim(url, "/");
 
@@ -50,27 +55,27 @@ export const pageForURL = (project: types.Project, url: string) => {
     `${url}/index`,
     extensions
   );
-  if (indexPagePath) return _.trim(indexPagePath, "/");
+  if (indexPagePath) return trim(indexPagePath, "/");
 
   // If that doesn't work directly resolve: /about -> /about.tsx
   const pagePath = fileExistsWithExtensions(pagesPath, url, extensions);
-  if (pagePath) return _.trim(pagePath, "/");
+  if (pagePath) return trim(pagePath, "/");
 };
 
-export const urlForPage = (pagesPath: string, page: string) => {
+export const urlForPage = (project: types.Project, page: string) => {
   // pages/index -> /
   // pages/about -> /about/
 
-  let pagePath = utils.replaceBegin(_.trim(page, "/"), pagesPath);
+  let pagePath = utils.replaceBegin(trim(page, "/"), project.config.pages);
   pagePath = utils.removeExtension(pagePath);
-  pagePath = `/${_.trim(pagePath, "/")}/`;
+  pagePath = `${project.config.urlPrefix}/${trim(pagePath, "/")}/`;
   pagePath = pagePath.replace("index/", "");
 
   return pagePath;
 };
 
-export const pathForPage = (pagesPath: string, page: string) => {
-  const pageUrl = urlForPage(pagesPath, page);
+export const pathForPage = (project: types.Project, page: string) => {
+  const pageUrl = urlForPage(project, page);
 
   if (pageUrl === "/404/") return "/404.html";
   if (pageUrl === "/500/") return "/500.html";
