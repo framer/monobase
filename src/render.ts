@@ -1,5 +1,4 @@
 import * as path from "path";
-import * as _ from "lodash";
 import * as fs from "fs";
 import { renderToString } from "react-dom/server";
 import { Compiler, Config } from "./compiler";
@@ -7,9 +6,11 @@ import * as types from "./types";
 import * as dynamic from "./dynamic";
 import * as context from "./context";
 
+import memoize = require("lodash.memoize");
+
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.
-const getCachedCompiler = _.memoize(config => {
+const getCachedCompiler = memoize(config => {
   return new Compiler(config);
 }, JSON.stringify);
 

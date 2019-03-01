@@ -1,8 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as _ from "lodash";
 import * as types from "./types";
 import * as utils from "./utils";
+
+import trim = require("lodash.trim");
 
 export const fileExistsWithExtensions = (
   root: string,
@@ -23,7 +24,7 @@ export const fileExistsWithExtensions = (
  */
 export const pageForURL = (project: types.Project, url: string) => {
   // Strip last slash
-  url = _.trim(url, "/");
+  url = trim(url, "/");
 
   // Never render the 404 and 500 pages directly
   if (url === "404" || url === "500") {
@@ -34,7 +35,7 @@ export const pageForURL = (project: types.Project, url: string) => {
   const extensions = project.config.extensions;
 
   // If we have a specific file extension, there is little point in checking others
-  const ext = _.trim(path.extname(url), ".");
+  const ext = trim(path.extname(url), ".");
 
   if (ext) {
     if (extensions.indexOf(ext) !== -1) {
