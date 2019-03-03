@@ -5,8 +5,7 @@ import { Compiler, Config } from "./compiler";
 import * as types from "./types";
 import * as dynamic from "./dynamic";
 import * as context from "./context";
-
-import memoize = require("lodash.memoize");
+import memoize from "lodash/memoize";
 
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.

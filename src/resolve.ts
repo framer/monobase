@@ -2,8 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as types from "./types";
 import * as utils from "./utils";
-
-import trim = require("lodash.trim");
+import trim from "lodash/trim";
 
 export const fileExistsWithExtensions = (
   root: string,
@@ -25,7 +24,7 @@ export const fileExistsWithExtensions = (
 export const pageForURL = (project: types.Project, url: string) => {
   // Strip out the urlPrefix
   if (url.indexOf(project.config.urlPrefix) === 0) {
-    url = url.substr(project.config.urlPrefix.length)
+    url = url.substr(project.config.urlPrefix.length);
   }
 
   // Strip last slash
