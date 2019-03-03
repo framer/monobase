@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as types from "./types";
 import * as utils from "./utils";
-import trim from "lodash/trim";
+import { trim } from "lodash";
 
 export const fileExistsWithExtensions = (
   root: string,
