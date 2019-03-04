@@ -51,7 +51,7 @@ const page = async (project: types.Project, page: string, root: string) => {
 
 export const favicon = async (project: types.Project, root) => {
   const source = path.join(project.path, project.config.static, "favicon.ico");
-  const dest = path.join(root, "favicon.ico");
+  const dest = path.join(root, project.config.urlPrefix, "favicon.ico");
   if (fs.existsSync(source)) {
     await utils.cp(source, dest);
   }
@@ -60,7 +60,7 @@ export const favicon = async (project: types.Project, root) => {
 export const assets = async (project: types.Project, root) => {
   const time = Date.now();
   const source = path.join(project.path, project.config.static);
-  const dest = path.join(root, project.config.static);
+  const dest = path.join(root, project.config.urlPrefix, project.config.static);
   await utils.cp(source, dest);
   await favicon(project, root);
   const stats = await utils.stats(dest);
@@ -73,7 +73,11 @@ export const assets = async (project: types.Project, root) => {
 export const script = async (project: types.Project, root) => {
   const time = Date.now();
   const script = await render.script(project);
-  const scriptPath = path.join(root, project.config.componentScript);
+  const scriptPath = path.join(
+    root,
+    project.config.urlPrefix,
+    project.config.componentScript
+  );
   fs.writeFileSync(scriptPath, script);
   console.log(
     chalk.gray(`${project.config.componentScript}`),

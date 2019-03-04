@@ -8,8 +8,7 @@
     "outDir": "dist",
     "sourceMap": false,
     "declaration": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "project", "**/*.test.ts", "dist"]
 }

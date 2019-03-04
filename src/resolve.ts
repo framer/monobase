@@ -27,7 +27,7 @@ export const pageForURL = (project: types.Project, url: string) => {
     url = url.substr(project.config.urlPrefix.length);
   }
 
-  // Strip last slash
+  // Strip preceding & trailing slash
   url = trim(url, "/");
 
   // Never render the 404 and 500 pages directly
@@ -75,9 +75,10 @@ export const urlForPage = (project: types.Project, page: string) => {
 
 export const pathForPage = (project: types.Project, page: string) => {
   const pageUrl = urlForPage(project, page);
+  const urlPrefix = project.config.urlPrefix;
 
-  if (pageUrl === "/404/") return "/404.html";
-  if (pageUrl === "/500/") return "/500.html";
+  if (pageUrl === `${urlPrefix}/404/`) return `${urlPrefix}/404.html`;
+  if (pageUrl === `${urlPrefix}/500/`) return `${urlPrefix}/500.html`;
 
   return path.join(pageUrl, "index.html");
 };

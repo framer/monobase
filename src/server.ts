@@ -38,7 +38,7 @@ export const serve = async (
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
 
-  const {urlPrefix, componentScript} = project.config
+  const { urlPrefix, componentScript } = project.config;
   const staticPath = path.join(project.path, project.config.static);
   app.use(`${project.config.urlPrefix}/static`, express.static(staticPath));
 
@@ -55,7 +55,7 @@ export const serve = async (
   );
 
   if (urlPrefix) {
-    app.get("/", (_, res) => res.redirect(urlPrefix))
+    app.get("/", (_, res) => res.redirect(urlPrefix));
   }
 
   // Default page handler
