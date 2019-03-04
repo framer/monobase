@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import * as _ from "lodash";
 import * as https from "https";
 import * as express from "express";
 import * as socketio from "socket.io";
@@ -39,8 +38,9 @@ export const serve = async (
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
 
+  const { urlPrefix, componentScript } = project.config;
   const staticPath = path.join(project.path, project.config.static);
-  app.use("/static", express.static(staticPath));
+  app.use(`${project.config.urlPrefix}/static`, express.static(staticPath));
 
   const favicoPath = path.join(staticPath, "favicon.ico");
   if (fs.existsSync(favicoPath)) {
@@ -48,11 +48,15 @@ export const serve = async (
   }
 
   app.get(
-    project.config.componentScript,
-    asyncHandler(async (req, res) => {
+    `${urlPrefix}${componentScript}`,
+    asyncHandler(async (_, res) => {
       res.send(await render.script(project));
     })
   );
+
+  if (urlPrefix) {
+    app.get("/", (_, res) => res.redirect(urlPrefix));
+  }
 
   // Default page handler
   app.get(

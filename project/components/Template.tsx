@@ -1,5 +1,5 @@
 import * as React from "react";
-import { relative, Development, StyledSheet, useContext } from "monobase";
+import { urlFor, Development, StyledSheet, useContext } from "monobase";
 
 export default function Template(props) {
   const context = useContext();
@@ -8,7 +8,7 @@ export default function Template(props) {
       <head>
         <meta charSet="utf-8" />
         <StyledSheet app={props.children} />
-        <link rel="stylesheet" href={relative("/static/styles.css")} />
+        <link rel="stylesheet" href={urlFor("/static/styles.css")} />
       </head>
       <body>
         {props.children}
