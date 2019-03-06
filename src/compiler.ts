@@ -81,7 +81,7 @@ export const Config = (
               loader: "babel-loader",
               options: {
                 cacheDirectory: options.cache,
-                presets: ["@babel/env", "@babel/react"],
+                presets: ["@babel/env", "@babel/typescript", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread",
@@ -202,7 +202,7 @@ export class Compiler {
         "Compiler error in " + stats.toString({ chunks: false, colors: true });
       throw new Error(msg);
     } else {
-      this._output = this._webpack.outputFileSystem.data[
+      this._output = this._webpack.outputFileSystem["data"][
         this._config.output.filename
       ].toString();
     }

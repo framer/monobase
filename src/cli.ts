@@ -45,7 +45,7 @@ const main = async () => {
   const project = config.project({
     path: path.resolve(argv.project || process.cwd()),
     build: build,
-    urlPrefix: argv.prefix,
+    urlPrefix: argv.prefix
   });
 
   commands.check(project);
