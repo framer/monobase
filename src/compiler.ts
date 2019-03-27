@@ -199,7 +199,7 @@ export class Compiler {
     if (stats.hasErrors()) {
       this._output = null;
       const msg =
-        "Compiler error in " + stats.toString({ chunks: false, colors: true });
+        "Compiler error in " + stats.toString({ chunks: false, colors: false });
       throw new Error(msg);
     } else {
       this._output = this._webpack.outputFileSystem.data[
