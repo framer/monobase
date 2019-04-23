@@ -6,7 +6,7 @@
 
 <br />
 
-![monobase](https://cl.ly/3s3O3x2N1j0t/Frame@2x.png)
+![monobase](https://cl.ly/60b82a79ec07/Image%2525202019-04-23%252520at%25252011.07.52%252520PM.png)
 
 <hr />
 
@@ -106,22 +106,6 @@ export default function Template(props) {
 
 Monobase generates a combined bundle for all of your pages, which contains all the JavaScript. Minified and gzipped it's around 40kb (depending on the size of your site) which is smaller than most images. Once it's loaded, it's cached for every page.
 
-#### Todo
-
-v1
-
-- ~~Make project based (non relative) path loading work.~~
-- ~~Improve dynamic component discovery (automagically, tips welcome).~~
-- ~~Harden component hydration with unique names based on component file hashes.~~
-- ~~Minified `component.js` settings for production.~~
-- ~~Potential speedup: separate ts type checking from compilation, like `awesome-ts-loader`.~~
-- ~~Figure out something for localhost ssl errors.~~
-- Set of great helpers (context, project, relative paths, url to path)
-- Optimize performance
-  - Reduce parsing
-  - Make React external?
-- Best debugging experience
-- Testing / CI setup out of the box
 
 #### Deployment
 
