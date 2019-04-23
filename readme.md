@@ -1,12 +1,10 @@
-<h1 align="center">Monobase</h1>
+
+
+![monobase](https://cl.ly/60b82a79ec07/Image%2525202019-04-23%252520at%25252011.07.52%252520PM.png)
 
 <div align="center">
   A fast and simple React static site generator that builds sites from components.
 </div>
-
-<br />
-
-![monobase](https://cl.ly/60b82a79ec07/Image%2525202019-04-23%252520at%25252011.07.52%252520PM.png)
 
 <hr />
 
