@@ -8,7 +8,7 @@
 
 <hr />
 
-[See an example of the default deployed project.](https://romantic-williams-000b9b.netlify.com/)
+[See an example of the default deployed project.](https://elegant-clarke-8778e0.netlify.com/)
 
 #### Quick start
 
