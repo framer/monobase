@@ -14,11 +14,7 @@ const getCachedCompiler = memoize(config => {
   return new Compiler(config);
 }, JSON.stringify);
 
-export const page = async (
-  project: types.Project,
-  page: string,
-  cache = false
-) => {
+export const page = async (project: types.Project, page: string) => {
   const pagePath = path.join(project.config.pages, page);
 
   const config = Config(project.path, [pagePath], {
