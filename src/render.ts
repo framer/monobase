@@ -9,11 +9,16 @@ import { memoize } from "lodash";
 
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.
+
 const getCachedCompiler = memoize(config => {
   return new Compiler(config);
 }, JSON.stringify);
 
-export const page = async (project: types.Project, page: string) => {
+export const page = async (
+  project: types.Project,
+  page: string,
+  cache = false
+) => {
   const pagePath = path.join(project.config.pages, page);
 
   const config = Config(project.path, [pagePath], {
@@ -22,7 +27,7 @@ export const page = async (project: types.Project, page: string) => {
     externals: true
   });
 
-  const compiler = getCachedCompiler(config);
+  const compiler = new Compiler(config as any);
 
   // A syntax error could occur here
   await compiler.compile();
