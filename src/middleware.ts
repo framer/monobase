@@ -12,7 +12,7 @@ import * as error from "./error";
 
 export const reload = inject({
   snippet: `
-    <script src="/_socket/socket.io.min.js"></script>
+    <script src="/_socket/socket.io.js"></script>
     <script>var socket = io(); socket.on("reload", function(msg) { location.reload() });</script>
     `
 });
