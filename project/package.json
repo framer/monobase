@@ -7,7 +7,7 @@
     "@types/react-dom": "^16.0.9",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "snyk": "^1.147.4"
+    "snyk": "^1.189.0"
   },
   "scripts": {
     "snyk-protect": "snyk protect",
