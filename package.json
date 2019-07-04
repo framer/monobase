@@ -92,6 +92,12 @@
     "tsconfig-paths": "^3.1.1",
     "typescript": "^3.1.6",
     "watch": "^1.0.2",
-    "webpack": "^4.29.3"
-  }
+    "webpack": "^4.29.3",
+    "snyk": "^1.189.0"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
