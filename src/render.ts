@@ -28,7 +28,7 @@ export const page = async (project: types.Project, page: string) => {
   });
 
   // A syntax error could occur here
-  await compiler.compile([pagePath], context.create(project, ""));
+  await compiler.compile([pagePath], context.create(project, pagePath));
 
   // Temporary write the generated javascript for this page for debug purposes
   // const pageScriptPath = path.join(project.path, "build", page + ".js");
