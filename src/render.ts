@@ -10,23 +10,25 @@ import { memoize } from "lodash";
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.
 
-const getCachedCompiler = memoize(config => {
-  return new Compiler(config);
+const getCachedCompiler = memoize(({ name, projectPath, config }) => {
+  return new Compiler(projectPath, config);
 }, JSON.stringify);
 
 export const page = async (project: types.Project, page: string) => {
   const pagePath = path.join(project.config.pages, page);
 
-  const config = Config(project.path, [pagePath], {
-    context: context.create(project, pagePath),
-    cache: true,
-    externals: true
+  // const compiler = new Compiler(config as any);
+  const compiler = getCachedCompiler({
+    name: "page",
+    projectPath: project.path,
+    config: {
+      cache: true,
+      externals: true
+    }
   });
 
-  const compiler = new Compiler(config as any);
-
   // A syntax error could occur here
-  await compiler.compile();
+  await compiler.compile([pagePath], context.create(project, ""));
 
   // Temporary write the generated javascript for this page for debug purposes
   // const pageScriptPath = path.join(project.path, "build", page + ".js");
@@ -50,12 +52,16 @@ export const page = async (project: types.Project, page: string) => {
 
 export const script = async (project: types.Project) => {
   const entries = dynamic.entries(project);
-  const config = Config(project.path, entries, {
-    production: project.build === "production",
-    cache: true,
-    externals: false
+
+  const compiler = getCachedCompiler({
+    name: "script",
+    projectPath: project.path,
+    config: {
+      production: project.build === "production",
+      cache: true,
+      externals: false
+    }
   });
 
-  const compiler = getCachedCompiler(config);
-  return compiler.compile();
+  return compiler.compile(entries, {});
 };
