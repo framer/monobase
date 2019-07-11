@@ -118,9 +118,7 @@ export const Config = (
         // https://github.com/webpack/webpack/issues/6749#issuecomment-372953473
         "process.env.context": webpack.DefinePlugin["runtimeValue"](() => {
           return JSON.stringify(contextCallback());
-        }, [
-          /* list of file dependencies */
-        ]),
+        }, true),
         "process.env.NODE_ENV": options.production
           ? JSON.stringify("production")
           : JSON.stringify("debug")
