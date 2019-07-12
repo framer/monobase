@@ -26,17 +26,19 @@ export const Config = (
     watch: false,
     devtool: options.production ? false : "eval",
     mode: options.production ? "production" : "development",
-    optimization: {
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            mangle: true,
-            keep_fnames: true,
-            keep_classnames: true
-          }
-        })
-      ]
-    },
+    optimization: options.production
+      ? {
+          minimizer: [
+            new TerserPlugin({
+              terserOptions: {
+                mangle: true,
+                keep_fnames: true,
+                keep_classnames: true
+              }
+            })
+          ]
+        }
+      : {},
     // To execute in Node we need externals, because since React Hooks, the React instance
     // in Node and the one in the generated script need to be the same instance. So basically
     // pages always need externals but the components script does not.
@@ -138,15 +140,6 @@ export class Compiler {
 
   constructor(projectPath: string, options: Partial<ConfigOptions>) {
     const config: any = Config(projectPath, this._getContext, options);
-
-    // options = { ...ConfigDefaults, ...options };
-
-    // if (!config.output) {
-    //   config.output = {};
-    // } else {
-    //   throw Error("Compiler: config.output will be overridden");
-    // }
-
     const name = "bundle";
 
     config.output = {
