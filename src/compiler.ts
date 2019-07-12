@@ -24,7 +24,6 @@ export const Config = (
 
   const config = {
     watch: false,
-    // entry: entries,
     devtool: options.production ? false : "eval",
     mode: options.production ? "production" : "development",
     optimization: {
