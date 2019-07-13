@@ -6,12 +6,6 @@
     "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.9",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "snyk": "^1.147.4"
-  },
-  "scripts": {
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
-  },
-  "snyk": true
+    "react-dom": "^16.6.3"
+  }
 }
