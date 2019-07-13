@@ -40,7 +40,7 @@ export const addslash = (req, res, next) => {
   }
 };
 
-export const logging = morgan((tokens, req, res) => {
+export const logging: express.RequestHandler = morgan((tokens, req, res) => {
   // Filter out all paths starting with /_ like socket.io
   if (tokens.url(req, res).startsWith("/_")) {
     return null;
@@ -74,7 +74,10 @@ export const logging = morgan((tokens, req, res) => {
 export const errors = (project: types.Project) => {
   return (err: Error, req, res, next) => {
     const shortStack =
-      err.stack.split("\n").slice(1, 4).join("\n") + "\n    [...]";
+      err.stack
+        .split("\n")
+        .slice(1, 4)
+        .join("\n") + "\n    [...]";
 
     console.error(chalk.white("Error:"), chalk.red(unmarkdown(err.message)));
     console.error(chalk.gray(shortStack));

@@ -11,7 +11,6 @@ export function __setContextForTest(ctx: types.Context | null) {
   __testContext = ctx;
 }
 
-
 const getContext = (): types.Context | null => {
   if (__testContext) return __testContext;
   if (!process.env["context"]) return null;
