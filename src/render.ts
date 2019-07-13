@@ -6,6 +6,7 @@ import * as types from "./types";
 import * as dynamic from "./dynamic";
 import * as context from "./context";
 import { memoize } from "lodash";
+import * as prettyBytes from "pretty-bytes";
 
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.
@@ -29,19 +30,22 @@ export const page = async (project: types.Project, page: string) => {
 
   // A syntax error could occur here
   await compiler.compile([pagePath], context.create(project, pagePath));
+  // console.log("compile size", prettyBytes(compiler.output.length));
+  const compilerModule = compiler.module;
 
   // Temporary write the generated javascript for this page for debug purposes
   // const pageScriptPath = path.join(project.path, "build", page + ".js");
   // fs.writeFileSync(pageScriptPath, compiler._output);
 
-  if (!compiler.module["default"]) {
+  if (!compilerModule["default"]) {
     throw Error(
       `Missing default export for page ${page}. Did you maybe forget to add "export default"`
     );
   }
 
   // An eval runtime could happen here
-  const pageModule = compiler.module["default"](project);
+
+  const pageModule = compilerModule["default"](project);
   const html = renderToString(pageModule);
 
   // Clean up the generated javascript file
