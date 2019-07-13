@@ -4,6 +4,8 @@ import * as TerserPlugin from "terser-webpack-plugin";
 import { promisify } from "util";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as ReactDOMServer from "react-dom/server";
+import * as styled from "styled-components";
 
 export const ConfigDefaults = {
   production: false,
@@ -56,6 +58,18 @@ export const Config = (
               commonjs2: "react-dom",
               commonjs: "react-dom",
               amd: "react-dom"
+            },
+            "react-dom/server": {
+              root: "react-dom/server",
+              commonjs2: "react-dom/server",
+              commonjs: "react-dom/server",
+              amd: "react-dom/server"
+            },
+            "styled-components": {
+              root: "styled-components",
+              commonjs2: "styled-components",
+              commonjs: "styled-components",
+              amd: "styled-components"
             }
           }
         ]
@@ -174,6 +188,8 @@ export class Compiler {
     const require = (name: string) => {
       if (name === "react") return React;
       if (name === "react-dom" || name === "ReactDOM") return ReactDOM;
+      if (name === "react-dom/server") return ReactDOMServer;
+      if (name === "styled-components") return styled;
       throw Error(`Component loader: Can't require ${name}`);
     };
 
@@ -216,7 +232,7 @@ export class Compiler {
         "Compiler error in " + stats.toString({ chunks: false, colors: false });
       throw new Error(msg);
     } else {
-      this._output = this._webpack.outputFileSystem.data[
+      this._output = this._webpack.outputFileSystem["data"][
         this._config.output.filename
       ].toString();
     }
