@@ -1,23 +1,25 @@
 import React from "react";
 import { Config, Compiler } from "../compiler";
 import { join } from "path";
+import { project } from "../config";
+import { __setContextForTest } from "../helpers";
 
-test("compiler output", async () => {
-  const path = join(__dirname, "__data__");
-  const config = Config(path, ["compiler-data1.ts"]);
+describe("output", () => {
+  beforeEach(() => {
+    __setContextForTest({
+      path: "pages",
+      project: project({ path: "pages" }),
+      url: "/about"
+    });
+  });
 
-  const compiler = new Compiler(config);
-  await compiler.compile();
+  afterEach(() => __setContextForTest(null));
 
-  expect(compiler.output).toMatchSnapshot();
-});
+  test("compiler output", async () => {
+    const path = join(__dirname, "__data__");
+    const compiler = new Compiler(path, {});
+    await compiler.compile(["compiler-data1.ts"], {});
 
-test("compiler eval", async () => {
-  const path = join(__dirname, "__data__");
-  const config = Config(path, ["compiler-data1.ts"]);
-
-  const compiler = new Compiler(config);
-  await compiler.compile();
-
-  expect(compiler.module.default()).toEqual("Hello world!");
+    expect(compiler.module.default()).toEqual("Hello world!");
+  });
 });

@@ -1,7 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compiler output2 1`] = `
-"<html data-reactroot=\\"\\"><head><style data-styled=\\"kQLOQP\\" data-styled-version=\\"4.1.3\\">
-/* sc-component-id: render-data1__Button-w23gjt-0 */
-.kQLOQP{border:2px solid palevioletred;border-radius:3px;}</style></head><body><div><button class=\\"render-data1__Button-w23gjt-0 kQLOQP\\"></button></div></body></html>"
+exports[`output /about.tsx 1`] = `
+"<html data-reactroot=\\"\\"><head><meta charSet=\\"utf-8\\"/><link rel=\\"stylesheet\\" href=\\"/static/styles.css\\"/></head><body><div style=\\"font:11px/1.6em Menlo\\"><h2>Context</h2><pre style=\\"font:11px/1.6em Menlo\\">{
+    &quot;project&quot;: {
+        &quot;path&quot;: &quot;/Users/koen/Documents/Projects/monobase/project&quot;,
+        &quot;build&quot;: &quot;production&quot;,
+        &quot;config&quot;: {
+            &quot;pages&quot;: &quot;pages&quot;,
+            &quot;static&quot;: &quot;static&quot;,
+            &quot;components&quot;: &quot;components&quot;,
+            &quot;componentScript&quot;: &quot;/components.js&quot;,
+            &quot;extensions&quot;: [
+                &quot;js&quot;,
+                &quot;ts&quot;,
+                &quot;tsx&quot;,
+                &quot;mdx&quot;
+            ],
+            &quot;urlPrefix&quot;: &quot;&quot;
+        }
+    },
+    &quot;path&quot;: &quot;pages/about.tsx&quot;,
+    &quot;url&quot;: &quot;/about/&quot;
+}</pre></div><script src=\\"../components.js\\"></script></body></html>"
+`;
+
+exports[`output /article.mdx 1`] = `
+"<html data-reactroot=\\"\\"><head><meta charSet=\\"utf-8\\"/><link rel=\\"stylesheet\\" href=\\"/static/styles.css\\"/></head><body><h2>Hello Koen</h2><p>This is a paragraph.</p><component data-component-props=\\"[&quot;Component.Button&quot;,{},[]]\\"><button style=\\"padding:24px 50px 26px;user-select:none;border-radius:8px;border:0;outline:0;line-height:1;font-size:24px;background:#0AF;color:#fff\\">Count: <!-- -->0</button></component><pre><code>Hello world
+</code></pre><script src=\\"../components.js\\"></script></body></html>"
+`;
+
+exports[`output /index.tsx 1`] = `
+"<html data-reactroot=\\"\\"><head><meta charSet=\\"utf-8\\"/><style data-styled=\\"eQEdJi gGJNfi itrzlT jwMcgt\\" data-styled-version=\\"4.3.2\\">
+/* sc-component-id: Styled__Button-sc-1yi0x62-0 */
+.gGJNfi{font-size:1em;margin:1em;padding:0.25em 1em;border-radius:3px;color:royalblue;border:2px solid royalblue;}.itrzlT{font-size:1em;margin:1em;padding:0.25em 1em;border-radius:3px;color:mediumseagreen;border:2px solid mediumseagreen;}.jwMcgt{font-size:1em;margin:1em;padding:0.25em 1em;border-radius:3px;color:darkorange;border:2px solid darkorange;}
+/* sc-component-id: Styled__ButtonB-sc-1yi0x62-1 */
+.eQEdJi{background:#09F;border-radius:4px;border:none;color:#fff;font-size:1em;margin:1em;outline:0;padding:0.25em 1em;}</style><link rel=\\"stylesheet\\" href=\\"/static/styles.css\\"/></head><body><span style=\\"text-align:center\\"><section style=\\"padding:60px\\"><h1>Welcome to Monobase</h1><p>A simple React based static site generator</p></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Button</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Button&quot;,{},[]]\\"><button style=\\"padding:24px 50px 26px;user-select:none;border-radius:8px;border:0;outline:0;line-height:1;font-size:24px;background:#0AF;color:#fff\\">Count: <!-- -->0</button></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Mouse Location</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Mouse&quot;,{},[]]\\"><button style=\\"padding:24px 50px 26px;user-select:none;border-radius:8px;border:1px solid #F0F0F0;outline:0;line-height:1;font-size:24px;font-family:monospace;background:white\\">0<!-- -->, <!-- -->0</button></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Time</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Timer&quot;,{},[]]\\"><button style=\\"padding:24px 50px 26px;user-select:none;border-radius:8px;border:1px solid #F0F0F0;outline:0;line-height:1;font-size:24px;font-family:monospace\\">0</button></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">CSS Styled Component</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Styled&quot;,{},[]]\\"><div><div><button class=\\"Styled__ButtonB-sc-1yi0x62-1 eQEdJi\\">Click Error</button><button class=\\"Styled__Button-sc-1yi0x62-0 gGJNfi\\">Ad hoc theme</button><div><button class=\\"Styled__Button-sc-1yi0x62-0 itrzlT\\">Themed</button><button class=\\"Styled__Button-sc-1yi0x62-0 jwMcgt\\">Overidden</button></div></div></div></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Visible</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Visible&quot;,{&quot;inset&quot;:100},&quot;I&#x27;m like a refrigerator light. Or Schrödingers cat.&quot;]\\"><div style=\\"visibility:visible\\">I&#x27;m like a refrigerator light. Or Schrödingers cat.</div></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Enter a color name</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Colors&quot;,{},[]]\\"><div style=\\"width:300px;margin:auto\\"><div style=\\"height:300px;border-radius:8px 8px 0 0;transition:background-color .2s;background-color:#EEE\\"></div><input type=\\"text\\" value=\\"\\" placeholder=\\"like &#x27;darksalmon&#x27;\\" style=\\"padding:24px 50px 26px;user-select:none;border-radius:0 0 8px 8px;border:1px solid #EEE;outline:0;line-height:1;font-size:24px;width:100%;border-top:none;text-align:center\\"/></div></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Persistent Cookie</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.Cookie&quot;,{},[]]\\"><input type=\\"text\\" value=\\"\\" placeholder=\\"Type something…\\" style=\\"padding:24px 50px 26px;user-select:none;border-radius:8px;border:1px solid #EEE;outline:0;line-height:1;font-size:24px;width:100%;text-align:center\\"/></component></div></section><section style=\\"text-align:center;padding:80px 10px\\"><h3 style=\\"font-size:30px;font-weight:700;margin:0;padding-bottom:40px;line-height:1\\">Contexts</h3><div style=\\"text-align:center\\"><component data-component-props=\\"[&quot;Component.ContextExample&quot;,{},[]]\\"><button>Update</button><div>Count: <!-- -->0</div><div>Count: <!-- -->0</div><div>Count: <!-- -->0</div></component></div></section></span><script src=\\"components.js\\"></script></body></html>"
 `;

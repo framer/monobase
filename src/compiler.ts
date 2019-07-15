@@ -25,6 +25,7 @@ export const Config = (
   options = { ...ConfigDefaults, ...options };
 
   const config = {
+    context: projectPath,
     watch: false,
     devtool: options.production ? false : "eval",
     mode: options.production ? "production" : "development",
@@ -152,7 +153,7 @@ export class Compiler {
   _output: string = "";
   private _result: Promise<string> | null = null;
 
-  constructor(projectPath: string, options: Partial<ConfigOptions>) {
+  constructor(projectPath: string, options: Partial<ConfigOptions> = {}) {
     const config: any = Config(projectPath, this._getContext, options);
     const name = "bundle";
 
@@ -183,7 +184,7 @@ export class Compiler {
     return await this._run();
   }
 
-  get module() {
+  get module(): any {
     // Expose the external packages to the generated script
     const require = (name: string) => {
       if (name === "react") return React;
