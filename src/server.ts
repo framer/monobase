@@ -62,7 +62,7 @@ export const serve = async (
   app.get(
     "*",
     asyncHandler(async (req, res) => {
-      const page = resolve.pageForURL(project, req.url);
+      const page = resolve.pageForURL(project, req.path);
 
       if (!page) {
         const page404 = await render.page(project, "404");
