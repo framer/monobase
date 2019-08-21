@@ -14,11 +14,22 @@ const serializeType = child => {
     return child.type.dynamicName;
   }
 
+  if (typeof child.type === "function") {
+    // Class based components
+    if (child.type.constructor && child.type.constructor.name) {
+      return child.type.constructor.name
+    }
+    // Function based components
+    if (child.type.name) {
+      return child.type.name
+    }
+  }
+
   if (typeof child.type === "string") {
     return child.type;
   }
 
-  throw Error(`Unknown type`);
+  throw Error(`Cannot get component type for ${child.type.toString()}`);
 };
 
 const serializeProps = (props, key?) => {
