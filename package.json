@@ -1,6 +1,6 @@
 {
   "name": "monobase",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "author": "Koen Bok",
   "license": "MIT",
   "main": "./dist/index.js",
