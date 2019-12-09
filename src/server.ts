@@ -33,7 +33,7 @@ export const serve = async (
   const io = socketio(server);
 
   app.use(middleware.addslash);
-  app.use(middleware.nocache);
+  // app.use(middleware.nocache);
   app.use(middleware.reload);
   app.use(middleware.logging);
   app.use("/_socket", express.static("node_modules/socket.io-client/dist"));
