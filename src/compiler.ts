@@ -6,6 +6,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as styled from "styled-components";
+import { join } from "path";
 
 export const ConfigDefaults = {
   production: false,
@@ -23,6 +24,8 @@ export const Config = (
   options?: Partial<ConfigOptions>
 ) => {
   options = { ...ConfigDefaults, ...options };
+
+  const cachePath = join(projectPath, ".babel-cache");
 
   const config = {
     context: projectPath,
@@ -97,7 +100,7 @@ export const Config = (
             {
               loader: "babel-loader",
               options: {
-                cacheDirectory: options.cache,
+                cacheDirectory: options.cache ? cachePath : false,
                 presets: ["@babel/env", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
@@ -116,7 +119,7 @@ export const Config = (
             {
               loader: "babel-loader",
               options: {
-                cacheDirectory: options.cache,
+                cacheDirectory: options.cache ? cachePath : false,
                 presets: ["@babel/env", "@babel/typescript", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
