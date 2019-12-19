@@ -44,7 +44,7 @@ export const serve = async (
 
   const favicoPath = path.join(staticPath, "favicon.ico");
   if (fs.existsSync(favicoPath)) {
-    app.use(favicon(path.join(staticPath, "favicon.ico")));
+    app.use(favicon(favicoPath));
   }
 
   app.get(
