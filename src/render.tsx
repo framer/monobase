@@ -6,7 +6,7 @@ import * as types from "./types";
 import * as dynamic from "./dynamic";
 import * as context from "./context";
 import { memoize } from "lodash";
-import * as React from "react";
+import React from "react";
 import * as prettyBytes from "pretty-bytes";
 import { urlForPage } from "./resolve";
 import { PageContext, PageContextType } from "./contexts";

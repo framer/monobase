@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Dynamic } from "monobase";
 
 export const CountContext = React.createContext({ count: 1 });

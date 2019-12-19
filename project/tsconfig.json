@@ -4,7 +4,8 @@
     "lib": ["es2015", "dom"],
     "module": "commonjs",
     "jsx": "react",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "**/*.test.ts"]
 }

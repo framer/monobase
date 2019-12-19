@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 const Grid = (props: {
   width?: number;
@@ -6,16 +6,14 @@ const Grid = (props: {
   columns?: number;
   rows?: number;
   gap?: number;
-  cell?: (
-    props: {
-      key: string;
-      index: number;
-      row: number;
-      column: number;
-      width: number;
-      height: number;
-    }
-  ) => JSX.Element;
+  cell?: (props: {
+    key: string;
+    index: number;
+    row: number;
+    column: number;
+    width: number;
+    height: number;
+  }) => JSX.Element;
 }) => {
   // Make sure we have a good set of defaults
   props = Object.assign({}, GridDefaults, props);

@@ -7,10 +7,10 @@ const tsConfigPaths = require("tsconfig-paths");
 
 import * as path from "path";
 import * as os from "os";
-import * as minimist from "minimist";
-import * as openport from "first-open-port";
-import * as address from "my-local-ip";
-import * as reachable from "is-reachable";
+import minimist from "minimist";
+import openport from "first-open-port";
+import address from "my-local-ip";
+import reachable from "is-reachable";
 import chalk from "chalk";
 import * as browser from "./browser";
 import * as commands from "./commands";
@@ -45,7 +45,7 @@ const main = async () => {
   const project = config.project({
     path: path.resolve(argv.project || process.cwd()),
     build: build,
-    urlPrefix: argv.prefix,
+    urlPrefix: argv.prefix
   });
 
   commands.check(project);

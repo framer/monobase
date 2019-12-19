@@ -1,11 +1,10 @@
 import * as path from "path";
-import * as inject from "connect-inject";
-import * as morgan from "morgan";
-import * as express from "express";
-import * as unmarkdown from "remove-markdown";
-import * as prettyBytes from "pretty-bytes";
+import inject from "connect-inject";
+import morgan from "morgan";
+import express from "express";
+import unmarkdown from "remove-markdown";
+import prettyBytes from "pretty-bytes";
 import chalk from "chalk";
-import { token } from "morgan";
 import { renderToString } from "react-dom/server";
 import * as types from "./types";
 import * as error from "./error";
@@ -58,30 +57,35 @@ export const logging: express.RequestHandler = morgan((tokens, req, res) => {
     status = chalk.red(status);
   }
 
-  // const remoteAddress = req.socket.address().address;
+  const responseSize = parseInt(tokens.res(req, res, "content-length")) || 0;
 
   return chalk.gray(
     [
       tokens.method(req, res),
       status,
       chalk.rgb(170, 170, 170)(tokens.url(req, res)),
-      prettyBytes(parseInt(tokens.res(req, res, "content-length") || "0")),
-      `(${Math.round(parseFloat(tokens["response-time"](req, res)) || 0)}ms)`
+      prettyBytes(responseSize),
+      `(${Math.round(parseFloat(tokens["response-time"](req, res)) || 0)}ms)`,
+      status === "304" ? "(cached)" : ""
     ].join(" ")
   );
 });
 
 export const errors = (project: types.Project) => {
-  return (err: Error, req, res, next) => {
-    const shortStack =
-      err.stack
-        .split("\n")
-        .slice(1, 4)
-        .join("\n") + "\n    [...]";
+  return (err: Error, req, res: express.Response, next) => {
+    const shortStack = err.stack
+      ? err.stack
+          .split("\n")
+          .slice(1, 4)
+          .join("\n") + "\n    [...]"
+      : `${err}`;
 
-    console.error(chalk.white("Error:"), chalk.red(unmarkdown(err.message)));
+    console.error(chalk.white("Error:"), chalk.red(`${err.message}`));
     console.error(chalk.gray(shortStack));
 
-    res.status("500").send(renderToString(error.render(err, project)));
+    res
+      .status(500)
+      .send(renderToString(error.render(err.message, shortStack, project)))
+      .end();
   };
 };

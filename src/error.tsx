@@ -1,9 +1,13 @@
 import * as path from "path";
 import * as types from "./types";
-import * as React from "react";
+import React from "react";
 import * as Markdown from "react-remarkable";
 
-export const render = (error: Error, project: types.Project) => {
+export const render = (
+  message: string,
+  stack: string,
+  project: types.Project
+) => {
   const projectPath = project.path;
   const modulePath = path.resolve(path.join(__dirname, ".."));
 
@@ -15,6 +19,8 @@ h2 { font: 18px/1.5em 'Helvetica Neue Bold' }
 section { padding: 10px 20px; overflow: auto }
 `;
   const shortPath = (text: string) => {
+    if (!text) return text;
+
     return text
       .replace(new RegExp(projectPath, "g"), "<project>")
       .replace(new RegExp(modulePath, "g"), "<monobase>");
@@ -34,7 +40,7 @@ section { padding: 10px 20px; overflow: auto }
         >
           <h2>Error 500</h2>
           <p>
-            <Markdown source={shortPath(error.message)} />
+            <Markdown source={shortPath(message)} />
           </p>
           <p>
             Project: <code>{projectPath}</code>
@@ -48,7 +54,7 @@ section { padding: 10px 20px; overflow: auto }
               color: "grey"
             }}
           >
-            {shortPath(error.stack)}
+            {shortPath(stack)}
           </pre>
         </section>
         <section

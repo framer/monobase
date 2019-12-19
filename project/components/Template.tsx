@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Development, StyleSheet } from "monobase";
 
 export default function Template({ children }) {

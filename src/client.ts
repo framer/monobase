@@ -1,13 +1,12 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { getDynamicComponents } from "./component";
+import React from "react";
+import ReactDOM from "react-dom";
+import { getDynamicComponents, ComponentTagName } from "./component";
 
 const querySelectorAll = (query: string): HTMLElement[] => {
   return Array.prototype.slice.call(document.querySelectorAll(query));
 };
 
 const hydrate = () => {
-  const ComponentTagName = "component";
   const ComponentMap = getDynamicComponents();
 
   const createElement = (child: any[]) => {

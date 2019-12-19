@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 
+export const ComponentTagName = "monobase";
+
 const serializeElement = element => {
   return [
     serializeType(element),
@@ -97,7 +99,7 @@ export const Dynamic = Component => {
     );
 
     return React.createElement(
-      "component",
+      ComponentTagName,
       {
         "data-component-props": serialized
       },

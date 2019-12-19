@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import * as cookies from "js-cookie";
 import { Dynamic } from "monobase";
 import { pill } from "components/theme";

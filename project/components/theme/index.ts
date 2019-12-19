@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 export const pill: React.CSSProperties = {
   padding: "24px 50px 26px",

@@ -1,11 +1,11 @@
-import * as React from "react";
+import React from "react";
 import Template from "components/Template";
-import { useContext } from "monobase";
+import { usePageContext } from "monobase";
 
 const style = { font: "11px/1.6em Menlo" };
 
 export default function render() {
-  const context = useContext();
+  const context = usePageContext();
   return (
     <Template>
       <div style={style}>

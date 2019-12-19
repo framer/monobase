@@ -1,16 +1,18 @@
 import * as fs from "fs";
-import * as https from "https";
-import * as express from "express";
-import * as socketio from "socket.io";
-import * as gaze from "gaze";
 import * as path from "path";
+import * as https from "https";
+import express from "express";
+import socketio from "socket.io";
+import gaze from "gaze";
+import invalidate from "invalidate-module";
+import favicon from "serve-favicon";
+import { NextFunction } from "connect";
 import * as types from "./types";
 import * as render from "./render";
 import * as middleware from "./middleware";
 import * as resolve from "./resolve";
-import * as invalidate from "invalidate-module";
-import * as favicon from "serve-favicon";
-import { NextFunction } from "connect";
+
+import { debounce } from "./utils";
 
 function asyncHandler(
   fn: (
@@ -94,6 +96,11 @@ export const serve = async (
     ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts)
   ];
 
+  // Give the file watcher a little debounce so it does not reload more then needed.
+  const reload = debounce(() => {
+    io.emit("reload");
+  }, 50);
+
   gaze(globs, function(err, watcher) {
     this.on("all", function(event, filepath) {
       // We are going to assume node_module files are static
@@ -108,16 +115,8 @@ export const serve = async (
         console.warn("inavlidate error:", error);
       }
 
-      // console.log("invalidate", require.resolve(filepath));
-      // console.log(
-      //   Object.keys(require.cache).filter(
-      //     item => !item.includes("node_modules")
-      //   )
-      // );
-
-      // Todo: we definitely need to debounce this
       // Reload the page in the browser
-      io.emit("reload");
+      reload();
     });
   });
 };

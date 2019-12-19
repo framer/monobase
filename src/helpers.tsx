@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as _relative from "relative";
+import React from "react";
+import _relative from "relative";
 import { renderToString } from "react-dom/server";
-import * as styled from "styled-components";
+import styled from "styled-components";
 import * as types from "./types";
 import { PageContext, PageContextType } from "./contexts";
 
@@ -32,7 +32,7 @@ export const StyleSheet = () => {
   return <style dangerouslySetInnerHTML={{ __html: styles }} />;
 };
 
-// Styles rendered from dtyled-components
+// Styles rendered from styled-components
 export const StyledSheet: React.FunctionComponent<{
   app: React.ReactNode;
 }> = ({ app }) => {

@@ -1,14 +1,13 @@
-import * as MemoryFS from "memory-fs";
-import * as webpack from "webpack";
-import * as TerserPlugin from "terser-webpack-plugin";
-import { promisify } from "util";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as ReactDOMServer from "react-dom/server";
-import * as styled from "styled-components";
-import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
-import * as monobase from "./index";
 import { join } from "path";
+import MemoryFS from "memory-fs";
+import webpack from "webpack";
+import TerserPlugin from "terser-webpack-plugin";
+import React from "react";
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
+import styled from "styled-components";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import * as monobase from "./index";
 
 export const ConfigDefaults = {
   production: false,
@@ -263,7 +262,7 @@ export class Compiler {
       this._webpack.run((error, stats) => {
         this._running = null;
 
-        if (error) {
+        if (stats.hasErrors()) {
           reject(
             `Compiler error ${stats.toString({ chunks: false, colors: false })}`
           );
