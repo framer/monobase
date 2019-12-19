@@ -24,10 +24,17 @@ export const mkcert = async (hosts: string[]) => {
     return null;
   }
 
-  return await _mkcert.createCert({
-    domains: hosts,
-    validityDays: 365,
-    caKey: fs.readFileSync(rootKeyPath),
-    caCert: fs.readFileSync(rootPath)
-  });
+  try {
+    return await _mkcert.createCert({
+      domains: hosts,
+      validityDays: 365,
+      caKey: fs.readFileSync(rootKeyPath),
+      caCert: fs.readFileSync(rootPath)
+    });
+  } catch (error) {
+    console.warn(
+      `Could not use mkcert to generate certificate: ${error.message}`
+    );
+    return null;
+  }
 };
