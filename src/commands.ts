@@ -1,4 +1,3 @@
-import * as webpack from "webpack";
 import chalk from "chalk";
 
 import * as fs from "fs";
@@ -34,9 +33,7 @@ export const build = async (project: types.Project, path: string) => {
 export const check = (project: types.Project) => {
   if (!fs.existsSync(path.join(project.path, project.config.pages))) {
     return console.log(
-      `The path "${
-        project.path
-      }" does not look like a project folder, the pages directory is missing.`
+      `The path "${project.path}" does not look like a project folder, the pages directory is missing.`
     );
   }
 };
