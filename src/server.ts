@@ -96,11 +96,26 @@ export const serve = async (
 
   gaze(globs, function(err, watcher) {
     this.on("all", function(event, filepath) {
+      // We are going to assume node_module files are static
+      if (filepath.includes("node_modules")) {
+        return;
+      }
+
       // Try to invalidate the changed module from the cache
       try {
         invalidate(require.resolve(filepath));
-      } catch (error) {}
+      } catch (error) {
+        console.warn("inavlidate error:", error);
+      }
 
+      // console.log("invalidate", require.resolve(filepath));
+      // console.log(
+      //   Object.keys(require.cache).filter(
+      //     item => !item.includes("node_modules")
+      //   )
+      // );
+
+      // Todo: we definitely need to debounce this
       // Reload the page in the browser
       io.emit("reload");
     });
