@@ -6,7 +6,10 @@ import * as types from "./types";
 import * as dynamic from "./dynamic";
 import * as context from "./context";
 import { memoize } from "lodash";
+import * as React from "react";
 import * as prettyBytes from "pretty-bytes";
+import { urlForPage } from "./resolve";
+import { PageContext, PageContextType } from "./contexts";
 
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.
@@ -30,7 +33,9 @@ export const page = async (project: types.Project, page: string) => {
 
   // A syntax error could occur here
   await compiler.compile([pagePath], context.create(project, pagePath));
-  // console.log("compile size", prettyBytes(compiler.output.length));
+  // This is definitely not cool, but some caching has me run this twice
+  await compiler.compile([pagePath], context.create(project, pagePath));
+
   const compilerModule = compiler.module;
 
   // Temporary write the generated javascript for this page for debug purposes
@@ -43,10 +48,23 @@ export const page = async (project: types.Project, page: string) => {
     );
   }
 
-  // An eval runtime could happen here
+  const pageContext: PageContextType = {
+    project,
+    path: pagePath,
+    styles: compiler.styles
+  };
 
-  const pageModule = compilerModule["default"](project);
-  const html = renderToString(pageModule);
+  const PageModule = compilerModule["default"];
+
+  const Page = function() {
+    return (
+      <PageContext.Provider value={pageContext}>
+        <PageModule />
+      </PageContext.Provider>
+    );
+  };
+
+  const html = renderToString(React.createElement(Page));
 
   // Clean up the generated javascript file
   // fs.unlinkSync(pageScriptPath);
@@ -69,3 +87,23 @@ export const script = async (project: types.Project) => {
 
   return compiler.compile(entries, {});
 };
+
+// export const styles = async (project: types.Project) => {
+//   const entries = dynamic.entries(project);
+
+//   const compiler = getCachedCompiler({
+//     name: "script",
+//     projectPath: project.path,
+//     config: {
+//       production: project.build === "production",
+//       cache: true,
+//       externals: false
+//     }
+//   });
+
+//   const result = await compiler.compile(entries, {});
+
+//   console.log("compiler.styles", compiler.styles);
+
+//   return compiler.styles;
+// };

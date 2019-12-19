@@ -6,6 +6,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as styled from "styled-components";
+import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
+import * as monobase from "./index";
 import { join } from "path";
 
 export const ConfigDefaults = {
@@ -74,6 +76,12 @@ export const Config = (
               commonjs2: "styled-components",
               commonjs: "styled-components",
               amd: "styled-components"
+            },
+            monobase: {
+              root: "monobase",
+              commonjs2: "monobase",
+              commonjs: "monobase",
+              amd: "monobase"
             }
           }
         ]
@@ -120,13 +128,40 @@ export const Config = (
               loader: "babel-loader",
               options: {
                 cacheDirectory: options.cache ? cachePath : false,
-                presets: ["@babel/env", "@babel/typescript", "@babel/react"],
+                presets: [
+                  "linaria/babel",
+                  "@babel/env",
+                  "@babel/typescript",
+                  "@babel/react"
+                ],
                 plugins: [
                   "@babel/proposal-class-properties",
-                  "@babel/proposal-object-rest-spread",
-                  "babel-plugin-styled-components"
+                  "@babel/proposal-object-rest-spread"
+                  // "babel-plugin-styled-components"
                 ]
               }
+            },
+            {
+              loader: "linaria/loader",
+              options: {
+                sourceMap: process.env.NODE_ENV !== "production",
+                babelOptions: {
+                  presets: ["@babel/preset-typescript"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          test: /\.css$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: { hmr: false }
+            },
+            {
+              loader: "css-loader",
+              options: { sourceMap: false }
             }
           ]
         }
@@ -141,7 +176,8 @@ export const Config = (
         "process.env.NODE_ENV": options.production
           ? JSON.stringify("production")
           : JSON.stringify("debug")
-      })
+      }),
+      new MiniCssExtractPlugin({ filename: "styles.css" })
     ]
   };
 
@@ -154,21 +190,20 @@ export class Compiler {
   private _entry = [];
   private _context = {};
   _output: string = "";
-  private _result: Promise<string> | null = null;
+  _styles: string = "";
+  private _running: Promise<string> | null = null;
 
   constructor(projectPath: string, options: Partial<ConfigOptions> = {}) {
     const config: any = Config(projectPath, this._getContext, options);
     const name = "bundle";
 
     config.output = {
-      filename: `${name}.js`,
       path: "/",
-      libraryTarget: "umd"
+      filename: `${name}.js`,
+      libraryTarget: "umd",
+      // This is to make UMD compatible with Node, because it normally relies on the window
+      globalObject: "(typeof window !== 'undefined' ? window : this)"
     };
-
-    // This is to make UMD compatible with Node, because it normally relies on the window
-    config.output["globalObject"] =
-      "(typeof window !== 'undefined' ? window : this)";
 
     config.entry = this._getEntry;
 
@@ -181,10 +216,14 @@ export class Compiler {
     return this._output;
   }
 
+  get styles() {
+    return this._styles;
+  }
+
   async compile(entries: string[], context: object) {
     this._entry = entries;
     this._context = context;
-    return await this._run();
+    return this._run();
   }
 
   get module(): any {
@@ -194,29 +233,48 @@ export class Compiler {
       if (name === "react-dom" || name === "ReactDOM") return ReactDOM;
       if (name === "react-dom/server") return ReactDOMServer;
       if (name === "styled-components") return styled;
+      if (name === "monobase") return monobase;
       throw Error(`Component loader: Can't require ${name}`);
     };
 
     // Evaluate the generated script and return the exports from the module
     const fn = new Function("module", "exports", "require", this._output);
     const mod = { exports: {} };
+
+    // Eval the code and grab the exports
     fn(mod, mod.exports, require);
 
     return mod.exports;
   }
 
+  private _getFileContents(name: string): string | null {
+    return this._webpack.outputFileSystem["data"][name]
+      ? this._webpack.outputFileSystem["data"][name].toString()
+      : null;
+  }
+
   private _run = () => {
-    if (this._result) return this._result;
+    // Make sure we never run twice
+    if (this._running) {
+      return this._running;
+    }
 
-    const run: webpack.Compiler["run"] = this._webpack.run.bind(this._webpack);
-    this._result = promisify(run)()
-      .then(this._onReady)
-      .catch(err => {
-        this._result = null;
-        return Promise.reject(err);
+    return (this._running = new Promise((resolve, reject) => {
+      this._webpack.run((error, stats) => {
+        this._running = null;
+
+        if (error) {
+          reject(
+            `Compiler error ${stats.toString({ chunks: false, colors: false })}`
+          );
+        }
+
+        this._output = this._getFileContents(this._config.output.filename);
+        this._styles = this._getFileContents("styles.css");
+
+        resolve(this.output);
       });
-
-    return this._result;
+    }));
   };
 
   private _getEntry = () => {
@@ -225,22 +283,5 @@ export class Compiler {
 
   private _getContext = () => {
     return this._context;
-  };
-
-  private _onReady = async (stats: webpack.Stats) => {
-    this._result = null;
-
-    if (stats.hasErrors()) {
-      this._output = null;
-      const msg =
-        "Compiler error in " + stats.toString({ chunks: false, colors: false });
-      throw new Error(msg);
-    } else {
-      this._output = this._webpack.outputFileSystem["data"][
-        this._config.output.filename
-      ].toString();
-    }
-
-    return this._output;
   };
 }

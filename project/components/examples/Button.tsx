@@ -1,25 +1,23 @@
 import * as React from "react";
 import { Dynamic } from "monobase";
-import { pill } from "components/theme";
+import { styled } from "linaria/react";
 
-const style: React.CSSProperties = {
-  ...pill,
-  background: "#0AF",
-  color: "#fff"
-};
+const StyledButton = styled.div`
+  padding: 24px 50px 26px;
+  user-select: none;
+  border-radius: 8px;
+  border: 0;
+  outline: 0;
+  line-height: 1;
+  font-size: 24;
+  background: #0af;
+  color: #fff;
+`;
 
 function Button() {
   const [count, setCount] = React.useState(0);
-
-  function onClick() {
-    setCount(count + 1);
-  }
-
-  return (
-    <button style={style} onClick={onClick}>
-      Count: {count}
-    </button>
-  );
+  const onClick = () => setCount(count + 1);
+  return <StyledButton onClick={onClick}>Count: {count}</StyledButton>;
 }
 
 export default Dynamic(Button);

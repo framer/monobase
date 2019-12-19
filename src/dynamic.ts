@@ -27,22 +27,27 @@ export const discover = (dir: string) => {
   const results = {};
   const paths = utils.glob(`${dir}/**/*.ts{,x}`);
 
+  // console.log(require("linaria/react").styled.div);
+
   for (let modulePath of paths) {
     // Ignore files that have an obvious test pattern
     if (modulePath.includes(".test.")) continue;
 
     let importedModule;
 
+    // We need to special case linaria imports
+    const unpatch = patchLinaria();
+
     try {
       importedModule = require(modulePath);
     } catch (error) {
       console.error(
-        `Could not import module for Dynamic() discovery:\n${modulePath}\n> ${
-          error.message
-        }`
+        `Could not import module for Dynamic() discovery:\n${modulePath}\n> ${error.message}`
       );
       continue;
     }
+
+    unpatch();
 
     for (let key of Object.keys(importedModule)) {
       if (isDynamicComponent(importedModule[key])) {
@@ -74,4 +79,26 @@ export const entries = (project: types.Project) => {
   );
 
   return [...Object.keys(dynamicComponents), clientScriptImportPath];
+};
+
+const patchLinaria = function() {
+  // Linaria replaces the `styled` tag with babel on compilation time and
+  // throws an error if you call it on runtime. This "fixes" that.
+  const linaria = require("linaria/react");
+  if (!linaria) return;
+  const { css, styled } = linaria;
+  // linaria.css = function() {};
+  linaria.styled = new Proxy(
+    {},
+    {
+      get(target, name) {
+        return function() {};
+      }
+    }
+  );
+
+  return function unpatchLinaria() {
+    // linaria.css = css;
+    linaria.styled = styled;
+  };
 };

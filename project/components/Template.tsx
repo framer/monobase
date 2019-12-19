@@ -1,17 +1,15 @@
 import * as React from "react";
-import { urlFor, Development, StyledSheet, useContext } from "monobase";
+import { Development, StyleSheet } from "monobase";
 
-export default function Template(props) {
-  const context = useContext();
+export default function Template({ children }) {
   return (
     <html>
       <head>
         <meta charSet="utf-8" />
-        <StyledSheet app={props.children} />
-        <link rel="stylesheet" href={urlFor("/static/styles.css")} />
+        <StyleSheet />
       </head>
       <body>
-        {props.children}
+        {children}
         <Development />
       </body>
     </html>

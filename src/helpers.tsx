@@ -3,6 +3,7 @@ import * as _relative from "relative";
 import { renderToString } from "react-dom/server";
 import * as styled from "styled-components";
 import * as types from "./types";
+import { PageContext, PageContextType } from "./contexts";
 
 // Allow us to mock context under test. Cannot assign objects to process.env
 // in node, the value is always stringified.
@@ -11,56 +12,54 @@ export function __setContextForTest(ctx: types.Context | null) {
   __testContext = ctx;
 }
 
-const getContext = (): types.Context | null => {
-  if (__testContext) return __testContext;
-  if (!process.env["context"]) return null;
-  if (Object.keys(process.env["context"]).length === 0) return null;
-  return (process.env["context"] as any) as types.Context;
-};
-
-// Component to inline styled component css
-export const StyledSheet: React.FunctionComponent<{
-  app: React.ReactNode;
-}> = props => {
-  const sheet = new styled.ServerStyleSheet();
-
-  renderToString(sheet.collectStyles(<>{props.app}</>));
-
-  return (sheet.getStyleElement() as any) as React.ReactElement<any>;
-};
+// const getContext = (): types.Context | null => {
+//   if (__testContext) return __testContext;
+//   if (!process.env["context"]) return null;
+//   if (Object.keys(process.env["context"]).length === 0) return null;
+//   return (process.env["context"] as any) as types.Context;
+// };
 
 export const Development: React.FunctionComponent = () => {
-  const project = useProject();
+  const { project } = usePageContext();
   const { componentScript, urlPrefix } = project.config;
   const src = urlPrefix ? urlFor(componentScript) : relative(componentScript);
   return <script src={src} />;
 };
 
-export const useContext = (): types.Context => {
-  const context = getContext();
-  if (!context) {
-    throw Error(
-      "process.env.context is missing. You might be using useContext in a Dynamic component? "
-    );
-  }
-  // This gets inserted by webpack on build
-  return context as types.Context;
+// Styles rendered from webpack css
+export const StyleSheet = () => {
+  const { styles } = usePageContext();
+  return <style dangerouslySetInnerHTML={{ __html: styles }} />;
 };
 
-export const usePath = (): string => {
-  const context = getContext();
-  if (context) {
-    return context.url;
-  }
-  return window.location.pathname;
+// Styles rendered from dtyled-components
+export const StyledSheet: React.FunctionComponent<{
+  app: React.ReactNode;
+}> = ({ app }) => {
+  const sheet = new styled.ServerStyleSheet();
+  renderToString(sheet.collectStyles(<>{app}</>));
+  return (sheet.getStyleElement() as any) as React.ReactElement<any>;
 };
 
-export const useProject = (): types.Project => {
-  return useContext().project;
+export const usePageContext = (): PageContextType => {
+  return React.useContext(PageContext);
 };
+
+// export const usePath = (): string => {
+//   return usePageContext().path
+//   // const context = getContext();
+//   // if (context) {
+//   //   return context.url;
+//   // }
+//   // return window.location.pathname;
+// };
+
+// export const useProject = (): types.Project => {
+//   return useContext().project;
+// };
 
 export const urlFor = (path: string) => {
-  const project = useProject();
+  const { project } = usePageContext();
   const { urlPrefix, static: staticPath, pages: pagesPath } = project.config;
 
   // Strip preceding slashes.
@@ -92,5 +91,6 @@ export const urlFor = (path: string) => {
 };
 
 export const relative = (from: string, url?: string) => {
-  return _relative(url || usePath(), from);
+  const { path } = usePageContext();
+  return _relative(url || path, from);
 };
