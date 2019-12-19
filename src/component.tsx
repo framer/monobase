@@ -17,11 +17,11 @@ const serializeType = child => {
   if (typeof child.type === "function") {
     // Class based components
     if (child.type.constructor && child.type.constructor.name) {
-      return child.type.constructor.name
+      return child.type.constructor.name;
     }
     // Function based components
     if (child.type.name) {
-      return child.type.name
+      return child.type.name;
     }
   }
 
