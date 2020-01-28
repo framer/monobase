@@ -69,10 +69,7 @@ const main = async () => {
     // See if we can use a generated certificate
     let ssl = await cert.mkcert(hosts);
 
-    if (ssl) {
-      console.log(chalk.gray("Using mkcert signed certificate"));
-    } else {
-      ssl = cert.fallback();
+    if (!ssl) {
       console.log(
         chalk.gray("For valid ssl: `brew install mkcert; mkcert -install`")
       );
