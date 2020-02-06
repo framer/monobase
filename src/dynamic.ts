@@ -5,6 +5,7 @@ import * as types from "./types";
 
 export const isDynamicComponent = Component => {
   return (
+    typeof Component !== "undefined" &&
     typeof Component["dynamicName"] !== "undefined" &&
     typeof Component["dynamicComponent"] !== "undefined"
   );
