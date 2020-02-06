@@ -30,8 +30,6 @@ export const page = async (project: types.Project, page: string) => {
 
   // A syntax error could occur here
   await compiler.compile([pagePath], context.create(project, pagePath));
-  // TODO: This is definitely not cool, but some caching has me run this twice
-  await compiler.compile([pagePath], context.create(project, pagePath));
 
   const compilerModule = compiler.module;
 
