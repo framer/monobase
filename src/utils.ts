@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as countFiles from "count-files";
 import * as _glob from "glob";
-import * as prettyBytes from "pretty-bytes";
+import prettyBytes from "pretty-bytes";
 import * as mkdirp from "mkdirp";
 import { ncp } from "ncp";
 

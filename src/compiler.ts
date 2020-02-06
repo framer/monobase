@@ -5,10 +5,10 @@ import * as TerserPlugin from "terser-webpack-plugin";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import * as styled from "styled-components";
+import prettyBytes from "pretty-bytes";
 import * as monobase from "./index";
+
 import { join } from "path";
-import prettyBytes = require("pretty-bytes");
 
 export const ConfigDefaults = {
   production: false,
@@ -71,12 +71,6 @@ export const Config = (
               commonjs: "react-dom/server",
               amd: "react-dom/server"
             },
-            "styled-components": {
-              root: "styled-components",
-              commonjs2: "styled-components",
-              commonjs: "styled-components",
-              amd: "styled-components"
-            },
             monobase: {
               root: "monobase",
               commonjs2: "monobase",
@@ -88,13 +82,7 @@ export const Config = (
       : [],
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
-      modules: [projectPath, "node_modules"],
-      alias: {
-        // You never want two styled component instances as that creates a mess
-        // So we always alias it to the styled-components library in your project
-        // https://www.styled-components.com/docs/faqs#duplicated-module-in-node_modules
-        "styled-components": require.resolve("styled-components")
-      }
+      modules: [projectPath, "node_modules"]
     },
     node: {
       fs: "empty"
@@ -113,7 +101,6 @@ export const Config = (
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread"
-                  // "babel-plugin-styled-components"
                 ]
               }
             },
@@ -137,7 +124,6 @@ export const Config = (
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread"
-                  // "babel-plugin-styled-components"
                 ]
               }
             },
@@ -232,7 +218,6 @@ export class Compiler {
       if (name === "react") return React;
       if (name === "react-dom" || name === "ReactDOM") return ReactDOM;
       if (name === "react-dom/server") return ReactDOMServer;
-      if (name === "styled-components") return styled;
       if (name === "monobase") return monobase;
       throw Error(`Component loader: Can't require ${name}`);
     };
