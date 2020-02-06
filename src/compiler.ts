@@ -229,7 +229,7 @@ export class Compiler {
     // Eval the code and grab the exports
     const t1 = Date.now();
     fn(mod, mod.exports, require);
-    console.log(`> compile.eval took ${Date.now() - t1}ms`);
+    // console.log(`> compile.eval took ${Date.now() - t1}ms`);
 
     return mod.exports;
   }
@@ -258,11 +258,11 @@ export class Compiler {
           );
         }
 
-        console.log(
-          `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
-            this._output.length
-          )}`
-        );
+        // console.log(
+        //   `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
+        //     this._output.length
+        //   )}`
+        // );
 
         this._output = this._readFile(this._config.output.filename as string);
         this._styles = this._readFile("styles.css");
