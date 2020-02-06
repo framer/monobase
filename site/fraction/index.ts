@@ -1,2 +1,2 @@
-export {Checkbox} from "./Checkbox"
-export {Toggle} from "./Toggle"
+export {Checkbox} from "./components/Checkbox"
+export {Toggle} from "./components/Toggle"

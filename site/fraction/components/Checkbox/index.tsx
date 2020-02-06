@@ -1,15 +1,15 @@
-import * as React from "react"
-import { Checkmark } from "./icons"
-import { StyledCheckbox } from "./style"
+import * as React from "react";
+import { Checkmark } from "./icons";
+import { StyledCheckbox } from "./style";
 
 export type Props = React.HTMLAttributes<HTMLInputElement> & {
-  checked?: boolean
-  text?: string
-  id: string
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
-  error?: boolean
-  disabled?: boolean
-}
+  checked?: boolean;
+  text?: string;
+  id?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  error?: boolean;
+  disabled?: boolean;
+};
 
 export const Checkbox: React.FC<Props> = ({
   checked,
@@ -35,4 +35,4 @@ export const Checkbox: React.FC<Props> = ({
     </span>
     {text && <label htmlFor={id}>{text}</label>}
   </StyledCheckbox>
-)
+);
