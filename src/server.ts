@@ -88,11 +88,7 @@ export const serve = async (
   const staticExts = [".css", ".js", ".gif", ".png", ".jpg", ".webp"];
 
   const globs = [
-    ...withExts(`${project.path}/${project.config.pages}/**/*`, scriptExts),
-    ...withExts(
-      `${project.path}/${project.config.components}/**/*`,
-      scriptExts
-    ),
+    ...withExts(`${project.path}/**/*`, scriptExts),
     ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts)
   ];
 
