@@ -1,7 +1,5 @@
 import React from "react";
 import _relative from "relative";
-import { renderToString } from "react-dom/server";
-import styled from "styled-components";
 import * as types from "./types";
 import { PageContext, PageContextType } from "./contexts";
 
@@ -33,13 +31,13 @@ export const StyleSheet = () => {
 };
 
 // Styles rendered from styled-components
-export const StyledSheet: React.FunctionComponent<{
-  app: React.ReactNode;
-}> = ({ app }) => {
-  const sheet = new styled.ServerStyleSheet();
-  renderToString(sheet.collectStyles(<>{app}</>));
-  return (sheet.getStyleElement() as any) as React.ReactElement<any>;
-};
+// export const StyledSheet: React.FunctionComponent<{
+//   app: React.ReactNode;
+// }> = ({ app }) => {
+//   const sheet = new styled.ServerStyleSheet();
+//   renderToString(sheet.collectStyles(<>{app}</>));
+//   return (sheet.getStyleElement() as any) as React.ReactElement<any>;
+// };
 
 export const usePageContext = (): PageContextType => {
   return React.useContext(PageContext);

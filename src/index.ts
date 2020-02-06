@@ -7,7 +7,5 @@ export {
   // useContext,
   usePageContext,
   Development,
-  StyleSheet,
-  StyledSheet,
-  usePageContext
+  StyleSheet
 } from "./helpers";

@@ -1,12 +1,11 @@
-import * as MemoryFS from "memory-fs";
-import * as webpack from "webpack";
+import MemoryFS from "memory-fs";
+import webpack from "webpack";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as TerserPlugin from "terser-webpack-plugin";
-import { promisify } from "util";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as styled from "styled-components";
-import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as monobase from "./index";
 import { join } from "path";
 import prettyBytes = require("pretty-bytes");
