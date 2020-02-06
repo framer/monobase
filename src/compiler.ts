@@ -1,13 +1,15 @@
-import { join } from "path";
-import MemoryFS from "memory-fs";
-import webpack from "webpack";
-import TerserPlugin from "terser-webpack-plugin";
-import React from "react";
-import ReactDOM from "react-dom";
-import ReactDOMServer from "react-dom/server";
-import styled from "styled-components";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import * as MemoryFS from "memory-fs";
+import * as webpack from "webpack";
+import * as TerserPlugin from "terser-webpack-plugin";
+import { promisify } from "util";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as ReactDOMServer from "react-dom/server";
+import * as styled from "styled-components";
+import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as monobase from "./index";
+import { join } from "path";
+import prettyBytes = require("pretty-bytes");
 
 export const ConfigDefaults = {
   production: false,
@@ -111,8 +113,8 @@ export const Config = (
                 presets: ["@babel/env", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
-                  "@babel/proposal-object-rest-spread",
-                  "babel-plugin-styled-components"
+                  "@babel/proposal-object-rest-spread"
+                  // "babel-plugin-styled-components"
                 ]
               }
             },
@@ -171,7 +173,7 @@ export const Config = (
         // https://github.com/webpack/webpack/issues/6749#issuecomment-372953473
         "process.env.context": webpack.DefinePlugin["runtimeValue"](() => {
           return JSON.stringify(contextCallback());
-        }, true),
+        }),
         "process.env.NODE_ENV": options.production
           ? JSON.stringify("production")
           : JSON.stringify("debug")
@@ -241,12 +243,14 @@ export class Compiler {
     const mod = { exports: {} };
 
     // Eval the code and grab the exports
+    const t1 = Date.now();
     fn(mod, mod.exports, require);
+    console.log(`> compile.eval took ${Date.now() - t1}ms`);
 
     return mod.exports;
   }
 
-  private _getFileContents(name: string): string | null {
+  private _readFile(name: string): string | null {
     return this._webpack.outputFileSystem["data"][name]
       ? this._webpack.outputFileSystem["data"][name].toString()
       : null;
@@ -258,18 +262,26 @@ export class Compiler {
       return this._running;
     }
 
+    const t1 = Date.now();
+
     return (this._running = new Promise((resolve, reject) => {
       this._webpack.run((error, stats) => {
         this._running = null;
 
-        if (stats.hasErrors()) {
+        if (error) {
           reject(
             `Compiler error ${stats.toString({ chunks: false, colors: false })}`
           );
         }
 
-        this._output = this._getFileContents(this._config.output.filename);
-        this._styles = this._getFileContents("styles.css");
+        console.log(
+          `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
+            this._output.length
+          )}`
+        );
+
+        this._output = this._readFile(this._config.output.filename as string);
+        this._styles = this._readFile("styles.css");
 
         resolve(this.output);
       });

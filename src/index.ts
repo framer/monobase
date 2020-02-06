@@ -5,6 +5,7 @@ export {
   // usePath,
   // useProject,
   // useContext,
+  usePageContext,
   Development,
   StyleSheet,
   StyledSheet,

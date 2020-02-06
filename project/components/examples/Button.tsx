@@ -10,7 +10,7 @@ const StyledButton = styled.div`
   outline: 0;
   line-height: 1;
   font-size: 24;
-  background: #0af;
+  background: blue;
   color: #fff;
 `;
 
