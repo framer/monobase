@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 
-export const ComponentTagName = "monobase";
+export const componentTagName = "dynamic";
+export const componentSerializedAttributeName = "data-props";
 
 const serializeElement = element => {
   return [
@@ -94,15 +95,21 @@ export const Dynamic = Component => {
     }
 
     // If this is the root of a component tree, serialize the whole tree
+
+    let innerProps = {};
+
+    innerProps[componentSerializedAttributeName] = JSON.stringify(
+      serializeElement({ type: componentName, props: props })
+    );
+
+    // If this is the root of a component tree, serialize the whole tree
     const serialized = JSON.stringify(
       serializeElement({ type: componentName, props: props })
     );
 
     return React.createElement(
-      ComponentTagName,
-      {
-        "data-component-props": serialized
-      },
+      componentTagName,
+      innerProps,
       <DynamicContext>
         <Component suppressHydrationWarning={true} {...props} />
       </DynamicContext>
