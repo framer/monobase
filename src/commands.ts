@@ -2,7 +2,7 @@ import chalk from "chalk";
 
 import * as fs from "fs";
 import * as path from "path";
-import * as prettyBytes from "pretty-bytes";
+import prettyBytes from "pretty-bytes";
 import * as utils from "./utils";
 import * as types from "./types";
 import * as server from "./server";

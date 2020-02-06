@@ -2,7 +2,6 @@ import * as path from "path";
 import inject from "connect-inject";
 import morgan from "morgan";
 import express from "express";
-import unmarkdown from "remove-markdown";
 import prettyBytes from "pretty-bytes";
 import chalk from "chalk";
 import { renderToString } from "react-dom/server";

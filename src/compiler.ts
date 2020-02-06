@@ -1,7 +1,7 @@
 import MemoryFS from "memory-fs";
 import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import * as TerserPlugin from "terser-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";

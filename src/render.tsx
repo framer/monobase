@@ -18,6 +18,8 @@ const getCachedCompiler = memoize(({ name, projectPath, config }) => {
 export const page = async (project: types.Project, page: string) => {
   const pagePath = path.join(project.config.pages, page);
 
+  console.log("page", page, pagePath);
+
   // const compiler = new Compiler(config as any);
   const compiler = getCachedCompiler({
     name: "page",

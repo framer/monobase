@@ -10,17 +10,12 @@ export function __setContextForTest(ctx: types.Context | null) {
   __testContext = ctx;
 }
 
-// const getContext = (): types.Context | null => {
-//   if (__testContext) return __testContext;
-//   if (!process.env["context"]) return null;
-//   if (Object.keys(process.env["context"]).length === 0) return null;
-//   return (process.env["context"] as any) as types.Context;
-// };
-
 export const Development: React.FunctionComponent = () => {
   const { project } = usePageContext();
   const { componentScript, urlPrefix } = project.config;
+
   const src = urlPrefix ? urlFor(componentScript) : relative(componentScript);
+
   return <script src={src} />;
 };
 
@@ -30,31 +25,9 @@ export const StyleSheet = () => {
   return <style dangerouslySetInnerHTML={{ __html: styles }} />;
 };
 
-// Styles rendered from styled-components
-// export const StyledSheet: React.FunctionComponent<{
-//   app: React.ReactNode;
-// }> = ({ app }) => {
-//   const sheet = new styled.ServerStyleSheet();
-//   renderToString(sheet.collectStyles(<>{app}</>));
-//   return (sheet.getStyleElement() as any) as React.ReactElement<any>;
-// };
-
 export const usePageContext = (): PageContextType => {
   return React.useContext(PageContext);
 };
-
-// export const usePath = (): string => {
-//   return usePageContext().path
-//   // const context = getContext();
-//   // if (context) {
-//   //   return context.url;
-//   // }
-//   // return window.location.pathname;
-// };
-
-// export const useProject = (): types.Project => {
-//   return useContext().project;
-// };
 
 export const urlFor = (path: string) => {
   const { project } = usePageContext();
@@ -90,5 +63,5 @@ export const urlFor = (path: string) => {
 
 export const relative = (from: string, url?: string) => {
   const { path } = usePageContext();
-  return _relative(url || path, from);
+  return _relative(url || urlFor(path), from);
 };

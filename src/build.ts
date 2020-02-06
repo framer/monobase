@@ -1,8 +1,8 @@
 import * as path from "path";
 import * as fs from "fs";
-import * as unmarkdown from "remove-markdown";
 import chalk from "chalk";
 import prettyBytes from "pretty-bytes";
+import unmarkdown from "remove-markdown";
 import * as utils from "./utils";
 import * as resolve from "./resolve";
 import * as render from "./render";
