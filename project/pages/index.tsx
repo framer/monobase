@@ -10,6 +10,7 @@ import Colors from "components/examples/Colors";
 import Cookie from "components/examples/Cookie";
 import Visible from "components/examples/Visible";
 import Context from "components/examples/Context";
+import { usePageContext } from "monobase";
 
 export default function render(project, styles) {
   return (
@@ -19,6 +20,7 @@ export default function render(project, styles) {
           <Button />
         </Example>
       </span>
+      <pre>{JSON.stringify(usePageContext(), null, 4)}</pre>
     </Template>
   );
 }
