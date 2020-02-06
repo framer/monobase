@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { getDynamicComponents, ComponentTagName } from "./component";
+import {
+  getDynamicComponents,
+  componentTagName,
+  componentSerializedAttributeName
+} from "./component";
 
 const querySelectorAll = (query: string): HTMLElement[] => {
   return Array.prototype.slice.call(document.querySelectorAll(query));
@@ -26,10 +30,12 @@ const hydrate = () => {
     );
   };
 
-  for (let element of querySelectorAll(ComponentTagName)) {
+  for (let element of querySelectorAll(componentTagName)) {
     try {
       const props = ReactDOM.hydrate(
-        createElement(JSON.parse(element.getAttribute("data-component-props"))),
+        createElement(
+          JSON.parse(element.getAttribute(componentSerializedAttributeName))
+        ),
         element
       );
     } catch (error) {
