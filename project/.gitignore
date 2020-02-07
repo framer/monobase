@@ -11,5 +11,5 @@ Thumbs.db
 .cache
 build
 node_modules
-.babel-cache
+.cache-loader
 .linaria-cache

@@ -27,7 +27,17 @@ export const Config = (
 ) => {
   options = { ...ConfigDefaults, ...options };
 
-  const cachePath = join(projectPath, ".babel-cache");
+  function cacheLoader(loaders) {
+    return options.cache
+      ? [
+          {
+            loader: "cache-loader",
+            options: { cacheDirectory: join(projectPath, ".cache-loader") }
+          },
+          ...loaders
+        ]
+      : loaders;
+  }
 
   const config = {
     context: projectPath,
@@ -92,11 +102,12 @@ export const Config = (
         {
           test: /.mdx?$/,
           exclude: /(node_modules)/,
-          use: [
+          use: cacheLoader([
             {
               loader: "babel-loader",
               options: {
-                cacheDirectory: options.cache ? cachePath : false,
+                // We rely on "cached-loader" it's 10x faster
+                cacheDirectory: false,
                 presets: ["@babel/env", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
@@ -105,16 +116,17 @@ export const Config = (
               }
             },
             "@mdx-js/loader"
-          ]
+          ])
         },
         {
           test: [/\.m?js$/, /\.tsx?$/],
           exclude: /(node_modules)/,
-          use: [
+          use: cacheLoader([
             {
               loader: "babel-loader",
               options: {
-                cacheDirectory: options.cache ? cachePath : false,
+                // We rely on "cached-loader" it's 10x faster
+                cacheDirectory: false,
                 presets: [
                   "linaria/babel",
                   "@babel/env",
@@ -136,7 +148,7 @@ export const Config = (
                 }
               }
             }
-          ]
+          ])
         },
         {
           test: /\.css$/,

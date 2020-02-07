@@ -29,6 +29,8 @@ export const page = async (project: types.Project, page: string) => {
 
   // A syntax error could occur here
   await compiler.compile([pagePath], context.create(project, pagePath));
+  // This is terrible, but in combination with "cached-loader" we need to render twice. It does still speed things up by 10x in total.
+  await compiler.compile([pagePath], context.create(project, pagePath));
 
   const compilerModule = compiler.module;
 

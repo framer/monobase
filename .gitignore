@@ -3,4 +3,5 @@ node_modules
 yarn-error.log
 /project/yarn.lock
 /dist
+.cache-loader
 .linaria-cache

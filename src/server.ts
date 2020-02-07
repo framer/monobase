@@ -100,7 +100,7 @@ export const serve = async (
   gaze(globs, function(err, watcher) {
     this.on("all", function(event, filepath) {
       // We are going to assume node_module files are static
-      if (filepath.includes("node_modules")) {
+      if (filepath.includes("node_modules") || filepath.includes(".cache")) {
         return;
       }
 
