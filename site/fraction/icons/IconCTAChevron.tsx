@@ -6,10 +6,10 @@ export const IconCTAChevron = () => (
       d="M 10 0 L 5 5 L 0 0"
       transform="translate(8 10.5) rotate(-90 5 2.5)"
       fill="transparent"
-      stroke-width="3"
+      strokeWidth="3"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     ></path>
   </svg>
 );
