@@ -10,11 +10,11 @@ export type DimensionTokens = {
 };
 
 export const dimensions: DimensionTokens = {
-  inputHeight: 40,
-  inputHeightLarge: 60,
-  inputRadius: 8,
-  inputRadiusLarge: 12,
+  inputHeight: 48,
+  inputHeightLarge: 56,
+  inputRadius: 12,
+  inputRadiusLarge: 14,
   checkboxRadius: 3,
-  inputPaddingHorizontal: 20,
-  inputPaddingHorizontalLarge: 30
+  inputPaddingHorizontal: 16,
+  inputPaddingHorizontalLarge: 20
 };

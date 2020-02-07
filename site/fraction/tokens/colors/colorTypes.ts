@@ -7,14 +7,17 @@ export type ColorTokenKey =
   | "buttonBackgroundHover"
   | "buttonBackgroundActive"
   | "buttonText"
+  | "buttonTextDimmed"
   | "buttonBackgroundPrimary"
   | "buttonBackgroundPrimaryHover"
   | "buttonBackgroundPrimaryActive"
   | "buttonTextPrimary"
+  | "buttonTextPrimaryDimmed"
   | "buttonBackgroundDestructive"
   | "buttonBackgroundDestructiveHover"
   | "buttonBackgroundDestructiveActive"
   | "buttonTextDestructive"
+  | "buttonTextDestructiveDimmed"
 
   //Input
   | "inputBackground";

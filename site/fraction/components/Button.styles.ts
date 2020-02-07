@@ -20,8 +20,8 @@ export const button = css`
 
   border-radius: ${dimensions.inputRadius}px;
   background-color: ${colors.buttonBackground};
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.05),
-    0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(34, 34, 34, 0.05);
   color: ${colors.buttonText};
 
   transform: translateZ(0);
@@ -30,12 +30,13 @@ export const button = css`
   user-select: none;
   cursor: pointer;
 
-  :disabled {
-    opacity: 0.5;
+  &.round {
+    border-radius: 100px;
+    padding: 3px ${dimensions.inputPaddingHorizontal + 4}px 1px;
   }
 
-  :hover {
-    background-color: ${colors.buttonBackgroundHover};
+  :disabled {
+    opacity: 0.5;
   }
 
   :active:focus:not(:disabled),
@@ -45,17 +46,20 @@ export const button = css`
 
   :focus:not(:disabled),
   :hover:not(:disabled) {
-    background-color: ${colors.buttonBackgroundHover};
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    color: ${colors.buttonTextDimmed};
   }
 `;
 
 export const buttonPrimary = css`
   color: ${colors.buttonTextPrimary};
   background-color: ${colors.buttonBackgroundPrimary};
+  border: none;
 
   :focus:not(:disabled),
   :hover:not(:disabled) {
     background-color: ${colors.buttonBackgroundPrimaryHover};
+    color: ${colors.buttonTextPrimaryDimmed};
   }
 
   :active:focus:not(:disabled),
@@ -67,10 +71,12 @@ export const buttonPrimary = css`
 export const buttonDestructive = css`
   color: ${colors.buttonTextDestructive};
   background-color: ${colors.buttonBackgroundDestructive};
+  border: none;
 
   :focus:not(:disabled),
   :hover:not(:disabled) {
     background-color: ${colors.buttonBackgroundDestructiveHover};
+    color: ${colors.buttonTextDestructiveDimmed};
   }
 
   :active:focus:not(:disabled),
@@ -78,3 +84,15 @@ export const buttonDestructive = css`
     background-color: ${colors.buttonBackgroundDestructiveActive};
   }
 `;
+
+export const buttonLarge = css`
+  height: ${dimensions.inputHeightLarge}px;
+  padding: 3px ${dimensions.inputPaddingHorizontalLarge}px 1px;
+  font-size: ${fonts.size.base}px;
+
+  &.round {
+    padding: 3px ${dimensions.inputPaddingHorizontalLarge + 4}px 1px;
+  }
+`;
+
+export const buttonRound = css``;

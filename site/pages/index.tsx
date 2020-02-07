@@ -5,16 +5,27 @@ import { Example, Template, Toggle } from "components";
 export default function render(project, styles) {
   return (
     <Template>
-      <span style={{ textAlign: "center" }}>
-        <Example title="Toggle">
-          <Toggle />
-        </Example>
-        <Example title="Button">
-          <Button>Chill Button</Button>
-          <Button variant="primary">Important Button</Button>
-          <Button variant="destructive">Dangerous Button</Button>
-        </Example>
-      </span>
+      <Example title="Toggle">
+        <Toggle />
+      </Example>
+      <Example title="Button">
+        <Button>Default</Button>
+        <Button variant="primary">Important</Button>
+        <Button variant="destructive">Dangerous</Button>
+        <Button size="large">Large</Button>
+      </Example>
+      <Example title="Button Round">
+        <Button round>Default</Button>
+        <Button round variant="primary">
+          Important
+        </Button>
+        <Button round variant="destructive">
+          Dangerous
+        </Button>
+        <Button round size="large">
+          Large
+        </Button>
+      </Example>
     </Template>
   );
 }

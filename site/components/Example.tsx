@@ -2,22 +2,27 @@ import * as React from "react";
 import { styled } from "linaria/react";
 
 const Section = styled.section`
-  text-align: center;
-  padding: 80px 10px;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  position: relative;
 
   > h3 {
-    margin: 0;
-    padding-bottom: 40;
+    position: absolute;
+    left: 20px;
+    top: 20px;
 
     font-weight: 700;
+    font-size: 12px;
     line-height: 1;
-    font-size: 30;
-    letter-spacing: -1px;
+    text-transform: uppercase;
+    color: #ccc;
   }
 
   > div {
+    padding: 80px 40px;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
   }
 
