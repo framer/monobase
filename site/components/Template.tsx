@@ -1,8 +1,6 @@
 import React from "react";
 import { Development, StyleSheet } from "monobase";
-import { themeStyle } from "fraction";
-
-export const globalStyle = themeStyle;
+import * as styles from "./Template.styles";
 
 export const Template = ({ children }) => (
   <html>
@@ -10,7 +8,7 @@ export const Template = ({ children }) => (
       <meta charSet="utf-8" />
       <StyleSheet />
     </head>
-    <body>
+    <body className={styles.template}>
       {children}
       <Development />
     </body>

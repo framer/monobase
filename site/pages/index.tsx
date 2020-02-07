@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, CTA, colors, IconCTADownload } from "fraction";
-import { Example, Template, Toggle } from "components";
+import { Example, Template, Toggle, ThemeToggle } from "components";
 
 export default function render(project, styles) {
   return (
     <Template>
+      <ThemeToggle />
       <Example title="Toggle">
         <Toggle />
       </Example>
