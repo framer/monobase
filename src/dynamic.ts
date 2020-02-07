@@ -85,11 +85,17 @@ export const entries = (project: types.Project) => {
 const patchLinaria = function() {
   // Linaria replaces the `styled` tag with babel on compilation time and
   // throws an error if you call it on runtime. This "fixes" that.
-  const linaria = require("linaria/react");
-  if (!linaria) return;
-  const { css, styled } = linaria;
-  // linaria.css = function() {};
-  linaria.styled = new Proxy(
+  const linaria = require("linaria");
+  const linariaReact = require("linaria/react");
+
+  console.assert(linaria);
+  console.assert(linariaReact);
+
+  const { css } = linaria;
+  const { styled } = linariaReact;
+
+  linaria.css = function() {};
+  linariaReact.styled = new Proxy(
     {},
     {
       get(target, name) {
@@ -99,7 +105,7 @@ const patchLinaria = function() {
   );
 
   return function unpatchLinaria() {
-    // linaria.css = css;
-    linaria.styled = styled;
+    linaria.css = css;
+    linariaReact.styled = styled;
   };
 };
