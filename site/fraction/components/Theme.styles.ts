@@ -1,17 +1,12 @@
 import { css } from "linaria";
-import {
-  createCSSVariableValues,
-  TokenCategory
-} from "../tokens/utils/variables";
-import { colorsLight } from "../tokens/colors/colorsLight";
-import { colorsScope } from "../tokens/colors/colorsScope";
+import { createCSSVariableValues } from "../tokens/utils/variables";
+import { shadowTokensLight } from "../tokens/shadows";
+import { colorTokensLight } from "../tokens/colors";
 
-export const colorTokensLight: TokenCategory = {
-  tokens: colorsLight,
-  scope: colorsScope
-};
-
-const lightCSSVariables = createCSSVariableValues([colorTokensLight]);
+const lightCSSVariables = createCSSVariableValues([
+  colorTokensLight,
+  shadowTokensLight
+]);
 
 export const themeStyle = css`
   :global() {
@@ -27,7 +22,7 @@ export const themeStyle = css`
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
     body {
-      ${lightCSSVariables}
+      ${lightCSSVariables};
       font-family: Colfax, sans-serif;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;

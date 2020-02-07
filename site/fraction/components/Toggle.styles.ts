@@ -1,5 +1,5 @@
 import { css } from "linaria";
-import { colors } from "../tokens";
+import { colors, shadows } from "../tokens";
 
 export const toggle = css`
   cursor: pointer;
@@ -27,6 +27,7 @@ export const toggle = css`
     left: 3px;
 
     background: ${colors.buttonBackground};
+    box-shadow: ${shadows.knob};
 
     transition: left 0.2s ease;
     will-change: left;

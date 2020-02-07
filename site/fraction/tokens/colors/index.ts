@@ -1,6 +1,9 @@
-import { createCSSVariables } from "../utils/variables";
+import { createCSSVariables, TokenCategory } from "../utils/variables";
 import { colorsLight } from "./colorsLight";
-import { colorsScope } from "./colorsScope";
-
 export { ColorTokenMap } from "./colorTypes";
-export const colors = createCSSVariables(colorsLight, colorsScope);
+
+const scope = "color";
+
+export const colors = createCSSVariables(colorsLight, scope);
+
+export const colorTokensLight: TokenCategory = { tokens: colorsLight, scope };

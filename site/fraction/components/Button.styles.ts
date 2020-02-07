@@ -1,5 +1,5 @@
 import { css } from "linaria";
-import { colors, fonts, dimensions } from "../tokens";
+import { colors, fonts, dimensions, shadows } from "../tokens";
 
 export const button = css`
   -webkit-appearance: none;
@@ -18,10 +18,10 @@ export const button = css`
   text-align: center;
   text-decoration: none;
 
+  border: 1px solid rgba(34, 34, 34, 0.05);
   border-radius: ${dimensions.inputRadius}px;
   background-color: ${colors.buttonBackground};
-  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(34, 34, 34, 0.05);
+  box-shadow: ${shadows.button};
   color: ${colors.buttonText};
 
   transform: translateZ(0);
@@ -46,7 +46,7 @@ export const button = css`
 
   :focus:not(:disabled),
   :hover:not(:disabled) {
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: ${shadows.buttonHover};
     color: ${colors.buttonTextDimmed};
   }
 `;
@@ -59,6 +59,7 @@ export const buttonPrimary = css`
   :focus:not(:disabled),
   :hover:not(:disabled) {
     background-color: ${colors.buttonBackgroundPrimaryHover};
+    box-shadow: ${shadows.buttonTintedHover};
     color: ${colors.buttonTextPrimaryDimmed};
   }
 
@@ -76,6 +77,7 @@ export const buttonDestructive = css`
   :focus:not(:disabled),
   :hover:not(:disabled) {
     background-color: ${colors.buttonBackgroundDestructiveHover};
+    box-shadow: ${shadows.buttonTintedHover};
     color: ${colors.buttonTextDestructiveDimmed};
   }
 
@@ -94,5 +96,3 @@ export const buttonLarge = css`
     padding: 3px ${dimensions.inputPaddingHorizontalLarge + 4}px 1px;
   }
 `;
-
-export const buttonRound = css``;
