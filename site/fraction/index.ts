@@ -1,3 +1,6 @@
-export { Checkbox } from "./components/Checkbox";
+// Components
 export { Toggle } from "./components/Toggle";
-export { fractionStyle } from "./style";
+export { Button } from "./components/Button";
+
+// Styles
+export { themeStyle } from "./components/Theme.styles";

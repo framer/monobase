@@ -1,8 +1,8 @@
 import React from "react";
 import { Development, StyleSheet } from "monobase";
-import { fractionStyle } from "fraction";
+import { themeStyle } from "fraction";
 
-export const globalStyle = fractionStyle;
+export const globalStyle = themeStyle;
 
 export const Template = ({ children }) => (
   <html>

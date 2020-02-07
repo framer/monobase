@@ -1,16 +1,17 @@
 import React from "react";
 import { Example, Template, Toggle } from "components";
-import { Checkbox } from "fraction";
+import { Button } from "fraction";
 
 export default function render(project, styles) {
   return (
     <Template>
       <span style={{ textAlign: "center" }}>
-        <Example title="Button">
+        <Example title="Toggle">
           <Toggle />
         </Example>
         <Example title="Button">
-          <Checkbox id="checkbox" />
+          <Button>Chill Button</Button>
+          <Button variant="primary">Important Button</Button>
         </Example>
       </span>
     </Template>
