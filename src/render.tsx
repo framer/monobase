@@ -7,6 +7,7 @@ import * as context from "./context";
 import { memoize } from "lodash";
 import React from "react";
 import { PageContext, PageContextType } from "./contexts";
+import { writeFileSync } from "fs";
 
 // We memoize the script compiler based on the config for fast reloads
 // as long as the dynamic components have not changed on disk.
@@ -33,7 +34,7 @@ export const page = async (project: types.Project, page: string) => {
 
   // Temporary write the generated javascript for this page for debug purposes
   // const pageScriptPath = path.join(project.path, "build", page + ".js");
-  // fs.writeFileSync(pageScriptPath, compiler._output);
+  // writeFileSync(pageScriptPath, compiler._output);
 
   if (!compilerModule["default"]) {
     throw Error(
@@ -47,7 +48,7 @@ export const page = async (project: types.Project, page: string) => {
     styles: compiler.styles
   };
 
-  const PageModule = compilerModule["default"];
+  let PageModule = compilerModule["default"];
 
   const Page = function() {
     return (
