@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "fraction";
+import { Button, CTA, colors, IconCTADownload } from "fraction";
 import { Example, Template, Toggle } from "components";
 
 export default function render(project, styles) {
@@ -25,6 +25,15 @@ export default function render(project, styles) {
         <Button round size="large">
           Large
         </Button>
+      </Example>
+      <Example title="CTA" direction="column" gap={40}>
+        <CTA href="#">Get started for free</CTA>
+        <CTA href="#" tint={colors.purple100} iconSide="left">
+          Back to framer.com
+        </CTA>
+        <CTA href="#" tint={colors.green110} icon={IconCTADownload}>
+          Download for Desktop
+        </CTA>
       </Example>
     </Template>
   );

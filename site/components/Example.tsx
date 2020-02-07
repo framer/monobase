@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "linaria/react";
+import { Stack, StackProps } from "fraction";
 
 const Section = styled.section`
   padding: 20px;
@@ -20,20 +21,26 @@ const Section = styled.section`
 
   > div {
     padding: 80px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  > div > * {
-    margin: 0 8px;
   }
 `;
 
-export const Example: React.FC<{ title: string }> = props => (
+export const Example: React.FC<{ title: string } & StackProps> = ({
+  children,
+  title,
+  direction = "row",
+  justifyContent = "center",
+  alignItems = "center",
+  ...rest
+}) => (
   <Section>
-    <h3>{props.title}</h3>
-    <div>{props.children}</div>
+    <h3>{title}</h3>
+    <Stack
+      direction={direction}
+      justifyContent={justifyContent}
+      alignItems={alignItems}
+      {...rest}
+    >
+      {children}
+    </Stack>
   </Section>
 );

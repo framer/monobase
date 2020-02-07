@@ -5,7 +5,7 @@ import { cx } from "linaria";
 type ButtonVariant = "default" | "primary" | "destructive";
 type ButtonSize = "default" | "large";
 
-type ButtonProps = {
+export type ButtonProps = {
   variant?: ButtonVariant;
   size?: ButtonSize;
   round?: boolean;
