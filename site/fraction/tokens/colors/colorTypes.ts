@@ -11,6 +11,10 @@ export type ColorTokenKey =
   | "buttonBackgroundPrimaryHover"
   | "buttonBackgroundPrimaryActive"
   | "buttonTextPrimary"
+  | "buttonBackgroundDestructive"
+  | "buttonBackgroundDestructiveHover"
+  | "buttonBackgroundDestructiveActive"
+  | "buttonTextDestructive"
 
   //Input
   | "inputBackground";

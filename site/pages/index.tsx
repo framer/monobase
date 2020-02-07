@@ -12,6 +12,7 @@ export default function render(project, styles) {
         <Example title="Button">
           <Button>Chill Button</Button>
           <Button variant="primary">Important Button</Button>
+          <Button variant="destructive">Dangerous Button</Button>
         </Example>
       </span>
     </Template>

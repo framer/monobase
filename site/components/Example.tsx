@@ -22,7 +22,7 @@ const Section = styled.section`
   }
 
   > div > * {
-    margin: 0 10px;
+    margin: 0 8px;
   }
 `;
 

@@ -13,5 +13,9 @@ export const colorsLight: ColorTokenMap = {
   buttonBackgroundPrimary: pallette.blue100,
   buttonBackgroundPrimaryHover: pallette.blue80,
   buttonBackgroundPrimaryActive: pallette.blue90,
-  buttonTextPrimary: pallette.white100
+  buttonTextPrimary: pallette.white100,
+  buttonBackgroundDestructive: pallette.red110,
+  buttonBackgroundDestructiveHover: pallette.red100,
+  buttonBackgroundDestructiveActive: pallette.red114,
+  buttonTextDestructive: pallette.white100
 };

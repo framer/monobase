@@ -63,3 +63,18 @@ export const buttonPrimary = css`
     background-color: ${colors.buttonBackgroundPrimaryActive};
   }
 `;
+
+export const buttonDestructive = css`
+  color: ${colors.buttonTextDestructive};
+  background-color: ${colors.buttonBackgroundDestructive};
+
+  :focus:not(:disabled),
+  :hover:not(:disabled) {
+    background-color: ${colors.buttonBackgroundDestructiveHover};
+  }
+
+  :active:focus:not(:disabled),
+  :active:hover:not(:disabled) {
+    background-color: ${colors.buttonBackgroundDestructiveActive};
+  }
+`;
