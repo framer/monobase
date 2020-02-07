@@ -10,6 +10,7 @@ export const colorTokensLight: TokenCategory = {
   tokens: colorsLight,
   scope: colorsScope
 };
+
 const lightCSSVariables = createCSSVariableValues([colorTokensLight]);
 
 export const themeStyle = css`

@@ -1,6 +1,5 @@
+import { cx } from "linaria";
 import * as React from "react";
-import { css, cx } from "linaria";
-import { fonts } from "../tokens";
 import * as styles from "./Toggle.styles";
 
 export type Props = {

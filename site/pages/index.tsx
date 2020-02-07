@@ -1,6 +1,6 @@
 import React from "react";
-import { Example, Template, Toggle } from "components";
 import { Button } from "fraction";
+import { Example, Template, Toggle } from "components";
 
 export default function render(project, styles) {
   return (
