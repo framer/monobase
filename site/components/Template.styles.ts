@@ -3,7 +3,7 @@ import { css } from "linaria";
 
 export const fractionStyle = themeStyle;
 export const template = css`
-  --monobase-type: #999;
+  --monobase-type: #ccc;
   --monobase-border: #eee;
   --monobase-theme-switcher-color: #999;
   --monobase-theme-switcher-hover-color: #bbb;
