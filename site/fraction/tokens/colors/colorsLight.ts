@@ -3,7 +3,7 @@ import { pallette } from "./palette";
 
 export const colorsLight: ColorTokenMap = {
   // Input
-  inputBackground: pallette.light90,
+  inputBackground: pallette.light62,
 
   // Button
   buttonBackground: pallette.white100,
