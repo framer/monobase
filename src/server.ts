@@ -108,7 +108,8 @@ export const serve = async (
       try {
         invalidate(require.resolve(filepath));
       } catch (error) {
-        console.warn("inavlidate error:", error);
+        // The errors are almost always deleted modules, thus not very interesting
+        // console.warn("inavlidate error:", error);
       }
 
       // Reload the page in the browser
