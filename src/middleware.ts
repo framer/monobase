@@ -8,11 +8,13 @@ import { renderToString } from "react-dom/server";
 import * as types from "./types";
 import * as error from "./error";
 
+const reloadScript = `
+<script src="/_socket/socket.io.js"></script>
+<script>var socket = io(); socket.on("reload", function(msg) { location.reload() });</script>
+`;
+
 export const reload = inject({
-  snippet: `
-    <script src="/_socket/socket.io.js"></script>
-    <script>var socket = io(); socket.on("reload", function(msg) { location.reload() });</script>
-    `
+  snippet: reloadScript
 });
 
 export const nocache = (req, res, next) => {
@@ -88,8 +90,11 @@ export const errors = (project: types.Project) => {
         .status(500)
         .send(renderToString(error.render(err.message, shortStack, project)));
     } catch (error) {
-      res.status(500).send(`<h3>${err.message}</h3><pre>${err.stack}</pre>`);
-      res.send("hello");
+      res
+        .status(500)
+        .send(
+          `<html><body><h3>${err.message}</h3><pre>${err.stack}</pre>${reloadScript}</body></html>`
+        );
     }
   };
 };
