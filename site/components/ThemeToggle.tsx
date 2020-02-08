@@ -3,21 +3,18 @@ import { Dynamic } from "../../src";
 import * as styles from "./ThemeToggle.styles";
 
 export const StaticThemeToggle = () => {
-  const [isDark, setIsDark] = React.useState(false);
-
   // Set initial theme
   React.useEffect(() => {
-    const initialIsDark = localStorage.getItem("themeIsDark");
-    if (initialIsDark === "true") {
+    const isDark = localStorage.getItem("themeIsDark") === "true";
+    if (isDark) {
       document.body.classList.toggle("dark");
-      setIsDark(true);
     }
   }, []);
 
   // Switch theme on click
   const handleClick = () => {
-    localStorage.setItem("themeIsDark", `${!isDark}`);
-    setIsDark(!isDark);
+    const isDark = localStorage.getItem("themeIsDark") === "true";
+    localStorage.setItem("themeIsDark", `${isDark ? "false" : "true"}`);
     document.body.classList.toggle("dark");
   };
 
