@@ -47,6 +47,7 @@ export const button = css`
   :focus:not(:disabled),
   :hover:not(:disabled) {
     box-shadow: ${shadows.buttonHover};
+    background-color: ${colors.buttonBackgroundHover};
     color: ${colors.buttonTextDimmed};
   }
 `;

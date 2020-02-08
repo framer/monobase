@@ -1,12 +1,14 @@
 import { css } from "linaria";
 import { createCSSVariableValues } from "../tokens/utils/variables";
 import { shadowTokensLight } from "../tokens/shadows";
-import { colorTokensLight } from "../tokens/colors";
+import { colorTokensLight, colorTokensDark } from "../tokens/colors";
 
 const lightCSSVariables = createCSSVariableValues([
   colorTokensLight,
   shadowTokensLight
 ]);
+
+const darkCSSVariables = createCSSVariableValues([colorTokensDark]);
 
 export const themeStyle = css`
   :global() {
@@ -31,6 +33,10 @@ export const themeStyle = css`
       font-weight: 400;
       font-size: 18px;
       line-height: 2em;
+    }
+
+    body.dark {
+      ${darkCSSVariables};
     }
   }
 `;
