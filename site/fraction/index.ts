@@ -2,6 +2,7 @@
 export { Button, ButtonProps } from "./components/Button";
 export { CTA, CTAProps } from "./components/CTA";
 export { Stack, StackProps } from "./components/Stack";
+export { Text, TextProps } from "./components/Text";
 export { Toggle, ToggleProps } from "./components/Toggle";
 
 // Styles

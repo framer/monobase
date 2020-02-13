@@ -2,9 +2,11 @@ import { ColorTokenMap } from "./colorTypes";
 import { pallette } from "./palette";
 import { rgba } from "../utils/rgba";
 
+const tint = pallette.blue30;
 const buttonTextColoredDimmed = rgba(pallette.white100, 0.9);
 
 export const colorsLight: ColorTokenMap = {
+  text: pallette.dark100,
   tintPrimary: pallette.blue100,
 
   // Input

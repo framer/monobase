@@ -5,6 +5,7 @@ import { rgba } from "../utils/rgba";
 const buttonTextColoredDimmed = rgba(pallette.white100, 0.9);
 
 export const colorsDark: ColorTokenMap = {
+  text: pallette.white100,
   tintPrimary: pallette.blue70,
 
   // Input

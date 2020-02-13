@@ -1,11 +1,23 @@
 import React from "react";
-import { Button, CTA, colors, IconCTADownload } from "fraction";
+import { Button, CTA, colors, IconCTADownload, Text } from "fraction";
 import { Example, Template, Toggle, ThemeToggle } from "components";
 
 export default function render(project, styles) {
   return (
     <Template>
       <ThemeToggle />
+      <Example title="Type" direction="column" gap={40}>
+        <Text variant="h0" as="p">
+          Header 0
+        </Text>
+        <Text variant="h1">Header 1</Text>
+        <Text variant="h2">Header 2</Text>
+        <Text variant="h4">Header 4</Text>
+        <Text variant="h5">Header 5</Text>
+        <Text variant="h6">Header 6</Text>
+        <Text variant="body">Body</Text>
+        <Text variant="small">Small</Text>
+      </Example>
       <Example title="Toggle">
         <Toggle />
       </Example>

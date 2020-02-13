@@ -1,3 +1,5 @@
+export const dimension = (n: number) => n * 4;
+
 export type DimensionTokens = {
   // Input
   readonly inputHeight: number;
@@ -10,11 +12,11 @@ export type DimensionTokens = {
 };
 
 export const dimensions: DimensionTokens = {
-  inputHeight: 48,
-  inputHeightLarge: 56,
-  inputRadius: 12,
+  inputHeight: dimension(12),
+  inputHeightLarge: dimension(14),
+  inputRadius: dimension(3),
   inputRadiusLarge: 14,
-  checkboxRadius: 3,
-  inputPaddingHorizontal: 16,
-  inputPaddingHorizontalLarge: 20
+  checkboxRadius: dimension(1),
+  inputPaddingHorizontal: dimension(4),
+  inputPaddingHorizontalLarge: dimension(5)
 };

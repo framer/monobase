@@ -1,36 +1,23 @@
-export enum FontSize {
-  xxsmall = 12,
-  xsmall = 14,
-  small = 16,
-  base = 18,
-  h5 = 26,
-  h4 = 36,
-  h3 = 48,
-  h2 = 58,
-  h1 = 72,
-  h0 = 110
-}
+export const size = [0, 12, 14, 16, 18, 26, 36, 48, 58, 72, 110];
 
 export enum FontFamilies {
   colfax = "Colfax, sans-serif",
   input = "Input Mono, monospace"
 }
 
-export const fonts = {
-  family: {
-    default: FontFamilies.colfax,
-    input: FontFamilies.input
-  },
-  size: {
-    xxsmall: FontSize.xxsmall,
-    xsmall: FontSize.xsmall,
-    small: FontSize.small,
-    base: FontSize.base,
-    h5: FontSize.h5,
-    h4: FontSize.h4,
-    h3: FontSize.h3,
-    h2: FontSize.h2,
-    h1: FontSize.h1,
-    h0: FontSize.h0
-  }
+export const family = {
+  default: FontFamilies.colfax,
+  input: FontFamilies.input
+};
+
+export const sizes = {
+  formLabel: size[2],
+  body: size[4],
+  h6: size[4],
+  h5: size[5],
+  h4: size[6],
+  h3: size[7],
+  h2: size[8],
+  h1: size[9],
+  h0: size[10]
 };
