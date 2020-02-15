@@ -12,6 +12,7 @@ export const family = {
 
 export const sizes = {
   formLabel: size[2],
+  small: size[2],
   body: size[4],
   h6: size[4],
   h5: size[5],
