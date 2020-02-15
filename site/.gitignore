@@ -12,4 +12,4 @@ Thumbs.db
 build
 node_modules
 .cache-loader
-.linaria-cache
+.cache-linaria

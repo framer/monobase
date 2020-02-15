@@ -1,5 +1,6 @@
 import { css } from "linaria";
-import { colors, fonts, dimensions, shadows } from "../tokens";
+import { colors, dimensions, shadows } from "../tokens";
+import * as fonts from "../tokens/fonts";
 
 export const button = css`
   -webkit-appearance: none;
@@ -11,7 +12,7 @@ export const button = css`
   padding: 3px ${dimensions.inputPaddingHorizontal}px 1px;
 
   font-family: ${fonts.family.default};
-  font-size: ${fonts.size.small}px;
+  font-size: ${fonts.sizes.body}px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.1px;
@@ -91,7 +92,7 @@ export const buttonDestructive = css`
 export const buttonLarge = css`
   height: ${dimensions.inputHeightLarge}px;
   padding: 3px ${dimensions.inputPaddingHorizontalLarge}px 1px;
-  font-size: ${fonts.size.base}px;
+  font-size: ${fonts.sizes.body}px;
 
   &.round {
     padding: 3px ${dimensions.inputPaddingHorizontalLarge + 4}px 1px;

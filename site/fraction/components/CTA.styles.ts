@@ -1,9 +1,9 @@
 import { css } from "linaria";
-import { fonts } from "../tokens";
+import * as fonts from "../tokens/fonts";
 
 export const cta = css`
   font-weight: 600;
-  font-size: ${fonts.size.h5}px;
+  font-size: ${fonts.sizes.h5}px;
   letter-spacing: -0.5px;
   text-decoration: none;
   line-height: 1;

@@ -129,12 +129,7 @@ export const Config = (
               options: {
                 // We rely on "cached-loader" it's 10x faster
                 cacheDirectory: false,
-                presets: [
-                  "@babel/env",
-                  "@babel/typescript",
-                  "@babel/react",
-                  "linaria/babel"
-                ],
+                presets: ["@babel/env", "@babel/typescript", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread"
@@ -144,9 +139,11 @@ export const Config = (
             {
               loader: "linaria/loader",
               options: {
+                cacheDirectory: join(projectPath, ".cache-linaria"),
+                evaluate: true,
                 sourceMap: process.env.NODE_ENV !== "production",
                 babelOptions: {
-                  presets: ["@babel/preset-typescript"]
+                  presets: ["@babel/preset-typescript", "linaria/babel"]
                 }
               }
             }
@@ -292,6 +289,7 @@ export class Compiler {
   };
 
   private _getEntry = () => {
+    return this._entry;
   };
 
   private _getContext = () => {
