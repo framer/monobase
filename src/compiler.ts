@@ -9,6 +9,7 @@ import prettyBytes from "pretty-bytes";
 import * as monobase from "./index";
 
 import { join } from "path";
+import { writeFileSync } from "fs";
 
 export const ConfigDefaults = {
   production: false,
@@ -28,21 +29,22 @@ export const Config = (
   options = { ...ConfigDefaults, ...options };
 
   function cacheLoader(loaders) {
-    return options.cache
-      ? [
-          {
-            loader: "cache-loader",
-            options: { cacheDirectory: join(projectPath, ".cache-loader") }
-          },
-          ...loaders
-        ]
-      : loaders;
+    return loaders;
+    // return options.cache
+    //   ? [
+    //       {
+    //         loader: "cache-loader",
+    //         options: { cacheDirectory: join(projectPath, ".cache-loader") }
+    //       },
+    //       ...loaders
+    //     ]
+    //   : loaders;
   }
 
   const config = {
     context: projectPath,
     watch: false,
-    devtool: options.production ? false : "eval",
+    devtool: false, // options.production ? false : "eval",
     mode: options.production ? "production" : "development",
     optimization: options.production
       ? {
@@ -128,10 +130,10 @@ export const Config = (
                 // We rely on "cached-loader" it's 10x faster
                 cacheDirectory: false,
                 presets: [
-                  "linaria/babel",
                   "@babel/env",
                   "@babel/typescript",
-                  "@babel/react"
+                  "@babel/react",
+                  "linaria/babel"
                 ],
                 plugins: [
                   "@babel/proposal-class-properties",
@@ -270,14 +272,19 @@ export class Compiler {
           );
         }
 
-        // console.log(
-        //   `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
-        //     this._output.length
-        //   )}`
-        // );
+        console.log(
+          `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
+            this._output.length
+          )}`
+        );
 
         this._output = this._readFile(this._config.output.filename as string);
         this._styles = this._readFile("styles.css");
+
+        writeFileSync(
+          join(this._config.context, this._entry.join("-") + ".js"),
+          this._output
+        );
 
         resolve(this.output);
       });
@@ -285,7 +292,6 @@ export class Compiler {
   };
 
   private _getEntry = () => {
-    return this._entry;
   };
 
   private _getContext = () => {
