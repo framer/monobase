@@ -44,7 +44,7 @@ export const Config = (
   const config = {
     context: projectPath,
     watch: false,
-    devtool: false, // options.production ? false : "eval",
+    devtool: options.production ? false : "eval",
     mode: options.production ? "production" : "development",
     optimization: options.production
       ? {
@@ -129,7 +129,12 @@ export const Config = (
               options: {
                 // We rely on "cached-loader" it's 10x faster
                 cacheDirectory: false,
-                presets: ["@babel/env", "@babel/typescript", "@babel/react"],
+                presets: [
+                  "@babel/preset-env",
+                  "@babel/typescript",
+                  "@babel/react",
+                  "linaria/babel"
+                ],
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread"
@@ -140,10 +145,19 @@ export const Config = (
               loader: "linaria/loader",
               options: {
                 cacheDirectory: join(projectPath, ".cache-linaria"),
-                evaluate: true,
                 sourceMap: process.env.NODE_ENV !== "production",
                 babelOptions: {
-                  presets: ["@babel/preset-typescript", "linaria/babel"]
+                  presets: ["@babel/preset-typescript"],
+                  plugins: [
+                    [
+                      "module-resolver",
+                      {
+                        alias: {
+                          linaria: require.resolve("./linaria_patched")
+                        }
+                      }
+                    ]
+                  ]
                 }
               }
             }
@@ -230,7 +244,7 @@ export class Compiler {
       if (name === "react-dom" || name === "ReactDOM") return ReactDOM;
       if (name === "react-dom/server") return ReactDOMServer;
       if (name === "monobase") return monobase;
-      throw Error(`Component loader: Can't require ${name}`);
+      throw Error(`[monobase.compiler]: Can't require ${name}`);
     };
 
     // Evaluate the generated script and return the exports from the module
@@ -269,19 +283,19 @@ export class Compiler {
           );
         }
 
-        console.log(
-          `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
-            this._output.length
-          )}`
-        );
+        // console.log(
+        //   `> compile.build took ${Date.now() - t1}ms at ${prettyBytes(
+        //     this._output.length
+        //   )}`
+        // );
 
         this._output = this._readFile(this._config.output.filename as string);
         this._styles = this._readFile("styles.css");
 
-        writeFileSync(
-          join(this._config.context, this._entry.join("-") + ".js"),
-          this._output
-        );
+        // writeFileSync(
+        //   join(this._config.context, this._entry.join("-") + ".js"),
+        //   this._output
+        // );
 
         resolve(this.output);
       });

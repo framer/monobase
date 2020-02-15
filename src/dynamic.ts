@@ -2,6 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 import * as utils from "./utils";
 import * as types from "./types";
+import * as patchedLinaria from "./linaria_patched";
 
 export const isDynamicComponent = Component => {
   return (
@@ -94,15 +95,8 @@ const patchLinaria = function() {
   const { css } = linaria;
   const { styled } = linariaReact;
 
-  linaria.css = function() {};
-  linariaReact.styled = new Proxy(
-    {},
-    {
-      get(target, name) {
-        return function() {};
-      }
-    }
-  );
+  linaria.css = patchedLinaria.css;
+  linariaReact.styled = patchedLinaria.styled;
 
   return function unpatchLinaria() {
     linaria.css = css;
