@@ -83,6 +83,7 @@
     "ncp": "^2.0.0",
     "opn": "^6.0.0",
     "platform-folders": "^0.4.0",
+    "postcss-filter-rules": "^0.4.0",
     "postcss-loader": "^3.0.0",
     "postcss-modules-local-by-default": "^3.0.2",
     "postcss-preset-env": "^6.7.0",

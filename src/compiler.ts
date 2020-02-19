@@ -144,7 +144,7 @@ export const Config = (
         },
         {
           test: /\.css$/i,
-          use: [
+          use: cacheLoader([
             // This extracts the generated css and passes it so that we can use it in a <style> tag
             {
               loader: MiniCssExtractPlugin.loader,
@@ -156,24 +156,27 @@ export const Config = (
             {
               loader: "css-loader",
               options: {
-                modules: true,
-                importLoaders: 1
+                importLoaders: 1,
+                modules: {
+                  mode: "local",
+                  localIdentName: "[name]__[local]___[hash:base64:5]"
+                }
+              }
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                plugins: loader => [
+                  require("postcss-preset-env")(),
+                  require("postcss-filter-rules")({
+                    // Only allow class selectors in css modules
+                    filter: (selector: string, parts: string[]) =>
+                      selector.startsWith(".")
+                  })
+                ]
               }
             }
-            // This could be cool in the future to apply advanced css rules
-            // {
-            //   loader: "postcss-loader",
-            //   options: {
-            //     ident: "postcss",
-            //     plugins: loader => [
-            //       // require("postcss-import")({ root: loader.resourcePath }),
-            //       require("postcss-preset-env")(),
-            //       require("postcss-modules-local-by-default")()
-            //       // require("cssnano")()
-            //     ]
-            //   }
-            // }
-          ]
+          ])
         }
       ]
     },

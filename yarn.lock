@@ -6173,6 +6173,14 @@ postcss-env-function@^2.0.2:
     postcss "^7.0.2"
     postcss-values-parser "^2.0.0"
 
+postcss-filter-rules@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/postcss-filter-rules/-/postcss-filter-rules-0.4.0.tgz#b6f4a3ccea0e74bf4a7f88abfe32fa66cb685214"
+  integrity sha512-wk5OAsCsD/vg8samu1bMjmavH8QgXemIwD8AFFj6XkbT3iw0EZjb5N/9ZIMiWMI4h5sNSmlokmEIBousAB/Niw==
+  dependencies:
+    postcss "^7.0.25"
+    postcss-selector-parser "^6.0.2"
+
 postcss-focus-visible@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/postcss-focus-visible/-/postcss-focus-visible-4.0.0.tgz#477d107113ade6024b14128317ade2bd1e17046e"
@@ -6426,7 +6434,7 @@ postcss-values-parser@^2.0.0, postcss-values-parser@^2.0.1:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss@^7.0.0, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.26:
+postcss@^7.0.0, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.25, postcss@^7.0.26:
   version "7.0.27"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.27.tgz#cc67cdc6b0daa375105b7c424a85567345fc54d9"
   integrity sha512-WuQETPMcW9Uf1/22HWUWP9lgsIC+KEHg2kozMflKjbeUtw9ujvFX6QmIfozaErDkmLWS9WEnEdEe6Uo9/BNTdQ==
