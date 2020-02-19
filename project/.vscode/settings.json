@@ -1,8 +1,11 @@
 {
-    "files.exclude": {
-        "**/node_modules": true,
-        "**/build": true,
-        "**/.vscode": true,
-        "**/yarn.lock": true
-    }
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/.vscode": true,
+    "**/yarn.lock": true,
+    "**/*.css.d.ts": true,
+    "**/.gitignore": true,
+    "**/.gitattributes": true
+  }
 }
