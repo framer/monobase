@@ -84,6 +84,16 @@ export const errors = (project: types.Project) => {
     console.error(chalk.white("Error:"), chalk.red(`${err.message}`));
     console.error(chalk.gray(shortStack));
 
+    const title =
+      err.message.split("\n").length > 1
+        ? err.message.split("\n")[0]
+        : err.message;
+
+    const body = err.stack
+      .replace("Error: ", "")
+      .replace(title, "")
+      .trim();
+
     // Try to render a nice error page, which might fail if we're for example missing a dependency to actually render the page.
     try {
       res
@@ -93,7 +103,7 @@ export const errors = (project: types.Project) => {
       res
         .status(500)
         .send(
-          `<html><body><h3>${err.message}</h3><pre>${err.stack}</pre>${reloadScript}</body></html>`
+          `<html><body><h3>${title}</h3><pre>${body}</pre>${reloadScript}</body></html>`
         );
     }
   };

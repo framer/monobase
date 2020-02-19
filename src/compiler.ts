@@ -128,6 +128,7 @@ export const Config = (
               options: {
                 // We rely on "cached-loader" it's 10x faster
                 cacheDirectory: false,
+                highlightCode: false,
                 presets: [
                   "@babel/preset-env",
                   "@babel/typescript",
