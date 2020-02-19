@@ -103,7 +103,7 @@ export const errors = (project: types.Project) => {
       res
         .status(500)
         .send(
-          `<html><body><h3>${title}</h3><pre>${body}</pre>${reloadScript}</body></html>`
+          `<html><body><h3>${title}</h3><pre style="white-space:pre-wrap">${body}</pre>${reloadScript}</body></html>`
         );
     }
   };
