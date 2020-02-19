@@ -84,7 +84,7 @@ export const serve = async (
     return extensions.map(ext => `${path}${ext}`);
   };
 
-  const scriptExts = [".ts", ".tsx", ".js", ".mdx"];
+  const scriptExts = [".ts", ".tsx", ".js", ".mdx", ".css"];
   const staticExts = [".css", ".js", ".gif", ".png", ".jpg", ".webp"];
 
   const globs = [

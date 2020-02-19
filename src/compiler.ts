@@ -29,16 +29,15 @@ export const Config = (
   options = { ...ConfigDefaults, ...options };
 
   function cacheLoader(loaders) {
-    return loaders;
-    // return options.cache
-    //   ? [
-    //       {
-    //         loader: "cache-loader",
-    //         options: { cacheDirectory: join(projectPath, ".cache-loader") }
-    //       },
-    //       ...loaders
-    //     ]
-    //   : loaders;
+    return options.cache
+      ? [
+          {
+            loader: "cache-loader",
+            options: { cacheDirectory: join(projectPath, ".cache-loader") }
+          },
+          ...loaders
+        ]
+      : loaders;
   }
 
   const config = {
@@ -132,48 +131,47 @@ export const Config = (
                 presets: [
                   "@babel/preset-env",
                   "@babel/typescript",
-                  "@babel/react",
-                  "linaria/babel"
+                  "@babel/react"
                 ],
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread"
                 ]
               }
-            },
-            {
-              loader: "linaria/loader",
-              options: {
-                cacheDirectory: join(projectPath, ".cache-linaria"),
-                sourceMap: process.env.NODE_ENV !== "production",
-                babelOptions: {
-                  presets: ["@babel/preset-typescript"],
-                  plugins: [
-                    [
-                      "module-resolver",
-                      {
-                        alias: {
-                          linaria: require.resolve("./linaria_patched")
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
             }
           ])
         },
         {
-          test: /\.css$/,
+          test: /\.css$/i,
           use: [
+            // This extracts the generated css and passes it so that we can use it in a <style> tag
             {
               loader: MiniCssExtractPlugin.loader,
               options: { hmr: false }
             },
+            // This generates .d.ts files for every .css file so TypeScript pick them up
+            "css-modules-typescript-loader",
+            // This converts the styles into css modules with random classes for local scoping
             {
               loader: "css-loader",
-              options: { sourceMap: false }
+              options: {
+                modules: true,
+                importLoaders: 1
+              }
             }
+            // This could be cool in the future to apply advanced css rules
+            // {
+            //   loader: "postcss-loader",
+            //   options: {
+            //     ident: "postcss",
+            //     plugins: loader => [
+            //       // require("postcss-import")({ root: loader.resourcePath }),
+            //       require("postcss-preset-env")(),
+            //       require("postcss-modules-local-by-default")()
+            //       // require("cssnano")()
+            //     ]
+            //   }
+            // }
           ]
         }
       ]
