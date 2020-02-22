@@ -171,7 +171,7 @@ export const Config = (
                   require("postcss-filter-rules")({
                     // Only allow class selectors in css modules
                     filter: (selector: string, parts: string[]) =>
-                      selector.startsWith(".")
+                      selector.startsWith(".") || selector.startsWith(":")
                   })
                 ]
               }
