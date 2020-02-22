@@ -1,4 +1,4 @@
-project = ./project
+project = ./site
 
 bootstrap:
 	@test -d ./node_modules || yarn

@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 87.5vw;
+}
+
+@media screen and (min-width: 780px) {
+  .container {
+    width: 100%;
+    max-width: var(--width-5);
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .container {
+    max-width: var(--width-8);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .containerL,
+  .containerXl {
+    max-width: var(--width-9);
+  }
+}
+
+@media screen and (min-width: 1480px) {
+  .containerXl {
+    max-width: var(--width-10);
+  }
+}
