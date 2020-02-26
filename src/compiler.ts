@@ -152,6 +152,7 @@ export const Config = (
             },
             // This generates .d.ts files for every .css file so TypeScript pick them up
             "css-modules-typescript-loader",
+            "cache-loader",
             // This converts the styles into css modules with random classes for local scoping
             {
               loader: "css-loader",
@@ -159,7 +160,9 @@ export const Config = (
                 importLoaders: 1,
                 modules: {
                   mode: "local",
-                  localIdentName: "[name]__[local]___[hash:base64:5]"
+                  localIdentName: options.production
+                    ? "[hash:base64:6]"
+                    : "[name]-[local]-[hash:base64:6]"
                 }
               }
             },
