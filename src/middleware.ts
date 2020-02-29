@@ -7,6 +7,7 @@ import chalk from "chalk";
 import { renderToString } from "react-dom/server";
 import * as types from "./types";
 import * as error from "./error";
+import { suggestions } from "./suggestions";
 
 const reloadScript = `
 <script src="/_socket/socket.io.js"></script>
@@ -100,11 +101,20 @@ export const errors = (project: types.Project) => {
         .status(500)
         .send(renderToString(error.render(err.message, shortStack, project)));
     } catch (error) {
-      res
-        .status(500)
-        .send(
-          `<html><body><h3>${title}</h3><pre style="white-space:pre-wrap">${body}</pre>${reloadScript}</body></html>`
-        );
+      res.status(500).send(errorTemplate(title, body, suggestions(err)));
     }
   };
 };
+
+function errorTemplate(title, body, suggestions) {
+  return `
+ <html>
+  <body>
+    <h3>${title}</h3>
+    <p>${suggestions}</p>
+    <pre style="white-space:pre-wrap">${body}</pre>
+    ${reloadScript}
+  </body>
+</html>
+ `;
+}
