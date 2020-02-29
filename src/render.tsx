@@ -30,15 +30,29 @@ export const page = async (project: types.Project, page: string) => {
   // A syntax error could occur here
   await compiler.compile([pagePath], context.create(project, pagePath));
 
+  let PageModule;
   const compilerModule = compiler.module;
+  const pageModuleKeys = Object.keys(compilerModule);
 
-  // Temporary write the generated javascript for this page for debug purposes
-  // const pageScriptPath = path.join(project.path, "build", page + ".js");
-  // writeFileSync(pageScriptPath, compiler._output);
+  // Always try to use the default export
+  if (compilerModule["default"]) {
+    PageModule = compilerModule["default"];
+  }
 
-  if (!compilerModule["default"]) {
+  // If there is no default export, use the first exported function
+  if (!PageModule && pageModuleKeys.length > 0) {
+    if (pageModuleKeys.length > 1) {
+      console.warn(
+        `We found multiple render functions in page ${page}: ${pageModuleKeys}. We are selecting the first one: ${pageModuleKeys[0]}`
+      );
+    }
+    PageModule = compilerModule[pageModuleKeys[0]];
+  }
+
+  // If we still don't have a render function here, we can't really render
+  if (!PageModule) {
     throw Error(
-      `Missing default export for page ${page}. Did you maybe forget to add "export default"`
+      `Missing render function for page ${page}. Did you maybe forget to export it?`
     );
   }
 
@@ -48,8 +62,6 @@ export const page = async (project: types.Project, page: string) => {
     styles: compiler.styles
   };
 
-  let PageModule = compilerModule["default"];
-
   const Page = function() {
     return (
       <PageContext.Provider value={pageContext}>
@@ -58,12 +70,7 @@ export const page = async (project: types.Project, page: string) => {
     );
   };
 
-  const html = renderToString(React.createElement(Page));
-
-  // Clean up the generated javascript file
-  // fs.unlinkSync(pageScriptPath);
-
-  return html;
+  return renderToString(React.createElement(Page));
 };
 
 export const script = async (project: types.Project) => {
