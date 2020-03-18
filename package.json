@@ -88,7 +88,7 @@
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.2.0",
     "styled-components": "^4.3.2",
-    "terser-webpack-plugin": "^1.1.0",
+    "terser-webpack-plugin": "^1.4.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^4.0.2",
     "tsconfig-paths": "^3.1.1",
