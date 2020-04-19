@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Dynamic } from "monobase";
-import { pill } from "components/theme";
+import styles from "components/theme.css";
 
 declare var document;
 
 const style: React.CSSProperties = {
-  ...pill,
   fontFamily: "monospace",
   background: "white",
   border: "1px solid #F0F0F0",
@@ -28,7 +27,7 @@ function Mouse() {
   );
 
   return (
-    <button style={style}>
+    <button className={styles.pill} style={style}>
       {point.x}, {point.y}
     </button>
   );

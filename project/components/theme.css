@@ -1,0 +1,9 @@
+.pill {
+  padding: 24px 50px 26px;
+  user-select: none;
+  border-radius: 8px;
+  border: 0;
+  outline: 0;
+  line-height: 1;
+  font-size: 24px;
+}

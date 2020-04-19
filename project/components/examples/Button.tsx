@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Dynamic } from "monobase";
-import { pill } from "components/theme";
+import styles from "components/theme.css";
 
 const style: React.CSSProperties = {
-  ...pill,
   background: "#0AF",
   color: "#fff",
 };
@@ -16,7 +15,7 @@ function Button() {
   }
 
   return (
-    <button style={style} onClick={onClick}>
+    <button className={styles.pill} style={style} onClick={onClick}>
       Count: {count}
     </button>
   );

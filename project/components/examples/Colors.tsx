@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Dynamic } from "monobase";
-import { pill } from "components/theme";
+import styles from "components/theme.css";
 
 class Colors extends React.Component<{}, { color: string }> {
   state = { color: "" };
@@ -25,8 +25,8 @@ class Colors extends React.Component<{}, { color: string }> {
           value={this.state.color}
           placeholder="like 'darksalmon'"
           onChange={this.updateInput}
+          className={styles.pill}
           style={{
-            ...pill,
             width: "100%",
             borderTop: "none",
             textAlign: "center",

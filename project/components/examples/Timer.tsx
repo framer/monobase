@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Dynamic } from "monobase";
-import { pill } from "components/theme";
+import styles from "components/theme.css";
 
 const style = {
-  ...pill,
   border: "1px solid #F0F0F0",
   fontFamily: "monospace",
 };
@@ -20,7 +19,11 @@ class Timer extends React.Component<{}, { time: number }> {
   };
 
   render() {
-    return <button style={style}>{this.state.time}</button>;
+    return (
+      <button className={styles.pill} style={style}>
+        {this.state.time}
+      </button>
+    );
   }
 }
 
