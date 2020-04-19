@@ -19,12 +19,12 @@ const getCachedCompiler = memoize(({ name, projectPath, config }) => {
 export const page = async (project: types.Project, page: string) => {
   const pagePath = path.join(project.config.pages, page);
   const compiler = getCachedCompiler({
-    name: "page",
+    name: `page/${page}`,
     projectPath: project.path,
     config: {
       cache: true,
-      externals: true
-    }
+      externals: true,
+    },
   });
 
   // A syntax error could occur here
@@ -59,10 +59,10 @@ export const page = async (project: types.Project, page: string) => {
   const pageContext: PageContextType = {
     project,
     path: pagePath,
-    styles: compiler.styles
+    styles: compiler.styles,
   };
 
-  const Page = function() {
+  const Page = function () {
     return (
       <PageContext.Provider value={pageContext}>
         <PageModule />
@@ -82,8 +82,8 @@ export const script = async (project: types.Project) => {
     config: {
       production: project.build === "production",
       cache: true,
-      externals: false
-    }
+      externals: false,
+    },
   });
 
   return compiler.compile(entries, {});
