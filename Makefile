@@ -19,11 +19,18 @@ publish: git-check dist
 	-git commit -a -m "*** published new version"
 	-git push
 
+publish-beta: git-check dist
+	yarn publish --tag beta
+	make project
+	-git commit -a -m "*** published new beta"
+	-git push
+
 project:
 	-rm project.zip 
 	zip -X -r project.zip project \
 		-x "*.DS_Store" \
 		-x "project/.*" \
+		-x "project/*.css.d.ts" \
 		-x "project/monobase.ts" \
 		-x "project/yarn.lock" \
 		-x "project/node_modules/*" \
