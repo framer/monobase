@@ -35,7 +35,7 @@ const page = async (project: types.Project, page: string, root: string) => {
 
   const pageOutPath = resolve.pathForPage(project, page);
   const pageOutFullPath = path.join(root, pageOutPath);
-  const content = await render.page(project, page);
+  const content = await render.page(project, page, "page");
 
   utils.mkdir(path.dirname(pageOutFullPath));
 

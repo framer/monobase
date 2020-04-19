@@ -16,10 +16,15 @@ const getCachedCompiler = memoize(({ name, projectPath, config }) => {
   return new Compiler(projectPath, config);
 }, JSON.stringify);
 
-export const page = async (project: types.Project, page: string) => {
+export const page = async (
+  project: types.Project,
+  page: string,
+  compilerCacheKey?: string
+) => {
   const pagePath = path.join(project.config.pages, page);
+  const cacheKey = compilerCacheKey || `page/${page}`;
   const compiler = getCachedCompiler({
-    name: `page/${page}`,
+    name: compilerCacheKey,
     projectPath: project.path,
     config: {
       cache: true,
