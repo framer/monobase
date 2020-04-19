@@ -3,7 +3,7 @@ import * as path from "path";
 import * as https from "https";
 import express from "express";
 import socketio from "socket.io";
-import gaze from "gaze";
+import chokidar from "chokidar";
 import invalidate from "invalidate-module";
 import favicon from "serve-favicon";
 import { NextFunction } from "connect";
@@ -81,7 +81,7 @@ export const serve = async (
   server.listen(port, () => Promise.resolve());
 
   const withExts = (path: string, extensions: string[]) => {
-    return extensions.map(ext => `${path}${ext}`);
+    return extensions.map((ext) => `${path}${ext}`);
   };
 
   const scriptExts = [".ts", ".tsx", ".js", ".mdx", ".css"];
@@ -89,7 +89,7 @@ export const serve = async (
 
   const globs = [
     ...withExts(`${project.path}/**/*`, scriptExts),
-    ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts)
+    ...withExts(`${project.path}/${project.config.static}/**/*`, staticExts),
   ];
 
   // Give the file watcher a little debounce so it does not reload more then needed.
@@ -97,23 +97,22 @@ export const serve = async (
     io.emit("reload");
   }, 50);
 
-  gaze(globs, function(err, watcher) {
-    this.on("all", function(event, filepath) {
-      // We are going to assume node_module files are static
-      if (filepath.includes("node_modules") || filepath.includes(".cache")) {
-        return;
-      }
+  // One-liner for current directory
+  chokidar.watch(globs).on("all", (event, path) => {
+    // We are going to assume node_module files are static
+    if (path.includes("node_modules") || path.includes(".cache")) {
+      return;
+    }
 
-      // Try to invalidate the changed module from the cache
-      try {
-        invalidate(require.resolve(filepath));
-      } catch (error) {
-        // The errors are almost always deleted modules, thus not very interesting
-        // console.warn("inavlidate error:", error);
-      }
+    // Try to invalidate the changed module from the cache
+    try {
+      invalidate(require.resolve(path));
+    } catch (error) {
+      // The errors are almost always deleted modules, thus not very interesting
+      // console.warn("inavlidate error:", error);
+    }
 
-      // Reload the page in the browser
-      reload();
-    });
+    // Reload the page in the browser
+    reload();
   });
 };
