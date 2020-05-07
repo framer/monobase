@@ -11,7 +11,7 @@ import { join } from "path";
 export const ConfigDefaults = {
   production: false,
   cache: false,
-  externals: true
+  externals: true,
 };
 
 type ConfigOptions = typeof ConfigDefaults;
@@ -39,10 +39,10 @@ export const Config = (
               terserOptions: {
                 mangle: true,
                 keep_fnames: true,
-                keep_classnames: true
-              }
-            })
-          ]
+                keep_classnames: true,
+              },
+            }),
+          ],
         }
       : {},
     // To execute in Node we need externals, because since React Hooks, the React instance
@@ -55,27 +55,27 @@ export const Config = (
               root: "React",
               commonjs2: "react",
               commonjs: "react",
-              amd: "react"
+              amd: "react",
             },
             "react-dom": {
               root: "ReactDOM",
               commonjs2: "react-dom",
               commonjs: "react-dom",
-              amd: "react-dom"
+              amd: "react-dom",
             },
             "react-dom/server": {
               root: "react-dom/server",
               commonjs2: "react-dom/server",
               commonjs: "react-dom/server",
-              amd: "react-dom/server"
+              amd: "react-dom/server",
             },
             "styled-components": {
               root: "styled-components",
               commonjs2: "styled-components",
               commonjs: "styled-components",
-              amd: "styled-components"
-            }
-          }
+              amd: "styled-components",
+            },
+          },
         ]
       : [],
     resolve: {
@@ -85,11 +85,11 @@ export const Config = (
         // You never want two styled component instances as that creates a mess
         // So we always alias it to the styled-components library in your project
         // https://www.styled-components.com/docs/faqs#duplicated-module-in-node_modules
-        "styled-components": require.resolve("styled-components")
-      }
+        "styled-components": require.resolve("styled-components"),
+      },
     },
     node: {
-      fs: "empty"
+      fs: "empty",
     },
     module: {
       rules: [
@@ -105,12 +105,12 @@ export const Config = (
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread",
-                  "babel-plugin-styled-components"
-                ]
-              }
+                  "babel-plugin-styled-components",
+                ],
+              },
             },
-            "@mdx-js/loader"
-          ]
+            "@mdx-js/loader",
+          ],
         },
         {
           test: [/\.m?js$/, /\.tsx?$/],
@@ -124,25 +124,30 @@ export const Config = (
                 plugins: [
                   "@babel/proposal-class-properties",
                   "@babel/proposal-object-rest-spread",
-                  "babel-plugin-styled-components"
-                ]
-              }
-            }
-          ]
-        }
-      ]
+                  "babel-plugin-styled-components",
+                ],
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       new webpack.DefinePlugin({
+        // Netlify specific build variables
+        // https://docs.netlify.com/configure-builds/environment-variables/#netlify-configuration-variables
+        "process.env.NETLIFY": process.env.NETLIFY,
+        "process.env.BUILD_ID": process.env.BUILD_ID,
+        "process.env.CONTEXT": process.env.CONTEXT,
         // https://github.com/webpack/webpack/issues/6749#issuecomment-372953473
         "process.env.context": webpack.DefinePlugin["runtimeValue"](() => {
           return JSON.stringify(contextCallback());
         }, true),
         "process.env.NODE_ENV": options.production
           ? JSON.stringify("production")
-          : JSON.stringify("debug")
-      })
-    ]
+          : JSON.stringify("debug"),
+      }),
+    ],
   };
 
   return config;
@@ -163,7 +168,7 @@ export class Compiler {
     config.output = {
       filename: `${name}.js`,
       path: "/",
-      libraryTarget: "umd"
+      libraryTarget: "umd",
     };
 
     // This is to make UMD compatible with Node, because it normally relies on the window
@@ -211,7 +216,7 @@ export class Compiler {
     const run: webpack.Compiler["run"] = this._webpack.run.bind(this._webpack);
     this._result = promisify(run)()
       .then(this._onReady)
-      .catch(err => {
+      .catch((err) => {
         this._result = null;
         return Promise.reject(err);
       });
