@@ -136,9 +136,9 @@ export const Config = (
       new webpack.DefinePlugin({
         // Netlify specific build variables
         // https://docs.netlify.com/configure-builds/environment-variables/#netlify-configuration-variables
-        "process.env.NETLIFY": process.env.NETLIFY,
-        "process.env.BUILD_ID": process.env.BUILD_ID,
-        "process.env.CONTEXT": process.env.CONTEXT,
+        "process.env.NETLIFY": JSON.stringify(process.env.NETLIFY),
+        "process.env.BUILD_ID": JSON.stringify(process.env.BUILD_ID),
+        "process.env.CONTEXT": JSON.stringify(process.env.CONTEXT),
         // https://github.com/webpack/webpack/issues/6749#issuecomment-372953473
         "process.env.context": webpack.DefinePlugin["runtimeValue"](() => {
           return JSON.stringify(contextCallback());
