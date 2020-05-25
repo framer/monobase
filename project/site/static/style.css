@@ -1,0 +1,14 @@
+body {
+  --page-text-color: var(--color-dark-80);
+  --page-background-color: #fff;
+  --page-tint: var(--color-blue);
+  --page-divider: var(--color-light-60);
+  --section-title: var(--color-light-100);
+
+  background: var(--page-background-color);
+  color: var(--page-text-color);
+  font-family: GT Walsheim, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+`

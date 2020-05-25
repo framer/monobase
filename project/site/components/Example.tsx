@@ -11,14 +11,14 @@ export const Example: React.FC<ExampleProps> = ({
   children,
   title,
   direction = "row",
-  spacing = 20
+  spacing = 20,
 }) => (
   <section
     className={styles.example}
     style={{
       flexDirection: direction,
       paddingTop: spacing,
-      paddingBottom: spacing
+      paddingBottom: spacing,
     }}
   >
     <h3>{title}</h3>

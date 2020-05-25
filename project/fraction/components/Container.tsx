@@ -2,21 +2,19 @@ import * as React from "react";
 import styles from "./Container.css";
 import cx from "classnames";
 
-type ContainerProps = {
+export type Props = React.ComponentProps<"div"> & {
   size?: "L" | "XL";
-  style?: React.CSSProperties;
-  className?: string;
 };
 
-export const Container: React.FC<ContainerProps> = ({
+export const Container: React.FC<Props> = ({
   children,
   size,
   style,
-  className
+  className,
 }) => {
   const containerClassNames = cx(styles.container, className, {
     [styles.containerL]: size === "L",
-    [styles.containerXl]: size === "XL"
+    [styles.containerXl]: size === "XL",
   });
 
   return (

@@ -1,5 +1,7 @@
 {
-    "files.exclude": {
-        "**/dist": true,
-    }
+  "files.exclude": {
+    "**/dist": true,
+    "**/.cache-loader": true,
+    "project/site/fraction": true
+  }
 }

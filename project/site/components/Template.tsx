@@ -1,6 +1,9 @@
 import React from "react";
 import { Development, StyleSheet } from "monobase";
 
+/** This imports all tokens as global CSS */
+import "fraction/style.css";
+
 export const Template = ({ children }) => (
   <html>
     <head>

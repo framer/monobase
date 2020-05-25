@@ -6,6 +6,7 @@
     "**/yarn.lock": true,
     "**/*.css.d.ts": true,
     "**/.gitignore": true,
-    "**/.gitattributes": true
+    "**/.gitattributes": true,
+    "**/.cache-loader": true
   }
 }

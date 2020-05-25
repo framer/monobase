@@ -1,0 +1,45 @@
+/* Tokens */
+:root {
+  --width-1: 300px;
+  --width-2: 400px;
+  --width-3: 500px;
+  --width-4: 600px;
+  --width-5: 700px;
+  --width-6: 800px;
+  --width-7: 900px;
+  --width-8: 1000px;
+  --width-9: 1200px;
+  --width-10: 1400px;
+}
+
+/* Helpers */
+:global(.width1) {
+  max-width: var(--width-1) !important;
+}
+:global(.width2) {
+  max-width: var(--width-2) !important;
+}
+:global(.width3) {
+  max-width: var(--width-3) !important;
+}
+:global(.width4) {
+  max-width: var(--width-4) !important;
+}
+:global(.width5) {
+  max-width: var(--width-5) !important;
+}
+:global(.width6) {
+  max-width: var(--width-6) !important;
+}
+:global(.width7) {
+  max-width: var(--width-7) !important;
+}
+:global(.width8) {
+  max-width: var(--width-8) !important;
+}
+:global(.width9) {
+  max-width: var(--width-9) !important;
+}
+:global(.width10) {
+  max-width: var(--width-10) !important;
+}
