@@ -1,14 +1,53 @@
-body {
-  --page-text-color: var(--color-dark-80);
-  --page-background-color: #fff;
-  --page-tint: var(--color-blue);
-  --page-divider: var(--color-light-60);
-  --section-title: var(--color-light-100);
+* {
+  box-sizing: inherit;
+  text-size-adjust: inherit;
+}
 
-  background: var(--page-background-color);
-  color: var(--page-text-color);
+html,
+body {
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100vh;
+}
+
+html {
+  box-sizing: border-box;
+  text-size-adjust: none;
+  background: var(--fraction-color-pageBackground);
+}
+
+/* stylelint-disable selector-type-no-unknown */
+component {
+  display: contents;
+}
+/* stylelint-enable selector-type-no-unknown */
+
+::selection {
+  color: var(--fraction-color-selection);
+  background: var(--fraction-color-selectionBackground);
+}
+
+body {
   font-family: GT Walsheim, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: var(--fraction-color-textBody);
   padding: 0;
   margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 2em;
+  font-variant-ligatures: common-ligatures;
 }
-`
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-rendering: geometricPrecision;
+}
