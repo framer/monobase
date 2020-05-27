@@ -14,34 +14,24 @@ export function render() {
   return (
     <Template>
       <Example title="Content" direction="column" spacing={50}>
-        <Content size="small">
-          <div style={style}>Small</div>
+        <Content style={style} size="small">
+          Small
         </Content>
-        <Content>
-          <div style={style}>Default</div>
+        <Content style={style}>Default</Content>
+        <Content style={style} size="large">
+          Large
         </Content>
-        <Content size="large">
-          <div style={style}>Large</div>
+        <Content style={style} size="larger">
+          Larger
         </Content>
-        <Content size="larger">
-          <div style={style}>Larger</div>
-        </Content>
-        <Content size="larger">
-          <div style={style}>
-            <Content size="large">
-              <div style={{ ...style, background: "#07f" }}>
-                <Content>
-                  <div style={{ ...style, background: "#09f" }}>
-                    <Content size="small">
-                      <div style={{ ...style, background: "#0af" }}>
-                        Stacked
-                      </div>
-                    </Content>
-                  </div>
-                </Content>
-              </div>
+        <Content style={style} size="larger">
+          <Content style={{ ...style, background: "#07f" }} size="large">
+            <Content style={{ ...style, background: "#09f" }}>
+              <Content style={{ ...style, background: "#0af" }} size="small">
+                Stacked
+              </Content>
             </Content>
-          </div>
+          </Content>
         </Content>
       </Example>
     </Template>
