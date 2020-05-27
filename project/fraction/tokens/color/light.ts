@@ -77,6 +77,7 @@ export const color: Color = {
   textLight: palette.dark60,
   toolbarIcon: palette.light100,
   tooltipBackground: palette.light100,
+  wireframe: rgba(palette.red, 0.08),
   translucent: "rgba(255, 255, 255, .6)",
   vibrant: "rgba(255, 255, 255, .9)",
 }

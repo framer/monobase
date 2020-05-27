@@ -7,6 +7,7 @@ export type ColorNames =
   | "borderHighlight"
   | "toolbarIcon"
   | "translucent"
+  | "wireframe"
 
   // Page
   | "pageBackground"

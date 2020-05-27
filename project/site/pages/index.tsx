@@ -1,6 +1,6 @@
 import React from "react"
 import { Page } from "../components"
-import { Content } from "fraction"
+import { Content, Wireframe } from "fraction"
 
 const style = {
   background: "#05f",
@@ -30,6 +30,7 @@ export default () => {
           </Content>
         </Content>
       </Content>
+      <Wireframe />
     </Page>
   )
 }
