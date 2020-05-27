@@ -1,8 +1,8 @@
-import { colors } from "./light"
-import { colorsDark } from "./dark"
+import { color } from "./light"
+import { colorDark } from "./dark"
 import { createVariables, VariableScope } from "../utils/variables"
 
-export type Color =
+export type ColorNames =
   | "border"
   | "borderHighlight"
   | "toolbarIcon"
@@ -104,15 +104,15 @@ export type Color =
   // Overlay
   | "overlayColor"
 
-export type Colors = Record<Color, string>
+export type Color = Record<ColorNames, string>
 
-export const [colorsVariables, colorsValues] = createVariables(
-  colors,
+export const [colorVariables, colorValues] = createVariables(
+  color,
   VariableScope.Color
 )
 
-export const [colorsVariablesDark, colorsValuesDark] = createVariables(
-  colorsDark,
+export const [colorVariablesDark, colorValuesDark] = createVariables(
+  colorDark,
   VariableScope.Color
 )
 

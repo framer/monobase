@@ -4,7 +4,7 @@ import {
   VariableScope,
 } from "./utils"
 
-export const dimensions: Record<string, number> = {
+export const dimension: Record<string, number> = {
   // Content
   sidebarWidth: 240,
   contentWidth: 700,
@@ -67,8 +67,8 @@ export const dimensions: Record<string, number> = {
   notificationRadius: 14,
 }
 
-export const [dimensionsVariables, dimensionsValues] = createVariables(
-  dimensions,
+export const [dimensionVariables, dimensionValues] = createVariables(
+  dimension,
   VariableScope.Dimensions,
   (variable) => `${variable}px`
 )

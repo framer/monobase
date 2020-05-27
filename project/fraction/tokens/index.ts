@@ -1,28 +1,28 @@
 export {
-  backdrops,
-  backdropsVariables,
-  backdropsValues,
-  Backdrops,
-} from "./backdrops"
+  backdrop,
+  backdropVariables,
+  backdropValues,
+  Backdrop,
+} from "./backdrop"
 export {
   palette,
   paletteVariables,
   paletteValues,
-  colors,
-  colorsVariables,
-  colorsValues,
-  colorsDark,
-  colorsVariablesDark,
-  colorsValuesDark,
+  color,
+  colorVariables,
+  colorValues,
+  colorDark,
+  colorVariablesDark,
+  colorValuesDark,
+  ColorNames,
   Color,
-  Colors,
-} from "./colors"
+} from "./color"
 export {
-  dimensions,
-  dimensionsVariables,
-  dimensionsValues,
+  dimension,
+  dimensionVariables,
+  dimensionValues,
   width,
   widthVariables,
   widthValues,
-} from "./dimensions"
+} from "./dimension"
 export { rgba, variableName, createVariables } from "./utils"

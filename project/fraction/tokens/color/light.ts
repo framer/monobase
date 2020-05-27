@@ -1,8 +1,8 @@
 import { palette } from "./palette"
 import { rgba } from "../utils"
-import { Colors } from "."
+import { Color } from "."
 
-export const colors: Colors = {
+export const color: Color = {
   border: palette.light54,
   borderHighlight: "rgba(0, 0, 0, 0.05)",
   buttonBackground: palette.light58,

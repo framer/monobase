@@ -1,10 +1,10 @@
 import * as React from "react"
 import {
-  backdropsValues,
-  dimensionsValues,
+  backdropValues,
+  dimensionValues,
   paletteValues,
-  colorsValues,
-  colorsValuesDark,
+  colorValues,
+  colorValuesDark,
   widthValues,
 } from "../tokens"
 
@@ -14,19 +14,19 @@ const createMarkup = (html: string) => ({
 
 const variables = `
   :root {
-    ${backdropsValues}
-    ${colorsValues}
-    ${dimensionsValues}
+    ${backdropValues}
+    ${colorValues}
+    ${dimensionValues}
     ${paletteValues}
     ${widthValues}
   }
 
   [data-theme="light"] {
-    ${colorsValues}
+    ${colorValues}
   }
 
   [data-theme="dark"] {
-    ${colorsValuesDark}
+    ${colorValuesDark}
   }
 `
 
