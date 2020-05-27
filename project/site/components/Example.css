@@ -19,7 +19,6 @@
   transition: color 0.2s;
 }
 
-.example > div {
-  padding: 80px 40px;
+.example > * {
   margin: 10px;
 }

@@ -1,2 +1,2 @@
-export { Container, Props as ContainerProps } from "./Container"
+export { Content, Props as ContentProps } from "./Content"
 export { Variables } from "./Variables"
