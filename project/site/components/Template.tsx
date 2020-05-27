@@ -1,13 +1,13 @@
 import React from "react"
 import { Development, StyleSheet } from "monobase"
-import { VariableStyle } from "fraction"
+import { Variables } from "fraction"
 
 export const Template = ({ children }) => (
   <html>
     <head>
       <meta charSet="utf-8" />
       <link rel="stylesheet" href="/static/style.css" />
-      <VariableStyle />
+      <Variables />
       <StyleSheet />
     </head>
     <body>

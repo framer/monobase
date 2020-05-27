@@ -1,6 +1,6 @@
-import { colorsTokens } from "./light"
-import { colorsTokensDark } from "./dark"
-import { createCSSVariables, CSSVariablesScope } from "../utils/variables"
+import { colors } from "./light"
+import { colorsDark } from "./dark"
+import { createVariables, VariableScope } from "../utils/variables"
 
 export type Color =
   | "border"
@@ -106,14 +106,14 @@ export type Color =
 
 export type Colors = Record<Color, string>
 
-export const [colors, colorsCSSVariables] = createCSSVariables(
-  colorsTokens,
-  CSSVariablesScope.Color
+export const [colorsVariables, colorsValues] = createVariables(
+  colors,
+  VariableScope.Color
 )
 
-export const [colorsDark, colorsDarkCSSVariables] = createCSSVariables(
-  colorsTokensDark,
-  CSSVariablesScope.Color
+export const [colorsVariablesDark, colorsValuesDark] = createVariables(
+  colorsDark,
+  VariableScope.Color
 )
 
 export * from "./light"

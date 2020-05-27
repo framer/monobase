@@ -1,28 +1,28 @@
 export {
   backdrops,
-  backdropsCSSVariables,
-  backdropsTokens,
+  backdropsVariables,
+  backdropsValues,
   Backdrops,
 } from "./backdrops"
 export {
   palette,
-  paletteCSSVariables,
-  paletteTokens,
+  paletteVariables,
+  paletteValues,
   colors,
-  colorsCSSVariables,
-  colorsTokens,
+  colorsVariables,
+  colorsValues,
   colorsDark,
-  colorsDarkCSSVariables,
-  colorsTokensDark,
+  colorsVariablesDark,
+  colorsValuesDark,
   Color,
   Colors,
 } from "./colors"
 export {
   dimensions,
-  dimensionsCSSVariables,
-  dimensionsTokens,
+  dimensionsVariables,
+  dimensionsValues,
   width,
-  widthCSSVariables,
-  widthTokens,
+  widthVariables,
+  widthValues,
 } from "./dimensions"
-export { rgba, variableName, createCSSVariables } from "./utils"
+export { rgba, variableName, createVariables } from "./utils"

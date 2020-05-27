@@ -1,6 +1,6 @@
-import { createCSSVariables, CSSVariablesScope } from "../utils"
+import { createVariables, VariableScope } from "../utils"
 
-export const paletteTokens: Record<string, string> = {
+export const palette: Record<string, string> = {
   // Dark
   dark100: "#111",
   dark94: "#181818",
@@ -82,7 +82,7 @@ export const paletteTokens: Record<string, string> = {
   transparent: "transparent",
 }
 
-export const [palette, paletteCSSVariables] = createCSSVariables(
-  paletteTokens,
-  CSSVariablesScope.Palette
+export const [paletteVariables, paletteValues] = createVariables(
+  palette,
+  VariableScope.Palette
 )

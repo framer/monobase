@@ -1,4 +1,4 @@
-import { createCSSVariables, CSSVariablesScope } from "./utils"
+import { createVariables, VariableScope } from "./utils"
 
 export type Backdrops = {
   default: string
@@ -6,13 +6,13 @@ export type Backdrops = {
   heavy: string
 }
 
-export const backdropsTokens: Backdrops = {
+export const backdrops: Backdrops = {
   default: "blur(12px) saturate(120%)",
   medium: "blur(16px) saturate(120%)",
   heavy: "blur(42px) saturate(120%)",
 }
 
-export const [backdrops, backdropsCSSVariables] = createCSSVariables(
-  backdropsTokens,
-  CSSVariablesScope.Backdrop
+export const [backdropsVariables, backdropsValues] = createVariables(
+  backdrops,
+  VariableScope.Backdrop
 )

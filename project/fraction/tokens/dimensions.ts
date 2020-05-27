@@ -1,10 +1,10 @@
 import {
-  createCSSVariables,
-  createCSSVariablesFromArray,
-  CSSVariablesScope,
+  createVariables,
+  createVariablesFromArray,
+  VariableScope,
 } from "./utils"
 
-export const dimensionsTokens: Record<string, number> = {
+export const dimensions: Record<string, number> = {
   // Content
   sidebarWidth: 240,
   contentWidth: 700,
@@ -67,13 +67,13 @@ export const dimensionsTokens: Record<string, number> = {
   notificationRadius: 14,
 }
 
-export const [dimensions, dimensionsCSSVariables] = createCSSVariables(
-  dimensionsTokens,
-  CSSVariablesScope.Dimensions,
+export const [dimensionsVariables, dimensionsValues] = createVariables(
+  dimensions,
+  VariableScope.Dimensions,
   (variable) => `${variable}px`
 )
 
-export const widthTokens: number[] = [
+export const width: number[] = [
   0,
   300,
   400,
@@ -87,8 +87,8 @@ export const widthTokens: number[] = [
   1400,
 ]
 
-export const [width, widthCSSVariables] = createCSSVariablesFromArray(
-  widthTokens,
-  CSSVariablesScope.Width,
+export const [widthVariables, widthValues] = createVariablesFromArray(
+  width,
+  VariableScope.Width,
   (variable) => `${variable}px`
 )

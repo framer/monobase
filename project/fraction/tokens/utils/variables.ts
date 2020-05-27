@@ -1,6 +1,6 @@
 type variableModifier = (variable?: string | number) => string
 
-export enum CSSVariablesScope {
+export enum VariableScope {
   Backdrop = "backdrop",
   Color = "color",
   Dimensions = "dimension",
@@ -12,7 +12,7 @@ export const variableName = (variable: string, scope: string) => {
   return `--fraction-${scope}-${variable}`
 }
 
-export const createCSSVariables = <T extends Record<string, string | number>>(
+export const createVariables = <T extends Record<string, string | number>>(
   tokens: T,
   scope: string,
   modifier: variableModifier = (variable) => String(variable)
@@ -31,7 +31,7 @@ export const createCSSVariables = <T extends Record<string, string | number>>(
   return [variables as T, values.join("\n")]
 }
 
-export const createCSSVariablesFromArray = <T extends string | number>(
+export const createVariablesFromArray = <T extends string | number>(
   arrayTokens: T[],
   scope: string,
   modifier: variableModifier = (variable) => String(variable)
@@ -41,5 +41,5 @@ export const createCSSVariablesFromArray = <T extends string | number>(
     {}
   )
 
-  return createCSSVariables(tokens, scope, modifier)
+  return createVariables(tokens, scope, modifier)
 }
