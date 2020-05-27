@@ -2,7 +2,7 @@ import React from "react"
 import { Development, StyleSheet } from "monobase"
 import { Variables } from "fraction"
 
-export const Template = ({ children }) => (
+export const Page = ({ children }) => (
   <html>
     <head>
       <meta charSet="utf-8" />

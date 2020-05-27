@@ -6,7 +6,7 @@ import {
   colorValues,
   colorValuesDark,
   widthValues,
-} from "../tokens"
+} from "../../tokens"
 
 const createMarkup = (html: string) => ({
   __html: html,
