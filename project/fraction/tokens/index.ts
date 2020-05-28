@@ -14,10 +14,13 @@ export {
   colorDark,
   colorVariablesDark,
   colorValuesDark,
-  ColorNames,
   Color,
 } from "./color"
 export {
+  depth,
+  depthVariables,
+  depthValues,
+  Depth,
   dimension,
   dimensionVariables,
   dimensionValues,

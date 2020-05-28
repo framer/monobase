@@ -4,6 +4,7 @@ export enum VariableScope {
   Backdrop = "backdrop",
   Color = "color",
   Dimensions = "dimension",
+  Depth = "depth",
   Palette = "palette",
   Space = "space",
   Width = "width",

@@ -3,6 +3,7 @@ import {
   backdropValues,
   colorValues,
   colorValuesDark,
+  depthValues,
   dimensionValues,
   paletteValues,
   spaceValues,
@@ -17,6 +18,7 @@ const variables = `
   :root {
     ${backdropValues}
     ${colorValues}
+    ${depthValues}
     ${dimensionValues}
     ${paletteValues}
     ${spaceValues}

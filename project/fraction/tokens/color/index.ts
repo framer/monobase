@@ -2,110 +2,109 @@ import { color } from "./light"
 import { colorDark } from "./dark"
 import { createVariables, VariableScope } from "../utils/variables"
 
-export type ColorNames =
-  | "border"
-  | "borderHighlight"
-  | "toolbarIcon"
-  | "translucent"
-  | "wireframe"
+export type Color = {
+  border: string
+  borderHighlight: string
+  toolbarIcon: string
+  translucent: string
+  wireframe: string
 
   // Page
-  | "pageBackground"
-  | "pageColor"
+  pageBackground: string
+  pageColor: string
 
   // Navigation
-  | "navBackground"
-  | "navBorder"
-  | "navColor"
+  navBackground: string
+  navBorder: string
+  navColor: string
 
   // Button
-  | "buttonBackground"
-  | "buttonColor"
-  | "buttonHoverBackground"
-  | "buttonFocusOutline"
-  | "buttonPrimaryBackground"
-  | "buttonPrimaryColor"
-  | "buttonPrimaryHoverBackground"
-  | "buttonPrimaryFocusOutline"
-  | "buttonSecondaryBackground"
-  | "buttonSecondaryColor"
-  | "buttonSecondaryHoverBackground"
-  | "buttonSecondaryFocusOutline"
-  | "buttonSuccessBackground"
-  | "buttonSuccessColor"
-  | "buttonSuccessHoverBackground"
-  | "buttonSuccessFocusOutline"
-  | "buttonDangerBackground"
-  | "buttonDangerColor"
-  | "buttonDangerHoverBackground"
-  | "buttonDangerFocusOutline"
-  | "buttonIconColor"
-  | "buttonIconHoverColor"
+  buttonBackground: string
+  buttonColor: string
+  buttonHoverBackground: string
+  buttonFocusOutline: string
+  buttonPrimaryBackground: string
+  buttonPrimaryColor: string
+  buttonPrimaryHoverBackground: string
+  buttonPrimaryFocusOutline: string
+  buttonSecondaryBackground: string
+  buttonSecondaryColor: string
+  buttonSecondaryHoverBackground: string
+  buttonSecondaryFocusOutline: string
+  buttonSuccessBackground: string
+  buttonSuccessColor: string
+  buttonSuccessHoverBackground: string
+  buttonSuccessFocusOutline: string
+  buttonDangerBackground: string
+  buttonDangerColor: string
+  buttonDangerHoverBackground: string
+  buttonDangerFocusOutline: string
+  buttonIconColor: string
+  buttonIconHoverColor: string
 
   // Footer
-  | "footerBackground"
-  | "footerCookiesLink"
-  | "footerCopyrightLink"
-  | "footerIcon"
-  | "footerIconHover"
-  | "footerLink"
+  footerBackground: string
+  footerCookiesLink: string
+  footerCopyrightLink: string
+  footerIcon: string
+  footerIconHover: string
+  footerLink: string
 
   // Input
-  | "inputBackground"
-  | "inputBackgroundTransparent"
-  | "inputDisabledColor"
-  | "inputHoverBackground"
-  | "inputColor"
-  | "inputPlaceholderColor"
-  | "inputFocusBorder"
-  | "inputDangerFocusBorder"
-  | "inputDangerColor"
+  inputBackground: string
+  inputBackgroundTransparent: string
+  inputDisabledColor: string
+  inputHoverBackground: string
+  inputColor: string
+  inputPlaceholderColor: string
+  inputFocusBorder: string
+  inputDangerFocusBorder: string
+  inputDangerColor: string
 
   // List
-  | "listActiveBackground"
-  | "listColor"
-  | "listBorder"
+  listActiveBackground: string
+  listColor: string
+  listBorder: string
 
   // Sheet
-  | "sheetBackground"
-  | "sheetColor"
+  sheetBackground: string
+  sheetColor: string
 
   // Tint
-  | "danger"
-  | "dangerDark"
-  | "primary"
-  | "primaryColor"
-  | "primaryDark"
-  | "primaryLight"
-  | "secondary"
-  | "secondaryColor"
-  | "secondaryDark"
-  | "secondaryLight"
-  | "success"
-  | "successDark"
-  | "tertiary"
-  | "vibrant"
+  danger: string
+  dangerDark: string
+  primary: string
+  primaryColor: string
+  primaryDark: string
+  primaryLight: string
+  secondary: string
+  secondaryColor: string
+  secondaryDark: string
+  secondaryLight: string
+  success: string
+  successDark: string
+  tertiary: string
+  vibrant: string
 
   // Search
-  | "searchBackground"
-  | "selection"
-  | "selectionBackground"
-  | "selectionBackgroundFaint"
-  | "sidebarLink"
+  searchBackground: string
+  selection: string
+  selectionBackground: string
+  selectionBackgroundFaint: string
+  sidebarLink: string
 
   // Text
-  | "textHeadline"
-  | "textBody"
-  | "textDimmed"
-  | "textLight"
+  textHeadline: string
+  textBody: string
+  textDimmed: string
+  textLight: string
 
   // Tooltip
-  | "tooltipBackground"
+  tooltipBackground: string
 
   // Overlay
-  | "overlayColor"
-
-export type Color = Record<ColorNames, string>
+  overlayColor: string
+}
 
 export const [colorVariables, colorValues] = createVariables(
   color,
