@@ -2,14 +2,25 @@
   position: relative;
   margin: 0 auto;
   width: 100vw;
-  max-width: calc(100vw - 2 * 20px);
+  max-width: calc(100vw - 2 * var(--fraction-dimension-gutter));
 }
 
 @supports (margin: max(0px)) {
   .content {
     max-width: calc(
-      100vw - max(20px, calc(20px + env(safe-area-inset-left, 0px))) -
-        max(20px, calc(20px + env(safe-area-inset-right, 0px)))
+      100vw -
+        max(
+          var(--fraction-dimension-gutter),
+          calc(
+            var(--fraction-dimension-gutter) + env(safe-area-inset-left, 0px)
+          )
+        ) -
+        max(
+          var(--fraction-dimension-gutter),
+          calc(
+            var(--fraction-dimension-gutter) + env(safe-area-inset-right, 0px)
+          )
+        )
     );
   }
 }

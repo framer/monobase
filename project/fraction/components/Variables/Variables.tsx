@@ -1,10 +1,11 @@
 import * as React from "react"
 import {
   backdropValues,
-  dimensionValues,
-  paletteValues,
   colorValues,
   colorValuesDark,
+  dimensionValues,
+  paletteValues,
+  spaceValues,
   widthValues,
 } from "../../tokens"
 
@@ -18,6 +19,7 @@ const variables = `
     ${colorValues}
     ${dimensionValues}
     ${paletteValues}
+    ${spaceValues}
     ${widthValues}
   }
 

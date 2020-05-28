@@ -1,17 +1,11 @@
-import {
-  createVariables,
-  createVariablesFromArray,
-  VariableScope,
-} from "./utils"
+import { createVariables, VariableScope } from "../utils"
 
 export const dimension: Record<string, number> = {
+  gutter: 20,
+
   // Content
   sidebarWidth: 240,
   contentWidth: 700,
-  containerWidth: 1000,
-  containerLWidth: 1200,
-  containerXLWidth: 1400,
-  containerPadding: 20,
 
   // Navigation
   navigationBarHeight: 60,
@@ -70,25 +64,5 @@ export const dimension: Record<string, number> = {
 export const [dimensionVariables, dimensionValues] = createVariables(
   dimension,
   VariableScope.Dimensions,
-  (variable) => `${variable}px`
-)
-
-export const width: number[] = [
-  0,
-  300,
-  400,
-  500,
-  600,
-  700,
-  800,
-  900,
-  1000,
-  1200,
-  1400,
-]
-
-export const [widthVariables, widthValues] = createVariablesFromArray(
-  width,
-  VariableScope.Width,
   (variable) => `${variable}px`
 )
