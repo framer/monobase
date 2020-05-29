@@ -35,7 +35,7 @@
   transition: opacity 0.12s ease-in-out;
 }
 
-.navigation[data-open="true"] .overlay {
+.navigation:global(.open) .overlay {
   opacity: 1;
   pointer-events: all;
 }
@@ -140,6 +140,10 @@
   color: inherit;
 }
 
+.items li:global(.secondaryCta) {
+  color: var(--fraction-color-primary);
+}
+
 .items li a {
   display: inline-flex;
   place-items: center;
@@ -197,8 +201,6 @@
 
   .items li {
     height: 100%;
-    opacity: 1 !important;
-    pointer-events: all !important;
   }
 
   .items li a {

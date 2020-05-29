@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useCallback, useState, FC } from "react"
-import { motion, MotionProps, Transition } from "framer-motion"
+import clsx from "clsx"
+import { motion, AnimatePresence, MotionProps, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { Content } from "../Content"
 import { dimension } from "../../tokens"
@@ -36,8 +37,8 @@ export const defaultItems: Items = {
 
 const transitions: Record<string, Transition> = {
   ease: {
-    ease: "easeInOut",
-    duration: 0.12,
+    ease: [0.5, 0.1, 0.1, 1.1],
+    duration: 0.32,
   },
   spring: {
     type: "spring",
@@ -85,7 +86,7 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
   return (
     <motion.nav
       {...props}
-      className={styles.navigation}
+      className={clsx(styles.navigation, { open: isOpen })}
       variants={{
         close: {
           height: dimension.navigationBarHeight,
@@ -97,7 +98,6 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
       initial="close"
       animate={isOpen ? "open" : "close"}
       transition={transitions.spring}
-      data-open={isOpen}
     >
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.background} />
@@ -122,18 +122,49 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
             <span className={styles.wordmark}>Framer</span>
           </a>
         </div>
-        <ul className={styles.items}>
-          {Object.keys(items).map((item, index) => (
-            <li key={index}>
-              <a
-                href={items[item].href}
-                tabIndex={isMobile && !isOpen ? -1 : 3}
+        <motion.ul
+          className={styles.items}
+          animate
+          transition={transitions.ease}
+        >
+          <AnimatePresence>
+            {Object.keys(items).map((item, index) => (
+              <motion.li
+                key={index}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1 },
+                }}
+                initial="visible"
+                exit="hidden"
+                animate
+                transition={transitions.ease}
               >
-                {items[item].label}
+                <a
+                  href={items[item].href}
+                  tabIndex={isMobile && !isOpen ? -1 : 3}
+                >
+                  {items[item].label}
+                </a>
+              </motion.li>
+            ))}
+            <motion.li
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1 },
+              }}
+              initial="visible"
+              exit="hidden"
+              animate
+              transition={transitions.ease}
+              className="secondaryCta"
+            >
+              <a href="#" tabIndex={isMobile && !isOpen ? -1 : 3}>
+                Sign in
               </a>
-            </li>
-          ))}
-        </ul>
+            </motion.li>
+          </AnimatePresence>
+        </motion.ul>
       </Content>
     </motion.nav>
   )
