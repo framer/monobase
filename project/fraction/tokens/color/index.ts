@@ -14,9 +14,9 @@ export type Color = {
   pageColor: string
 
   // Navigation
-  navBackground: string
-  navBorder: string
-  navColor: string
+  navigationBackground: string
+  navigationBorder: string
+  navigationColor: string
 
   // Button
   buttonBackground: string

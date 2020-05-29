@@ -1,11 +1,17 @@
 import React from "react"
 import { Page } from "../components"
-import { Content, Wireframe } from "fraction"
+import {
+  spaceVariables,
+  dimensionVariables,
+  Content,
+  Wireframe,
+} from "fraction"
 
 const style = {
   background: "#05f",
   color: "#fff",
-  height: 100,
+  paddingTop: dimensionVariables.navigationBarHeight,
+  paddingBottom: spaceVariables[5],
 }
 
 export default () => {

@@ -69,6 +69,7 @@
     "express": "^4.17.1",
     "express-ws": "^4.0.0",
     "first-open-port": "^0.1.2",
+    "framer-motion": "^2.0.0-beta.72",
     "glob": "^7.1.2",
     "invalidate-module": "^1.0.0",
     "is-reachable": "^4.0.0",

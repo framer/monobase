@@ -1,7 +1,7 @@
 import * as React from "react"
 import { forwardRef, ComponentPropsWithRef, FC } from "react"
-import styles from "./Content.styles.css"
 import cx from "classnames"
+import styles from "./Content.styles.css"
 
 export interface Props extends ComponentPropsWithRef<"div"> {
   size?: "small" | "default" | "large" | "larger"
