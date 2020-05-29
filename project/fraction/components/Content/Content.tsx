@@ -1,6 +1,6 @@
 import * as React from "react"
 import { forwardRef, ComponentPropsWithRef, FC } from "react"
-import cx from "classnames"
+import clsx from "clsx"
 import styles from "./Content.styles.css"
 
 export interface Props extends ComponentPropsWithRef<"div"> {
@@ -9,7 +9,7 @@ export interface Props extends ComponentPropsWithRef<"div"> {
 
 export const Content: FC<Props> = forwardRef(
   ({ children, size = "default", style, className, ...props }, ref) => {
-    const classNames = cx(styles.content, className, {
+    const classNames = clsx(styles.content, className, {
       [styles.sizeSmall]: size === "small",
       [styles.sizeLarge]: size === "large",
       [styles.sizeLarger]: size === "larger",
