@@ -1,9 +1,10 @@
 import * as React from "react"
-import { useEffect, useCallback, useState, FC } from "react"
-import { motion, AnimatePresence, MotionProps, Transition } from "framer-motion"
+import { useCallback, useState, FC } from "react"
+import { motion, MotionProps, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { Content } from "../Content"
 import { dimension } from "../../tokens"
+import { useEscapeKey, useIsomorphicLayoutEffect } from "../../hooks"
 
 export interface Item {
   label: string
@@ -36,7 +37,7 @@ export const defaultItems: Items = {
 const transitions: Record<string, Transition> = {
   ease: {
     ease: "easeInOut",
-    duration: 0.2,
+    duration: 0.12,
   },
   spring: {
     type: "spring",
@@ -47,6 +48,7 @@ const transitions: Record<string, Transition> = {
 
 export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
   const [isOpen, setOpen] = useState(false)
+  const [isMobile, setMobile] = useState(false)
 
   const handleHamburgerClick = useCallback(() => {
     setOpen((isOpen) => !isOpen)
@@ -56,7 +58,11 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
     setOpen(false)
   }, [])
 
-  useEffect(() => {
+  useEscapeKey(() => {
+    setOpen(false)
+  }, isOpen && isMobile)
+
+  useIsomorphicLayoutEffect(() => {
     const desktopMediaQuery = window.matchMedia("(min-width: 740px)")
     const addMediaQueryListener = (
       callback: (event?: MediaQueryListEvent) => void
@@ -66,10 +72,14 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
         : desktopMediaQuery.addListener(callback)
 
     addMediaQueryListener(({ matches }) => {
+      setMobile(!matches)
+
       if (matches) {
         setOpen(false)
       }
     })
+
+    setMobile(!desktopMediaQuery.matches)
   }, [])
 
   return (
@@ -93,7 +103,12 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
       <div className={styles.background} />
       <Content className="content">
         <div className={styles.main}>
-          <a className={styles.logo} href="/">
+          <button
+            className={styles.hamburger}
+            onClick={handleHamburgerClick}
+            tabIndex={1}
+          />
+          <a className={styles.logo} href="/" tabIndex={2}>
             <svg
               xmlns="http:
               www.w3.org/2000/svg"
@@ -106,12 +121,16 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
             </svg>
             <span className={styles.wordmark}>Framer</span>
           </a>
-          <button className={styles.hamburger} onClick={handleHamburgerClick} />
         </div>
         <ul className={styles.items}>
           {Object.keys(items).map((item, index) => (
             <li key={index}>
-              <a href={items[item].href}>{items[item].label}</a>
+              <a
+                href={items[item].href}
+                tabIndex={isMobile && !isOpen ? -1 : 3}
+              >
+                {items[item].label}
+              </a>
             </li>
           ))}
         </ul>

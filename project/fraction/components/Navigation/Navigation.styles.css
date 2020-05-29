@@ -1,6 +1,6 @@
 .navigation {
   --navigation-gap: var(--fraction-space-3);
-  --navigation-hover-opacity: 0.4;
+  --navigation-active-opacity: 0.4;
 
   position: fixed;
   width: 100vw;
@@ -10,7 +10,7 @@
 }
 
 [data-theme="light"] .navigation {
-  --navigation-hover-opacity: 0.5;
+  --navigation-active-opacity: 0.5;
 }
 
 .navigation :global(.content) {
@@ -32,7 +32,7 @@
   opacity: 0;
   pointer-events: none;
   cursor: pointer;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.12s ease-in-out;
 }
 
 .navigation[data-open="true"] .overlay {
@@ -73,13 +73,15 @@
   width: auto;
   color: inherit;
   text-decoration: none;
+  outline: none;
   padding: 0 var(--fraction-space-4);
   transform: translateX(-50%);
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.12s ease-in-out;
 }
 
-.logo:hover {
-  opacity: var(--navigation-hover-opacity);
+.logo:hover,
+.logo:focus {
+  opacity: var(--navigation-active-opacity);
 }
 
 .logo svg {
@@ -102,6 +104,7 @@
   font: inherit;
   line-height: normal;
   border: none;
+  outline: none;
   margin: 0;
   padding: 0;
   width: auto;
@@ -124,8 +127,9 @@
     var(--fraction-dimension-gutter);
 }
 
-.items:hover li a {
-  opacity: var(--navigation-hover-opacity);
+.items:hover li a,
+.items:focus-within li a {
+  opacity: var(--navigation-active-opacity);
 }
 
 .items li {
@@ -143,11 +147,13 @@
   text-decoration: none;
   width: inherit;
   color: inherit;
+  outline: none;
   padding: var(--navigation-gap) 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.12s ease-in-out;
 }
 
-.items li a:hover {
+.items li a:hover,
+.items li a:focus {
   opacity: 1 !important;
 }
 
