@@ -16,7 +16,7 @@ export const Content: FC<Props> = forwardRef(
     })
 
     return (
-      <div ref={ref} className={classNames} style={style} {...props}>
+      <div {...props} ref={ref} className={classNames} style={style}>
         {children}
       </div>
     )

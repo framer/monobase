@@ -1,0 +1,54 @@
+.cta {
+  position: absolute;
+  display: flex;
+  top: 12px;
+  right: 0;
+  height: 36px;
+  padding: 6px;
+  place-content: center;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--fraction-palette-white);
+  background: var(--fraction-color-primary);
+  border-radius: 18px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.label,
+.secondaryLabel {
+  display: none;
+  line-height: 1;
+}
+
+.label {
+  margin-left: 10px;
+  margin-right: 8px;
+}
+
+@media screen and (min-width: 740px) {
+  .cta {
+    position: relative;
+    top: initial;
+    right: initial;
+    margin-left: calc(2 * var(--navigation-gap));
+  }
+
+  .label {
+    display: inline;
+  }
+}
+
+@media screen and (min-width: 1040px) {
+  .secondaryLabel {
+    display: inline;
+  }
+}

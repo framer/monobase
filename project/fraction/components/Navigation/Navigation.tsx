@@ -3,16 +3,18 @@ import { useCallback, useState, FC } from "react"
 import clsx from "clsx"
 import { motion, AnimatePresence, MotionProps, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
-import { Content } from "../Content"
 import { dimension } from "../../tokens"
 import { useEscapeKey, useIsomorphicLayoutEffect } from "../../hooks"
+import { Content } from "../Content"
+import { NavigationItem } from "./NavigationItem"
+import { NavigationCTA } from "./NavigationCTA"
 
-export interface Item {
+interface Item {
   label: string
   href: string
 }
 
-export type Items = Record<string, Item>
+type Items = Record<string, Item>
 
 export interface Props extends MotionProps {
   items?: Items
@@ -21,21 +23,20 @@ export interface Props extends MotionProps {
 export const defaultItems: Items = {
   examples: { label: "Examples", href: "/examples/" },
   tutorials: { label: "Tutorials", href: "/tutorials/" },
-  learn: { label: "Learn", href: "/learn/" },
   teams: { label: "Teams", href: "/teams/" },
   enterprise: {
     label: "Enterprise",
     href: "/enterprise/",
   },
+  pricing: { label: "Pricing", href: "/pricing/" },
   blog: { label: "Blog", href: "/blog/" },
   support: {
     label: "Support",
     href: "/support/",
   },
-  pricing: { label: "Pricing", href: "/pricing/" },
 }
 
-const transitions: Record<string, Transition> = {
+export const transitions: Record<string, Transition> = {
   ease: {
     ease: [0.5, 0.1, 0.1, 1.1],
     duration: 0.32,
@@ -129,42 +130,24 @@ export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
         >
           <AnimatePresence>
             {Object.keys(items).map((item, index) => (
-              <motion.li
+              <NavigationItem
                 key={index}
-                variants={{
-                  hidden: { opacity: 0 },
-                  visible: { opacity: 1 },
-                }}
-                initial="visible"
-                exit="hidden"
-                animate
-                transition={transitions.ease}
+                href={items[item].href}
+                tabIndex={isMobile && !isOpen ? -1 : 3}
               >
-                <a
-                  href={items[item].href}
-                  tabIndex={isMobile && !isOpen ? -1 : 3}
-                >
-                  {items[item].label}
-                </a>
-              </motion.li>
+                {items[item].label}
+              </NavigationItem>
             ))}
-            <motion.li
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1 },
-              }}
-              initial="visible"
-              exit="hidden"
-              animate
-              transition={transitions.ease}
-              className="secondaryCta"
+            <NavigationItem
+              cta
+              href="#"
+              tabIndex={isMobile && !isOpen ? -1 : 3}
             >
-              <a href="#" tabIndex={isMobile && !isOpen ? -1 : 3}>
-                Sign in
-              </a>
-            </motion.li>
+              Sign in
+            </NavigationItem>
           </AnimatePresence>
         </motion.ul>
+        <NavigationCTA />
       </Content>
     </motion.nav>
   )

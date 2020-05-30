@@ -3,6 +3,7 @@
 interface CssExports {
   'background': string;
   'hamburger': string;
+  'item': string;
   'items': string;
   'logo': string;
   'main': string;
