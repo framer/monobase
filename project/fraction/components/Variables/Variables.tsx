@@ -1,4 +1,5 @@
 import * as React from "react"
+import { FC } from "react"
 import {
   backdropValues,
   colorValues,
@@ -9,6 +10,7 @@ import {
   spaceValues,
   widthValues,
 } from "../../tokens"
+import { HTMLProps } from "../../types"
 
 const createMarkup = (html: string) => ({
   __html: html,
@@ -34,6 +36,6 @@ const variables = `
   }
 `
 
-export const Variables = () => (
+export const Variables: FC<HTMLProps<"style">> = () => (
   <style dangerouslySetInnerHTML={createMarkup(variables)} />
 )

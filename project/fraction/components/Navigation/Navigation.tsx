@@ -1,9 +1,10 @@
 import * as React from "react"
 import { useCallback, useState, FC } from "react"
 import clsx from "clsx"
-import { motion, AnimatePresence, MotionProps, Transition } from "framer-motion"
+import { motion, AnimatePresence, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { dimension } from "../../tokens"
+import { HTMLPropsWithMotion } from "../../types"
 import { useEscapeKey, useIsomorphicLayoutEffect } from "../../hooks"
 import { Content } from "../Content"
 import { NavigationItem } from "./NavigationItem"
@@ -16,7 +17,7 @@ interface Item {
 
 type Items = Record<string, Item>
 
-export interface Props extends MotionProps {
+export interface Props {
   items?: Items
 }
 
@@ -48,7 +49,10 @@ export const transitions: Record<string, Transition> = {
   },
 }
 
-export const Navigation: FC<Props> = ({ items = defaultItems, ...props }) => {
+export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
+  items = defaultItems,
+  ...props
+}) => {
   const [isOpen, setOpen] = useState(false)
   const [isMobile, setMobile] = useState(false)
 

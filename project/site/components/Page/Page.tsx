@@ -1,7 +1,7 @@
 import React from "react"
 import { FC } from "react"
 import { Development, StyleSheet } from "monobase"
-import { Variables } from "fraction"
+import { Variables, HTMLProps } from "fraction"
 import { Navigation } from "../Navigation"
 
 export interface Meta {
@@ -29,13 +29,14 @@ export interface Props {
   meta?: Meta
 }
 
-export const Page: FC<Props> = ({
+export const Page: FC<HTMLProps<"html"> & Props> = ({
   children,
   title = "The prototyping tool for teams",
   secondaryTitle: secondaryDefaultTitle = "Framer",
   secondaryTitleAsPrefix = false,
   description = "It’s prototyping made simple—no code required, browser-based, and free for everyone. High-fidelity in half the time.",
   meta = {},
+  ...props
 }) => {
   const withSecondaryTitle = (
     title: string,
@@ -59,7 +60,7 @@ export const Page: FC<Props> = ({
   const pageMetaDescription = meta.description || pageDescription
 
   return (
-    <html>
+    <html {...props}>
       <head>
         <meta charSet="utf-8" />
         <title>{pageMetaTitle}</title>

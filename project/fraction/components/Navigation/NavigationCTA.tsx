@@ -1,12 +1,11 @@
 import * as React from "react"
 import { FC } from "react"
-import { motion, HTMLMotionProps } from "framer-motion"
+import { motion } from "framer-motion"
 import styles from "./NavigationCTA.styles.css"
 import { transitions } from "./Navigation"
+import { HTMLPropsWithMotion } from "../../types"
 
-interface Props extends HTMLMotionProps<"a"> {}
-
-export const NavigationCTA: FC<Props> = ({ ...props }) => (
+export const NavigationCTA: FC<HTMLPropsWithMotion<"a">> = ({ ...props }) => (
   <motion.a
     {...props}
     href="#"
