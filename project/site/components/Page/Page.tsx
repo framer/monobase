@@ -3,6 +3,7 @@ import { FC } from "react"
 import { Development, StyleSheet } from "monobase"
 import { Variables, HTMLProps } from "fraction"
 import { Navigation } from "../Navigation"
+import { Authentication } from "../"
 
 export interface Meta {
   title?: string
@@ -73,6 +74,7 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
         <link rel="stylesheet" href="/static/style.css" />
         <Variables />
         <StyleSheet />
+        <Authentication async />
         <script
           src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=IntersectionObserver%2CMutationObserver%2CResizeObserver"
           defer

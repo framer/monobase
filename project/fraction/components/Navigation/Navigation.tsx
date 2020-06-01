@@ -8,17 +8,24 @@ import { HTMLPropsWithMotion } from "../../types"
 import { useEscapeKey, useIsomorphicLayoutEffect } from "../../hooks"
 import { Content } from "../Content"
 import { NavigationItem } from "./NavigationItem"
-import { NavigationCTA } from "./NavigationCTA"
+import { NavigationSignup } from "./NavigationSignup"
 
-interface Item {
+export interface Item {
   label: string
   href: string
 }
 
-type Items = Record<string, Item>
+export type Items = Record<string, Item>
+
+export interface FramerAccount {
+  name?: string
+  initials?: string
+  avatar?: string
+}
 
 export interface Props {
   items?: Items
+  account?: FramerAccount
 }
 
 export const defaultItems: Items = {
@@ -51,6 +58,7 @@ export const transitions: Record<string, Transition> = {
 
 export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
   items = defaultItems,
+  account,
   ...props
 }) => {
   const [isOpen, setOpen] = useState(false)
@@ -107,7 +115,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.background} />
       <Content className="content">
-        <div className={styles.main}>
+        <div className={styles.controls}>
           <button
             className={styles.hamburger}
             onClick={handleHamburgerClick}
@@ -127,31 +135,43 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
             <span className={styles.wordmark}>Framer</span>
           </a>
         </div>
-        <motion.ul
-          className={styles.items}
-          animate
-          transition={transitions.ease}
-        >
+        <ul className={styles.list}>
           <AnimatePresence>
             {Object.keys(items).map((item, index) => (
               <NavigationItem
                 key={index}
                 href={items[item].href}
-                tabIndex={isMobile && !isOpen ? -1 : 3}
+                tabIndex={isMobile && !isOpen ? -1 : 4}
               >
                 {items[item].label}
               </NavigationItem>
             ))}
-            <NavigationItem
-              cta
+          </AnimatePresence>
+        </ul>
+        <motion.ul
+          className={styles.authentication}
+          animate
+          transition={transitions.ease}
+        >
+          <AnimatePresence>
+            {!account && (
+              <NavigationItem
+                key="signin"
+                href="#"
+                tabIndex={isMobile && !isOpen ? -1 : 4}
+                className="signin"
+              >
+                Sign in
+              </NavigationItem>
+            )}
+            <NavigationSignup
+              key="signup"
               href="#"
-              tabIndex={isMobile && !isOpen ? -1 : 3}
-            >
-              Sign in
-            </NavigationItem>
+              tabIndex={isMobile ? 3 : 4}
+              account={account}
+            />
           </AnimatePresence>
         </motion.ul>
-        <NavigationCTA />
       </Content>
     </motion.nav>
   )

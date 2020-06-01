@@ -10,32 +10,27 @@ import {
   spaceValues,
   widthValues,
 } from "../../tokens"
+import { Style } from "../Style"
 import { HTMLProps } from "../../types"
 
-const createMarkup = (html: string) => ({
-  __html: html,
-})
-
-const variables = `
-  :root {
-    ${backdropValues}
-    ${colorValues}
-    ${depthValues}
-    ${dimensionValues}
-    ${paletteValues}
-    ${spaceValues}
-    ${widthValues}
-  }
-
-  [data-theme="light"] {
-    ${colorValues}
-  }
-
-  [data-theme="dark"] {
-    ${colorValuesDark}
-  }
-`
-
 export const Variables: FC<HTMLProps<"style">> = () => (
-  <style dangerouslySetInnerHTML={createMarkup(variables)} />
+  <Style>{`
+    :root {
+      ${backdropValues}
+      ${colorValues}
+      ${depthValues}
+      ${dimensionValues}
+      ${paletteValues}
+      ${spaceValues}
+      ${widthValues}
+    }
+
+    [data-theme="light"] {
+      ${colorValues}
+    }
+
+    [data-theme="dark"] {
+      ${colorValuesDark}
+    }
+  `}</Style>
 )

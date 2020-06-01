@@ -1,17 +1,14 @@
 import * as React from "react"
-import { FC, ComponentPropsWithoutRef } from "react"
+import { FC } from "react"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { transitions } from "./Navigation"
+import { HTMLProps } from "../../types"
 
-interface Props extends ComponentPropsWithoutRef<"a"> {
-  cta?: boolean
-}
-
-export const NavigationItem: FC<Props> = ({
+export const NavigationItem: FC<HTMLProps<"a">> = ({
   children,
-  cta = false,
+  className,
   ...props
 }) => (
   <motion.li
@@ -23,7 +20,7 @@ export const NavigationItem: FC<Props> = ({
     exit="hidden"
     animate
     transition={transitions.ease}
-    className={clsx(styles.item, { cta })}
+    className={clsx(className, styles.item)}
   >
     <a {...props}>{children}</a>
   </motion.li>
