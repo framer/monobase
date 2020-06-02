@@ -2,12 +2,9 @@ import * as React from "react"
 import { forwardRef, FC, CSSProperties } from "react"
 import clsx from "clsx"
 import styles from "./Text.styles.css"
-import { HTMLPropsWithRef } from "../../types"
+import { TypographyProps, HTMLPropsWithRef } from "../../types"
 
-export interface Props {
-  align?: CSSProperties["textAlign"]
-  color?: string
-  italic?: boolean
+export interface Props extends TypographyProps {
   size?:
     | "smallest"
     | "smaller"
@@ -20,7 +17,16 @@ export interface Props {
 
 export const Text: FC<HTMLPropsWithRef<"p"> & Props> = forwardRef(
   (
-    { children, align, color, italic, size, style, className, ...props },
+    {
+      children,
+      align,
+      color,
+      italic,
+      size = "default",
+      style,
+      className,
+      ...props
+    },
     ref
   ) => (
     <p

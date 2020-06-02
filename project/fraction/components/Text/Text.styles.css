@@ -2,7 +2,6 @@
   --text-color: var(--fraction-color-textBody);
 
   font-size: var(--fraction-size-4);
-  line-height: 1.6;
   color: var(--text-color);
 }
 
@@ -16,30 +15,44 @@
 
 .text:global(.size-smallest) {
   font-size: var(--fraction-size-1);
+  line-height: 1.72;
+  letter-spacing: -0.006em;
 }
 
 .text:global(.size-smaller) {
   font-size: var(--fraction-size-2);
+  line-height: 1.68;
+  letter-spacing: -0.008em;
 }
 
 .text:global(.size-small) {
   font-size: var(--fraction-size-3);
+  line-height: 1.64;
+  letter-spacing: -0.01em;
 }
 
 .text:global(.size-default) {
   font-size: var(--fraction-size-4);
+  line-height: 1.6;
+  letter-spacing: -0.012em;
 }
 
 .text:global(.size-large) {
   font-size: var(--fraction-size-5);
+  line-height: 1.56;
+  letter-spacing: -0.014em;
 }
 
 .text:global(.size-larger) {
   font-size: var(--fraction-size-6);
+  line-height: 1.52;
+  letter-spacing: -0.016em;
 }
 
 .text:global(.size-largest) {
   font-size: var(--fraction-size-7);
+  line-height: 1.48;
+  letter-spacing: -0.018em;
 }
 
 .text a {

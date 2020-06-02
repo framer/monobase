@@ -1,0 +1,42 @@
+.heading {
+  --heading-color: var(--fraction-color-headingHeadline);
+
+  font-size: var(--fraction-size-4);
+  color: var(--heading-color);
+}
+
+.heading:global(.level-6) {
+  font-size: var(--fraction-size-5);
+  line-height: 1.28;
+  letter-spacing: -0.028em;
+}
+
+.heading:global(.level-5) {
+  font-size: var(--fraction-size-6);
+  line-height: 1.24;
+  letter-spacing: -0.032em;
+}
+
+.heading:global(.level-4) {
+  font-size: var(--fraction-size-7);
+  line-height: 1.2;
+  letter-spacing: -0.036em;
+}
+
+.heading:global(.level-3) {
+  font-size: var(--fraction-size-8);
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.heading:global(.level-2) {
+  font-size: var(--fraction-size-9);
+  line-height: 1.12;
+  letter-spacing: -0.042em;
+}
+
+.heading:global(.level-1) {
+  font-size: var(--fraction-size-10);
+  line-height: 1.08;
+  letter-spacing: -0.046em;
+}

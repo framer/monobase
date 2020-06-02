@@ -1,6 +1,6 @@
 import React from "react"
 import { Page } from "../components"
-import { Content, Text, Wireframe, spaceVariables } from "fraction"
+import { Content, Heading, Text, Wireframe, spaceVariables } from "fraction"
 
 const style = {
   background: "#05f",
@@ -30,6 +30,32 @@ export default () => {
             </Content>
           </Content>
         </Content>
+      </Content>
+      <Content size="small">
+        <Heading level={1}>
+          Motion that works like magic. Motion that works like magic. Motion
+          that works like magic.
+        </Heading>
+        <Heading level={2}>
+          Motion that works like magic. Motion that works like magic. Motion
+          that works like magic.
+        </Heading>
+        <Heading level={3}>
+          Motion that works like magic. Motion that works like magic. Motion
+          that works like magic.
+        </Heading>
+        <Heading level={4}>
+          Motion that works like magic. Motion that works like magic. Motion
+          that works like magic.
+        </Heading>
+        <Heading level={5}>
+          Motion that works like magic. Motion that works like magic. Motion
+          that works like magic.
+        </Heading>
+        <Heading level={6}>
+          Motion that works like magic. Motion that works like magic. Motion
+          that works like magic.
+        </Heading>
       </Content>
       <Content size="small">
         <Text size="smallest">

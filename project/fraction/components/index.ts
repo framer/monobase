@@ -1,4 +1,5 @@
 export { Content, Props as ContentProps } from "./Content"
+export { Heading, Props as HeadingProps } from "./Heading"
 export {
   Navigation,
   NavigationItem,

@@ -19,6 +19,7 @@ html {
   font-size: 20px;
   font-variant-ligatures: common-ligatures;
   text-size-adjust: 100%;
+  letter-spacing: -0.004em;
   word-break: break-word;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

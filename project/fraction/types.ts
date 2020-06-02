@@ -15,3 +15,9 @@ export {
   HTMLMotionProps as HTMLPropsWithMotion,
   SVGMotionProps as SVGPropsWithMotion,
 } from "framer-motion"
+
+export interface TypographyProps {
+  align?: "left" | "right" | "center" | "justify"
+  color?: string
+  italic?: boolean
+}
