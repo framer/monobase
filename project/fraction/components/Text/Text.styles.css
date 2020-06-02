@@ -1,6 +1,9 @@
 .text {
+  --text-color: var(--fraction-color-textBody);
+
   font-size: var(--fraction-size-4);
   line-height: 1.6;
+  color: var(--text-color);
 }
 
 .text:global(.truncate) {
