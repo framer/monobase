@@ -2,10 +2,15 @@ project = ./project/site
 
 bootstrap:
 	@test -d ./node_modules || yarn
+	@cd project/site && make bootstrap
 
 dist: bootstrap
 	@rm -Rf dist
 	./node_modules/.bin/tsc
+
+clean:
+	@rm -Rf ./node_modules
+	@cd project/site && make clean
 
 serve: bootstrap
 	./node_modules/.bin/ts-node -P $(project) src/cli.ts serve --project=$(project)
