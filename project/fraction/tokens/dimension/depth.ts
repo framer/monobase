@@ -1,4 +1,4 @@
-import { createVariables, VariableScope } from "../utils"
+import { createVariables, Scope } from "../utils"
 
 export type Depth = {
   negative: number
@@ -23,7 +23,4 @@ export const depth: Record<string, number> = {
   wireframe: 30000,
 }
 
-export const [depthVariables, depthValues] = createVariables(
-  depth,
-  VariableScope.Depth
-)
+export const [depthVariables, depthValues] = createVariables(depth, Scope.Depth)

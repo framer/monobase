@@ -1,6 +1,6 @@
 import { color } from "./light"
 import { colorDark } from "./dark"
-import { createVariables, VariableScope } from "../utils/variables"
+import { createVariables, Scope } from "../utils/variables"
 
 export type Color = {
   border: string
@@ -106,14 +106,11 @@ export type Color = {
   overlayColor: string
 }
 
-export const [colorVariables, colorValues] = createVariables(
-  color,
-  VariableScope.Color
-)
+export const [colorVariables, colorValues] = createVariables(color, Scope.Color)
 
 export const [colorVariablesDark, colorValuesDark] = createVariables(
   colorDark,
-  VariableScope.Color
+  Scope.Color
 )
 
 export * from "./light"

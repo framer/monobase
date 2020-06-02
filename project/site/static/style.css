@@ -32,6 +32,10 @@ html {
   }
 }
 
+html.margin-navigation body {
+  padding-top: var(--fraction-dimension-navigationBarHeight);
+}
+
 /* stylelint-disable selector-type-no-unknown */
 dynamic {
   display: contents;

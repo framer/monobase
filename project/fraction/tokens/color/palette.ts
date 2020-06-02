@@ -1,4 +1,4 @@
-import { createVariables, VariableScope } from "../utils"
+import { createVariables, Scope } from "../utils"
 
 export const palette: Record<string, string> = {
   // Dark
@@ -84,5 +84,5 @@ export const palette: Record<string, string> = {
 
 export const [paletteVariables, paletteValues] = createVariables(
   palette,
-  VariableScope.Palette
+  Scope.Palette
 )

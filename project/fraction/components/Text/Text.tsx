@@ -26,7 +26,9 @@ export const Text: FC<HTMLPropsWithRef<"p"> & Props> = forwardRef(
     <p
       {...props}
       ref={ref}
-      className={clsx(styles.text, className, `size-${size}`)}
+      className={clsx(styles.text, className, {
+        [`size-${size}`]: !!size,
+      })}
       style={
         {
           ...style,

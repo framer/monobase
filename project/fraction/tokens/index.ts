@@ -31,6 +31,7 @@ export {
   widthVariables,
   widthValues,
 } from "./dimension"
+export { Theme } from "./theme"
 export {
   family,
   familyVariables,

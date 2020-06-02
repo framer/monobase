@@ -1,4 +1,4 @@
-import { createVariablesFromArray, VariableScope } from "../utils"
+import { createVariablesFromArray, Scope } from "../utils"
 
 export const width: number[] = [
   0,
@@ -16,6 +16,6 @@ export const width: number[] = [
 
 export const [widthVariables, widthValues] = createVariablesFromArray(
   width,
-  VariableScope.Width,
+  Scope.Width,
   (variable) => `${variable}px`
 )

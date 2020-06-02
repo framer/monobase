@@ -1,4 +1,4 @@
-import { createVariables, VariableScope } from "./utils"
+import { createVariables, Scope } from "./utils"
 
 export type Backdrop = {
   default: string
@@ -14,5 +14,5 @@ export const backdrop: Backdrop = {
 
 export const [backdropVariables, backdropValues] = createVariables(
   backdrop,
-  VariableScope.Backdrop
+  Scope.Backdrop
 )

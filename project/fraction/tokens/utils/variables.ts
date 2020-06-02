@@ -1,6 +1,6 @@
 type variableModifier = (variable?: string | number) => string
 
-export enum VariableScope {
+export enum Scope {
   Backdrop = "backdrop",
   Color = "color",
   Dimensions = "dimension",

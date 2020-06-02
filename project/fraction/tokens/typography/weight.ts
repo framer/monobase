@@ -1,4 +1,4 @@
-import { createVariables, VariableScope } from "../utils"
+import { createVariables, Scope } from "../utils"
 
 export type Weight = {
   thin: string
@@ -20,5 +20,5 @@ export const weight: Weight = {
 
 export const [weightVariables, weightValues] = createVariables(
   weight,
-  VariableScope.Weight
+  Scope.Weight
 )

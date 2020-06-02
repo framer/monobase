@@ -1,4 +1,4 @@
-import { createVariables, VariableScope } from "../utils"
+import { createVariables, Scope } from "../utils"
 
 export type Family = {
   default: string
@@ -17,5 +17,5 @@ export const family: Family = {
 
 export const [familyVariables, familyValues] = createVariables(
   family,
-  VariableScope.Family
+  Scope.Family
 )

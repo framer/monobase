@@ -1,4 +1,4 @@
-import { createVariables, VariableScope } from "../utils"
+import { createVariables, Scope } from "../utils"
 
 export const dimension: Record<string, number> = {
   gutter: 20,
@@ -63,6 +63,6 @@ export const dimension: Record<string, number> = {
 
 export const [dimensionVariables, dimensionValues] = createVariables(
   dimension,
-  VariableScope.Dimensions,
+  Scope.Dimensions,
   (variable) => `${variable}px`
 )

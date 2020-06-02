@@ -1,7 +1,8 @@
 import React from "react"
 import { FC } from "react"
 import { Development, StyleSheet } from "monobase"
-import { Variables, HTMLProps } from "fraction"
+import { Variables, Theme, HTMLProps } from "fraction"
+import clsx from "clsx"
 import { Navigation } from "../Navigation"
 import { Authentication } from "../"
 
@@ -11,8 +12,11 @@ export interface Meta {
 }
 
 export interface Props {
-  /** Change theme fore entire page */
-  // theme?: keyof typeof ThemeVariants
+  /**
+   * Change theme for the entire page
+   * @default "light"
+   */
+  theme?: keyof typeof Theme
 
   /** Set page title */
   title?: string
@@ -28,15 +32,30 @@ export interface Props {
 
   /** Optionally override meta tags */
   meta?: Meta
+
+  /**
+   * Remove default navigation height from top margin of the page
+   * @default true
+   */
+  marginNavigation?: boolean
+
+  /**
+   * Remove default footer margin from bottom margin of the page
+   * @default true
+   */
+  marginFooter?: boolean
 }
 
 export const Page: FC<HTMLProps<"html"> & Props> = ({
   children,
+  theme = Theme.Light,
   title = "The prototyping tool for teams",
   secondaryTitle: secondaryDefaultTitle = "Framer",
   secondaryTitleAsPrefix = false,
   description = "It’s prototyping made simple—no code required, browser-based, and free for everyone. High-fidelity in half the time.",
   meta = {},
+  marginNavigation = true,
+  marginFooter = true,
   ...props
 }) => {
   const withSecondaryTitle = (
@@ -61,7 +80,14 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
   const pageMetaDescription = meta.description || pageDescription
 
   return (
-    <html {...props}>
+    <html
+      {...props}
+      className={clsx({
+        "margin-navigation": marginNavigation,
+        "margin-footer": marginFooter,
+      })}
+      data-theme={Theme[theme] || Theme.Light}
+    >
       <head>
         <meta charSet="utf-8" />
         <title>{pageMetaTitle}</title>
