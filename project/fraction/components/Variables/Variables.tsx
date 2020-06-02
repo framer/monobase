@@ -6,8 +6,11 @@ import {
   colorValuesDark,
   depthValues,
   dimensionValues,
+  familyValues,
   paletteValues,
+  sizeValues,
   spaceValues,
+  weightValues,
   widthValues,
 } from "../../tokens"
 import { Style } from "../Style"
@@ -20,8 +23,11 @@ export const Variables: FC<HTMLProps<"style">> = () => (
       ${colorValues}
       ${depthValues}
       ${dimensionValues}
+      ${familyValues}
       ${paletteValues}
+      ${sizeValues}
       ${spaceValues}
+      ${weightValues}
       ${widthValues}
     }
 

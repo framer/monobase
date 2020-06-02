@@ -31,4 +31,17 @@ export {
   widthVariables,
   widthValues,
 } from "./dimension"
+export {
+  family,
+  familyVariables,
+  familyValues,
+  Family,
+  size,
+  sizeVariables,
+  sizeValues,
+  weight,
+  weightVariables,
+  weightValues,
+  Weight,
+} from "./typography"
 export { rgba, variableName, createVariables } from "./utils"
