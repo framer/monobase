@@ -9,5 +9,6 @@ export {
 } from "./Navigation"
 export { Script } from "./Script"
 export { Style } from "./Style"
+export { Text, Props as TextProps } from "./Text"
 export { Variables } from "./Variables"
 export { Wireframe } from "./Wireframe"

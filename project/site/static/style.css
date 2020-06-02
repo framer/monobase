@@ -16,7 +16,7 @@ html {
   box-sizing: border-box;
   font-family: var(--fraction-family-default);
   font-weight: 400;
-  font-size: min(max(16px, 3vw), 20px);
+  font-size: 20px;
   font-variant-ligatures: common-ligatures;
   text-size-adjust: 100%;
   word-break: break-word;
@@ -24,6 +24,12 @@ html {
   -webkit-font-smoothing: antialiased;
   background: var(--fraction-color-pageBackground);
   color: var(--fraction-color-textBody);
+}
+
+@supports (font-size: max(0px)) {
+  html {
+    font-size: min(max(16px, 3vw), 20px);
+  }
 }
 
 /* stylelint-disable selector-type-no-unknown */

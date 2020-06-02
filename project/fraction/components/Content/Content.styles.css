@@ -26,22 +26,22 @@
 }
 
 @media screen and (min-width: 740px) {
-  .content.sizeSmall {
+  .content:global(.size-small) {
     max-width: var(--fraction-width-5);
   }
 }
 
 @media screen and (min-width: 1040px) {
   .content,
-  .content.sizeLarge,
-  .content.sizeLarger {
+  .content:global(.size-large),
+  .content:global(.size-larger) {
     max-width: var(--fraction-width-8);
   }
 }
 
 @media screen and (min-width: 1240px) {
-  .content.sizeLarge,
-  .content.sizeLarger {
+  .content:global(.size-large),
+  .content:global(.size-larger) {
     max-width: var(--fraction-width-9);
   }
 }

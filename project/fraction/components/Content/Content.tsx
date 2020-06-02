@@ -9,17 +9,14 @@ export interface Props {
 }
 
 export const Content: FC<HTMLPropsWithRef<"div"> & Props> = forwardRef(
-  ({ children, size = "default", style, className, ...props }, ref) => {
-    const classNames = clsx(styles.content, className, {
-      [styles.sizeSmall]: size === "small",
-      [styles.sizeLarge]: size === "large",
-      [styles.sizeLarger]: size === "larger",
-    })
-
-    return (
-      <div {...props} ref={ref} className={classNames} style={style}>
-        {children}
-      </div>
-    )
-  }
+  ({ children, size = "default", style, className, ...props }, ref) => (
+    <div
+      {...props}
+      ref={ref}
+      className={clsx(styles.content, className, `size-${size}`)}
+      style={style}
+    >
+      {children}
+    </div>
+  )
 )

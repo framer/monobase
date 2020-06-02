@@ -1,0 +1,48 @@
+.text {
+  font-size: var(--fraction-size-4);
+  line-height: 1.6;
+}
+
+.text:global(.truncate) {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+.text:global(.size-smallest) {
+  font-size: var(--fraction-size-1);
+}
+
+.text:global(.size-smaller) {
+  font-size: var(--fraction-size-2);
+}
+
+.text:global(.size-small) {
+  font-size: var(--fraction-size-3);
+}
+
+.text:global(.size-default) {
+  font-size: var(--fraction-size-4);
+}
+
+.text:global(.size-large) {
+  font-size: var(--fraction-size-5);
+}
+
+.text:global(.size-larger) {
+  font-size: var(--fraction-size-6);
+}
+
+.text:global(.size-largest) {
+  font-size: var(--fraction-size-7);
+}
+
+.text a {
+  color: var(--fraction-color-primary);
+}
+
+.text a:hover {
+  text-decoration: underline;
+}
