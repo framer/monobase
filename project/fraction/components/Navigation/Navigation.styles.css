@@ -161,7 +161,7 @@
   color: inherit;
   outline: none;
   padding: var(--navigation-gap) 0;
-  transition: opacity 0.12s ease-in-out;
+  transition: opacity 0.16s ease-in-out;
 }
 
 .item a:not(.signup):hover,
@@ -173,15 +173,21 @@
   margin: 0 auto calc(var(--fraction-dimension-gutter) - 8px);
 }
 
+.authentication:global(.authenticated) .signup {
+  width: 36px;
+}
+
+.signupContent:global(.authenticated) .label {
+  display: none;
+  margin-right: 8px;
+}
+
 .signup {
   position: fixed;
-  display: flex;
   top: 12px;
   right: var(--fraction-dimension-gutter);
   height: 36px;
-  padding: 6px;
-  place-content: center;
-  place-items: center;
+  width: 96px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -189,24 +195,39 @@
   color: var(--fraction-palette-white);
   background: var(--fraction-color-primary);
   border-radius: 18px;
+  transition: width 0.16s ease-in-out;
+}
+
+.signupContent {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  place-content: center;
+  place-items: center;
 }
 
 .avatar {
   width: 24px;
   height: 24px;
-  background: #fff;
+  background: #000;
   border-radius: 50%;
+  margin-right: auto;
+  transform: scale(1.52);
+  transition: transform 0.12s ease-in-out;
 }
 
 .label,
 .sublabel {
-  display: none;
   line-height: 1;
+  white-space: nowrap;
 }
 
-.label {
-  margin-left: 10px;
-  margin-right: 8px;
+.sublabel {
+  display: none;
 }
 
 @media screen and (min-width: 740px) {
@@ -268,14 +289,21 @@
     margin: 0;
   }
 
-  .signup {
+  .signup,
+  .authentication:global(.authenticated) .signup {
     position: relative;
     top: initial;
     right: initial;
+    width: 96px;
   }
 
-  .label {
+  .label,
+  .signupContent:global(.authenticated) .label {
     display: inline;
+  }
+
+  .avatar {
+    transform: scale(1);
   }
 }
 
@@ -290,6 +318,11 @@
 
   .wordmark {
     display: inline-block;
+  }
+
+  .signup,
+  .authentication:global(.authenticated) .signup {
+    width: 136px;
   }
 
   .sublabel {

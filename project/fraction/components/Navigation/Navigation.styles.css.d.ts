@@ -13,6 +13,7 @@ interface CssExports {
   'navigation': string;
   'overlay': string;
   'signup': string;
+  'signupContent': string;
   'sublabel': string;
   'wordmark': string;
 }

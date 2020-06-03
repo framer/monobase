@@ -40,13 +40,20 @@ const createStorageState = (storage: "localStorage" | "sessionStorage") => <
   T extends Record<string, any>
 >(
   key: string,
-  initialState?: T
+  initialState?: T,
+  lazyInitialization: boolean = true
 ): [T, Dispatch<T>] => {
-  const [state, setState] = useState(() => {
-    const storageState = window[storage].getItem(key)
+  const [state, setState] = useState(
+    lazyInitialization
+      ? () => {
+          const storageState = window[storage].getItem(key)
 
-    return storageState !== null ? safelyParseValue(storageState) : initialState
-  })
+          return storageState !== null
+            ? safelyParseValue(storageState)
+            : initialState
+        }
+      : initialState
+  )
 
   useEffect(() => {
     if (state === undefined || state === null) {

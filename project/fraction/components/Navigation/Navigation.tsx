@@ -46,8 +46,8 @@ export const defaultItems: Items = {
 
 export const transitions: Record<string, Transition> = {
   ease: {
-    ease: [0.5, 0.1, 0.1, 1.1],
-    duration: 0.32,
+    ease: "easeInOut",
+    duration: 0.16,
   },
   spring: {
     type: "spring",
@@ -63,6 +63,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
 }) => {
   const [isOpen, setOpen] = useState(false)
   const [isMobile, setMobile] = useState(false)
+  const isAuthenticated = !!account
 
   const handleHamburgerClick = useCallback(() => {
     setOpen((isOpen) => !isOpen)
@@ -148,30 +149,27 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
             ))}
           </AnimatePresence>
         </ul>
-        <motion.ul
-          className={styles.authentication}
-          animate
-          transition={transitions.ease}
+        <ul
+          className={clsx(styles.authentication, {
+            authenticated: isAuthenticated,
+          })}
         >
-          <AnimatePresence>
-            {!account && (
-              <NavigationItem
-                key="signin"
-                href="#"
-                tabIndex={isMobile && !isOpen ? -1 : 4}
-                className="signin"
-              >
-                Sign in
-              </NavigationItem>
-            )}
-            <NavigationSignup
-              key="signup"
+          {!isAuthenticated && (
+            <NavigationItem
+              key="signin"
               href="#"
-              tabIndex={isMobile ? 3 : 4}
-              account={account}
-            />
-          </AnimatePresence>
-        </motion.ul>
+              tabIndex={isMobile && !isOpen ? -1 : 4}
+              className="signin"
+            >
+              Sign in
+            </NavigationItem>
+          )}
+          <NavigationSignup
+            href="#"
+            tabIndex={isMobile ? 3 : 4}
+            account={account}
+          />
+        </ul>
       </Content>
     </motion.nav>
   )
