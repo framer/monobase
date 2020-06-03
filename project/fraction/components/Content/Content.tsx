@@ -13,7 +13,9 @@ export const Content: FC<HTMLPropsWithRef<"div"> & Props> = forwardRef(
     <div
       {...props}
       ref={ref}
-      className={clsx(styles.content, className, { [`size-${size}`]: !!size })}
+      className={clsx(styles.content, "content", className, {
+        [`size-${size}`]: !!size,
+      })}
       style={style}
     >
       {children}

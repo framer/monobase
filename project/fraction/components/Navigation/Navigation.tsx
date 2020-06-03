@@ -100,10 +100,10 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
   return (
     <motion.nav
       {...props}
-      className={clsx(styles.navigation, { open: isOpen })}
+      className={clsx(styles.navigation, "navigation", { open: isOpen })}
       variants={{
         close: {
-          height: dimension.navigationBarHeight,
+          height: dimension.navigationHeight,
         },
         open: {
           height: "auto",
@@ -115,7 +115,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
     >
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.background} />
-      <Content className="content">
+      <Content>
         <div className={styles.controls}>
           <button
             className={styles.hamburger}

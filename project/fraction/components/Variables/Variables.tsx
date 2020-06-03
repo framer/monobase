@@ -31,11 +31,11 @@ export const Variables: FC<HTMLProps<"style">> = () => (
       ${widthValues}
     }
 
-    [data-theme="light"] {
+    [data-theme="light"], [data-navigation-theme="light"] .navigation {
       ${colorValues}
     }
 
-    [data-theme="dark"] {
+    [data-theme="dark"], [data-navigation-theme="dark"] .navigation {
       ${colorValuesDark}
     }
   `}</Style>

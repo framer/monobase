@@ -8,7 +8,7 @@ export const dimension: Record<string, number> = {
   contentWidth: 700,
 
   // Navigation
-  navigationBarHeight: 60,
+  navigationHeight: 60,
   navigationBannerHeight: 32,
 
   // Input

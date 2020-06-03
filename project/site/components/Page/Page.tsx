@@ -3,8 +3,9 @@ import { FC } from "react"
 import { Development, StyleSheet } from "monobase"
 import { Variables, Theme, HTMLProps } from "fraction"
 import clsx from "clsx"
+import { Authentication } from "../Authentication"
 import { Navigation } from "../Navigation"
-import { Authentication } from "../"
+import { Observer } from "../Observer"
 
 export interface Meta {
   title?: string
@@ -18,19 +19,36 @@ export interface Props {
    */
   theme?: keyof typeof Theme
 
-  /** Set page title */
+  /**
+   * Set page title
+   * @default "The prototyping tool for teams"
+   */
   title?: string
 
-  /** Show "Framer" (or another custom secondary title) in title */
+  /**
+   * Show "Framer" (or another
+   * custom secondary title) in title
+   * @default "Framer"
+   */
   secondaryTitle?: string | boolean
 
-  /** Show "Framer" (or another custom secondary title) in title as prefix, otherwise suffix */
+  /**
+   * Show "Framer" (or another
+   * custom secondary title) in title
+   * as prefix, otherwise suffix
+   * @default false
+   */
   secondaryTitleAsPrefix?: boolean
 
-  /** Set page description */
+  /**
+   * Set page description
+   * @default "It’s prototyping made simple—no code required, browser-based, and free for everyone. High-fidelity in half the time."
+   */
   description?: string
 
-  /** Optionally override meta tags */
+  /**
+   * Optionally override meta tags
+   */
   meta?: Meta
 
   /**
@@ -44,6 +62,34 @@ export interface Props {
    * @default true
    */
   marginFooter?: boolean
+
+  /**
+   * Set navigation default accent
+   */
+  navigationAccent?: string
+
+  /**
+   * Set navigation default tint
+   */
+  navigationTint?: string
+
+  /**
+   * Set navigation default theme
+   * @default "light"
+   */
+  navigationTheme?: keyof typeof Theme
+
+  /**
+   * Set navigation default transparency
+   * @default false
+   */
+  navigationTransparent?: string
+
+  /**
+   * Set navigation default vibrancy
+   * @default false
+   */
+  navigationVibrant?: string
 }
 
 export const Page: FC<HTMLProps<"html"> & Props> = ({
@@ -56,6 +102,11 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
   meta = {},
   marginNavigation = true,
   marginFooter = true,
+  navigationAccent,
+  navigationTint,
+  navigationTheme = Theme.Light,
+  navigationTransparent,
+  navigationVibrant,
   ...props
 }) => {
   const withSecondaryTitle = (
@@ -87,6 +138,24 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
         "margin-footer": marginFooter,
       })}
       data-theme={Theme[theme] || Theme.Light}
+      data-navigation-accent={
+        typeof navigationAccent === "string" ? navigationAccent : undefined
+      }
+      data-navigation-tint={
+        typeof navigationTint === "string" ? navigationTint : undefined
+      }
+      data-navigation-theme={
+        Theme[navigationTheme] || Theme[theme] || Theme.Light
+      }
+      data-navigaiton-transparent={
+        typeof navigationTransparent === "boolean"
+          ? navigationTransparent
+          : undefined
+      }
+      data-navigaiton-vibrant={
+        typeof navigationVibrant === "boolean" ? navigationVibrant : undefined
+      }
+      data-navigation-ceiling
     >
       <head>
         <meta charSet="utf-8" />
@@ -108,6 +177,7 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
         <Development defer />
       </head>
       <body>
+        <Observer />
         <Navigation />
         {children}
       </body>

@@ -1,6 +1,6 @@
 .navigation {
   --navigation-gap: var(--fraction-space-3);
-  --navigation-active-opacity: 0.4;
+  --navigation-active-opacity: 0.5;
 
   position: fixed;
   top: 0;
@@ -11,8 +11,9 @@
   contain: layout;
 }
 
-[data-theme="light"] .navigation {
-  --navigation-active-opacity: 0.5;
+:global([data-theme="dark"]) .navigation,
+:global([data-navigation-theme="dark"]) .navigation {
+  --navigation-active-opacity: 0.4;
 }
 
 .navigation :global(.content) {
@@ -61,7 +62,7 @@
 }
 
 .controls {
-  height: var(--fraction-dimension-navigationBarHeight);
+  height: var(--fraction-dimension-navigationHeight);
   flex: none;
 }
 
@@ -268,7 +269,7 @@
   .authentication {
     display: flex;
     width: auto;
-    height: var(--fraction-dimension-navigationBarHeight);
+    height: var(--fraction-dimension-navigationHeight);
     flex-direction: row;
   }
 

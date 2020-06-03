@@ -9,7 +9,7 @@ export const Section: FC<HTMLPropsWithRef<"section">> = forwardRef(
     <section
       {...props}
       ref={ref}
-      className={clsx(className, styles.section)}
+      className={clsx(className, "section", styles.section)}
       style={style}
     >
       {children}

@@ -1,10 +1,19 @@
 import React from "react"
 import { Page } from "../components"
-import { Content, Section, Heading, Text, Wireframe, variables } from "fraction"
+import {
+  Content,
+  Section,
+  Heading,
+  Text,
+  Wireframe,
+  variables,
+  Theme,
+} from "fraction"
 
 const sectionStyle = {
-  paddingTop: variables.space[5],
-  paddingBottom: variables.space[5],
+  background: variables.color.pageBackground,
+  paddingTop: variables.space[8],
+  paddingBottom: variables.space[8],
 }
 
 const contentStyle = {
@@ -42,7 +51,9 @@ export default () => {
         </Content>
       </Section>
       <Section
-        style={{ ...sectionStyle, background: variables.palette.light54 }}
+        style={sectionStyle}
+        data-theme={Theme.Dark}
+        data-navigation-theme={Theme.Dark}
       >
         <Content size="small">
           <Heading level={1}>

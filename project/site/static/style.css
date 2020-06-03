@@ -34,7 +34,7 @@ html {
 }
 
 html.margin-navigation body {
-  padding-top: var(--fraction-dimension-navigationBarHeight);
+  padding-top: var(--fraction-dimension-navigationHeight);
 }
 
 /* stylelint-disable selector-type-no-unknown */

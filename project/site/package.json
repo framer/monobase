@@ -4,6 +4,7 @@
   "dependencies": {
     "clsx": "^1.1.0",
     "framer-motion": "^2.0.0-beta.72",
+    "framesync": "^4.0.4",
     "lodash.debounce": "^4.0.8",
     "lodash.groupby": "^4.6.0",
     "lodash.kebabcase": "^4.1.1",
