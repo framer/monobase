@@ -1,5 +1,4 @@
-import * as React from "react"
-import { FC } from "react"
+import React, { FC } from "react"
 import { createInnerHTML } from "../../utils"
 import { HTMLProps } from "../../types"
 

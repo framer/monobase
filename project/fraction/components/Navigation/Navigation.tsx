@@ -1,5 +1,4 @@
-import * as React from "react"
-import { useCallback, useState, FC } from "react"
+import React, { useCallback, useState, FC } from "react"
 import clsx from "clsx"
 import { motion, AnimatePresence, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"

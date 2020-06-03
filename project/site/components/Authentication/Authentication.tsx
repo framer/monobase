@@ -1,5 +1,4 @@
-import * as React from "react"
-import { FC } from "react"
+import React, { FC } from "react"
 import { Script, HTMLProps } from "fraction"
 
 export const Authentication: FC<HTMLProps<"script">> = () => (

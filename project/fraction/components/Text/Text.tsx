@@ -1,5 +1,4 @@
-import * as React from "react"
-import { forwardRef, FC, CSSProperties } from "react"
+import React, { forwardRef, FC, CSSProperties } from "react"
 import clsx from "clsx"
 import styles from "./Text.styles.css"
 import { TypographyProps, HTMLPropsWithRef } from "../../types"

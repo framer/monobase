@@ -1,5 +1,4 @@
-import * as React from "react"
-import { FC } from "react"
+import React, { FC } from "react"
 import clsx from "clsx"
 import styles from "./Navigation.styles.css"
 import { HTMLProps } from "../../types"

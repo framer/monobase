@@ -1,5 +1,4 @@
-import * as React from "react"
-import { forwardRef, FC } from "react"
+import React, { forwardRef, FC } from "react"
 import clsx from "clsx"
 import styles from "./Content.styles.css"
 import { HTMLPropsWithRef } from "../../types"

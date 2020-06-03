@@ -1,5 +1,4 @@
-import * as React from "react"
-import { FC } from "react"
+import React, { FC } from "react"
 import { Dynamic } from "monobase"
 import {
   Navigation as FractionNavigation,
