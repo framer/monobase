@@ -1,16 +1,26 @@
 {
-  "name": "monobase-project",
+  "name": "site",
   "version": "1.0.0",
   "dependencies": {
     "clsx": "^1.1.0",
+    "framer-motion": "^2.0.0-beta.72",
+    "lodash.debounce": "^4.0.8",
+    "lodash.groupby": "^4.6.0",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.partial": "^4.2.1",
+    "lodash.throttle": "^4.1.1",
     "monobase": "*"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/lodash.groupby": "^4.6.6",
+    "@types/lodash.kebabcase": "^4.1.6",
+    "@types/lodash.partial": "^4.2.6",
+    "@types/lodash.throttle": "^4.1.6",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8"
   },
   "peerDependencies": {
-    "framer-motion": "^2.0.0-beta.72",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
