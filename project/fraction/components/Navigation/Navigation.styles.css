@@ -312,13 +312,45 @@
 }
 
 .avatar {
+  position: relative;
+  display: flex;
+  place-content: center;
+  place-items: center;
   width: 24px;
   height: 24px;
-  background: #000;
+  color: inherit;
   border-radius: 50%;
+  overflow: hidden;
   margin-right: auto;
   transform: scale(1.52);
   transition: transform 0.12s ease-in-out;
+}
+
+.avatar:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  background: currentColor;
+  opacity: 0.1;
+  z-index: var(--fraction-depth-zero);
+}
+
+.avatar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.initials {
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .label,

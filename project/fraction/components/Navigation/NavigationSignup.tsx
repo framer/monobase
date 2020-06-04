@@ -25,21 +25,6 @@ export const NavigationSignup: FC<HTMLProps<"a"> & Props> = ({
 }) => {
   const isAuthenticated = !!account
 
-  const authenticatedContent = (
-    <>
-      <div className={styles.avatar} />
-      <span className={styles.label}>
-        <span className={styles.sublabel}>Open&nbsp;</span>Framer
-      </span>
-    </>
-  )
-  const unauthenticatedContent = (
-    <span className={styles.label}>
-      Sign up
-      <span className={styles.sublabel}>&nbsp;for free</span>
-    </span>
-  )
-
   return (
     <li className={clsx(styles.item, "signup")}>
       <a {...props} className={clsx(className, styles.signup)}>
@@ -54,7 +39,13 @@ export const NavigationSignup: FC<HTMLProps<"a"> & Props> = ({
               transition={transitions.ease}
               key="authenticated"
             >
-              {authenticatedContent}
+              <div className={styles.avatar}>
+                <span className={styles.initials}>{account.initials}</span>
+                {account.avatar && <img src={account.avatar} alt="avatar" />}
+              </div>
+              <span className={styles.label}>
+                <span className={styles.sublabel}>Open&nbsp;</span>Framer
+              </span>
             </motion.div>
           ) : (
             <motion.div
@@ -66,7 +57,10 @@ export const NavigationSignup: FC<HTMLProps<"a"> & Props> = ({
               transition={transitions.ease}
               key="unauthenticated"
             >
-              {unauthenticatedContent}
+              <span className={styles.label}>
+                Sign up
+                <span className={styles.sublabel}>&nbsp;for free</span>
+              </span>
             </motion.div>
           )}
         </AnimatePresence>

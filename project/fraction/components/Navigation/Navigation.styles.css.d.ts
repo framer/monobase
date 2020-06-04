@@ -6,6 +6,7 @@ interface CssExports {
   'background': string;
   'controls': string;
   'hamburger': string;
+  'initials': string;
   'item': string;
   'label': string;
   'list': string;

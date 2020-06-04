@@ -6,11 +6,11 @@ export const Authentication: FC<HTMLProps<"script">> = () => (
   const key = "framerAccount"
 
   setTimeout(() => {
-    const isAuthenticated = !!Math.round(Math.random())
-    const account = isAuthenticated ? JSON.stringify({
+    const account = JSON.stringify({
       name: "Marc Bouchenoire",
-      initials: "MB"
-    }) : undefined
+      initials: "MB",
+      avatar: "https://picsum.photos/id/326/64"
+    })
 
     window.sessionStorage.setItem(key, account)
     window.dispatchEvent(new CustomEvent("storagestatechange", {

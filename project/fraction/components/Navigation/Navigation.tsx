@@ -183,16 +183,30 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
             authenticated: isAuthenticated,
           })}
         >
-          {!isAuthenticated && (
-            <NavigationItem
-              key="signin"
-              href="#"
-              tabIndex={isMobile && !isOpen ? -1 : 4}
-              className="signin"
-            >
-              Sign in
-            </NavigationItem>
-          )}
+          <AnimatePresence initial={false}>
+            {!isAuthenticated && (
+              <motion.li
+                key="signin"
+                className={clsx("signin", styles.item)}
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                  },
+                  visible: {
+                    opacity: 1,
+                  },
+                }}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                transition={transitions.ease}
+              >
+                <a href="#" tabIndex={isMobile && !isOpen ? -1 : 4}>
+                  Sign in
+                </a>
+              </motion.li>
+            )}
+          </AnimatePresence>
           <NavigationSignup
             href="#"
             tabIndex={isMobile ? 3 : 4}
