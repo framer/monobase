@@ -123,6 +123,9 @@
   width: auto;
   cursor: pointer;
   overflow: hidden;
+  display: flex;
+  place-content: center;
+  place-items: center;
   width: 36px;
   height: 36px;
   left: 0;
@@ -146,12 +149,59 @@
   height: 100%;
   color: inherit;
   background: currentColor;
-  opacity: 0.12;
+  opacity: 0.1;
   z-index: var(--fraction-depth-zero);
 }
 
 :global([data-navigation-tint="true"]) .hamburger:before {
   background: var(--fraction-palette-white);
+}
+
+.hamburger svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hamburger g {
+  transition: transform 0.3s;
+}
+
+.hamburger path {
+  transform-origin: top left;
+  transition: transform 0.3s, opacity 0.3s 0.1s;
+}
+
+.hamburger path:nth-child(1) {
+  transform: translateX(4px) translateY(5px);
+}
+
+.hamburger path:nth-child(2) {
+  transform: translateX(4px) translateY(10px);
+}
+
+.hamburger path:nth-child(3) {
+  transform: translateX(4px) translateY(15px);
+}
+
+.navigation:global(.open) .hamburger g {
+  transition: transform 0.3s 0.1s;
+  transform: translateX(1.8px);
+}
+
+.navigation:global(.open) .hamburger path {
+  transition: transform 0.3s 0.1s, opacity 0.3s;
+}
+
+.navigation:global(.open) .hamburger path:nth-child(1) {
+  transform: translateX(4px) translateY(5.75px) rotate(45deg);
+}
+
+.navigation:global(.open) .hamburger path:nth-child(2) {
+  opacity: 0;
+}
+
+.navigation:global(.open) .hamburger path:nth-child(3) {
+  transform: translateX(4px) translateY(14.25px) rotate(-45deg);
 }
 
 .list,

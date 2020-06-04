@@ -120,7 +120,30 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
             className={styles.hamburger}
             onClick={handleHamburgerClick}
             tabIndex={1}
-          />
+          >
+            <svg viewBox="0 0 20 20">
+              <g>
+                <path
+                  d="M 0,0 h 12"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 0,0 h 12"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 0,0 h 12"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                />
+              </g>
+            </svg>
+          </button>
           <a className={styles.logo} href="/" tabIndex={2}>
             <svg
               xmlns="http:www.w3.org/2000/svg"
