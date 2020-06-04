@@ -50,6 +50,7 @@ export const color: Color = {
   navigationBackground: palette.white,
   navigationBorder: "rgba(0, 0, 0, 0.05)",
   navigationColor: palette.dark100,
+  navigationHamburger: palette.dark60,
   overlayColor: "rgba(0, 0, 0, 0.25)",
   pageBackground: palette.white,
   pageColor: palette.black,

@@ -123,8 +123,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
           />
           <a className={styles.logo} href="/" tabIndex={2}>
             <svg
-              xmlns="http:
-              www.w3.org/2000/svg"
+              xmlns="http:www.w3.org/2000/svg"
               viewBox="0 0 14 21"
               role="presentation"
             >

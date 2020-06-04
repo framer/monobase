@@ -1,13 +1,13 @@
 import { useEffect, useRef, FC } from "react"
 import { motionValue, MotionValue } from "framer-motion"
-import { dimension, color, useIsomorphicLayoutEffect } from "fraction"
+import { dimension, useIsomorphicLayoutEffect } from "fraction"
 import { Dynamic } from "monobase"
 import sync from "framesync"
 import kebabCase from "lodash.kebabcase"
 
 export interface NavigationTraits {
-  navigationAccent?: string
-  navigationTint?: string
+  navigationAccent?: string | boolean
+  navigationTint?: string | boolean
   navigationTheme?: string
   navigationTransparent?: boolean
   navigationVibrant?: boolean
@@ -70,12 +70,14 @@ const updateNavigationVariable = (
   navigationTraits: NavigationTraits,
   previousNavigationTraits: NavigationTraits
 ) => {
-  const variable = `--${kebabCase(property)}`
-
   if (previousNavigationTraits[property] !== navigationTraits[property]) {
+    const variable = `--${kebabCase(property)}`
+
     if (
-      navigationTraits[property] === undefined ||
-      navigationTraits[property] === false
+      typeof navigationTraits[property] === "boolean" ||
+      navigationTraits[property] === "true" ||
+      navigationTraits[property] === "false" ||
+      navigationTraits[property] === undefined
     ) {
       document.documentElement.style.removeProperty(variable)
     } else {
@@ -101,10 +103,17 @@ const updateNavigationAttribute = (
     ) {
       document.documentElement.removeAttribute(attribute)
     } else {
-      document.documentElement.setAttribute(
-        attribute,
-        String(navigationTraits[property])
-      )
+      if (property === "navigationAccent" || property === "navigationTint") {
+        document.documentElement.setAttribute(
+          attribute,
+          String(Boolean(navigationTraits[property]))
+        )
+      } else {
+        document.documentElement.setAttribute(
+          attribute,
+          String(navigationTraits[property])
+        )
+      }
     }
   }
 }
@@ -113,8 +122,18 @@ const updateNavigationTraits = (
   previousNavigationTraits: NavigationTraits,
   navigationTraits: NavigationTraits
 ) => {
+  updateNavigationAttribute(
+    "navigationAccent",
+    navigationTraits,
+    previousNavigationTraits
+  )
   updateNavigationVariable(
     "navigationAccent",
+    navigationTraits,
+    previousNavigationTraits
+  )
+  updateNavigationAttribute(
+    "navigationTint",
     navigationTraits,
     previousNavigationTraits
   )
@@ -198,7 +217,7 @@ const initiateObserverValues = (
 
 export const StaticObserver: FC<NavigationTraits> = ({
   navigationAccent = undefined,
-  navigationTint = color.primary,
+  navigationTint = undefined,
   navigationTheme = "light",
   navigationTransparent = false,
   navigationVibrant = false,

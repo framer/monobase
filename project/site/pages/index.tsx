@@ -6,8 +6,9 @@ import {
   Heading,
   Text,
   Wireframe,
-  variables,
   Theme,
+  variables,
+  tokens,
 } from "fraction"
 
 const sectionStyle = {
@@ -54,6 +55,7 @@ export default () => {
         style={sectionStyle}
         data-theme={Theme.Dark}
         data-navigation-theme={Theme.Dark}
+        data-navigation-accent={tokens.palette.red}
       >
         <Content size="small">
           <Heading level={1}>
@@ -82,7 +84,7 @@ export default () => {
           </Heading>
         </Content>
       </Section>
-      <Section>
+      <Section data-navigation-tint>
         <Content size="small">
           <Text size="smallest">
             Our component system was based on good old NPM packages, built by a

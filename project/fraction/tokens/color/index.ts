@@ -17,6 +17,7 @@ export type Color = {
   navigationBackground: string
   navigationBorder: string
   navigationColor: string
+  navigationHamburger: string
 
   // Button
   buttonBackground: string

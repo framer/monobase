@@ -1,5 +1,4 @@
-import React from "react"
-import { FC } from "react"
+import React, { FC, CSSProperties } from "react"
 import { Development, StyleSheet } from "monobase"
 import { Variables, Theme, HTMLProps } from "fraction"
 import clsx from "clsx"
@@ -52,6 +51,16 @@ export interface Props {
   meta?: Meta
 
   /**
+   * Set page default accent
+   */
+  accent?: string
+
+  /**
+   * Set page default tint
+   */
+  tint?: string
+
+  /**
    * Remove default navigation height from top margin of the page
    * @default true
    */
@@ -100,6 +109,8 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
   secondaryTitleAsPrefix = false,
   description = "It’s prototyping made simple—no code required, browser-based, and free for everyone. High-fidelity in half the time.",
   meta = {},
+  accent,
+  tint,
   marginNavigation = true,
   marginFooter = true,
   navigationAccent,
@@ -107,6 +118,7 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
   navigationTheme = Theme.Light,
   navigationTransparent,
   navigationVibrant,
+  style = {},
   ...props
 }) => {
   const withSecondaryTitle = (
@@ -139,10 +151,18 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
       })}
       data-theme={Theme[theme] || Theme.Light}
       data-navigation-accent={
-        typeof navigationAccent === "string" ? navigationAccent : undefined
+        typeof navigationAccent === "string"
+          ? true
+          : typeof navigationAccent === "boolean"
+          ? String(navigationAccent)
+          : undefined
       }
       data-navigation-tint={
-        typeof navigationTint === "string" ? navigationTint : undefined
+        typeof navigationTint === "string"
+          ? true
+          : typeof navigationAccent === "boolean"
+          ? String(navigationAccent)
+          : undefined
       }
       data-navigation-theme={
         Theme[navigationTheme] || Theme[theme] || Theme.Light
@@ -156,6 +176,15 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
         typeof navigationVibrant === "boolean" ? navigationVibrant : undefined
       }
       data-navigation-ceiling
+      style={
+        {
+          "--navigation-accent":
+            typeof navigationAccent === "string" ? navigationAccent : undefined,
+          "--navigation-tint":
+            typeof navigationTint === "string" ? navigationTint : undefined,
+          ...style,
+        } as CSSProperties
+      }
     >
       <head>
         <meta charSet="utf-8" />
@@ -167,7 +196,12 @@ export const Page: FC<HTMLProps<"html"> & Props> = ({
           content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         />
         <link rel="stylesheet" href="/static/style.css" />
-        <Variables />
+        <Variables
+          accent={accent}
+          tint={accent}
+          navigationAccent={navigationAccent}
+          navigationTint={navigationTint}
+        />
         <StyleSheet />
         <Authentication async />
         <script

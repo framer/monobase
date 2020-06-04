@@ -9,11 +9,16 @@
   color: var(--fraction-color-navigationColor);
   z-index: var(--fraction-depth-navigation);
   contain: layout;
+  transition: color 0.08s ease-in-out;
 }
 
 :global([data-theme="dark"]) .navigation,
 :global([data-navigation-theme="dark"]) .navigation {
   --navigation-active-opacity: 0.4;
+}
+
+:global([data-navigation-tint="true"]) .navigation {
+  color: var(--fraction-palette-white);
 }
 
 .navigation :global(.content) {
@@ -52,6 +57,11 @@
   background: var(--fraction-color-navigationBackground);
   z-index: var(--fraction-depth-zero);
   box-shadow: 0 1px var(--fraction-color-navigationBorder);
+  transition: background 0.08s ease-in-out, box-shadow 0.08s ease-in-out;
+}
+
+:global([data-navigation-tint="true"]) .background {
+  background: var(--navigation-tint);
 }
 
 .controls,
@@ -103,7 +113,7 @@
 
 .hamburger {
   position: absolute;
-  color: inherit;
+  color: var(--fraction-color-navigationHamburger);
   font: inherit;
   line-height: normal;
   border: none;
@@ -118,7 +128,30 @@
   left: 0;
   top: 12px;
   border-radius: 50%;
-  background: var(--fraction-palette-light54);
+  background: transparent;
+  transition: opacity 0.16s ease-in-out, color 0.08s ease-in-out;
+}
+
+.hamburger:hover,
+.hamburger:focus {
+  opacity: var(--navigation-active-opacity);
+}
+
+.hamburger:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  background: currentColor;
+  opacity: 0.12;
+  z-index: var(--fraction-depth-zero);
+}
+
+:global([data-navigation-tint="true"]) .hamburger:before {
+  background: var(--fraction-palette-white);
 }
 
 .list,
@@ -145,7 +178,12 @@
 }
 
 .item:global(.signin) {
-  color: var(--fraction-color-primary);
+  color: var(--navigation-accent);
+  transition: color 0.08s ease-in-out;
+}
+
+:global([data-navigation-tint="true"]) .item:global(.signin) {
+  color: var(--fraction-palette-white);
 }
 
 .item:global(.signup) {
@@ -192,11 +230,23 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
+  outline: none;
   text-decoration: none;
   color: var(--fraction-palette-white);
-  background: var(--fraction-color-primary);
+  background: var(--navigation-accent);
   border-radius: 18px;
-  transition: width 0.16s ease-in-out;
+  transition: width 0.16s ease-in-out, opacity 0.16s ease-in-out,
+    background 0.08s ease-in-out, color 0.08s ease-in-out;
+}
+
+.signup:hover,
+.signup:focus {
+  opacity: var(--navigation-active-opacity);
+}
+
+:global([data-navigation-tint="true"]) .signup {
+  color: var(--navigation-tint);
+  background: var(--fraction-palette-white);
 }
 
 .signupContent {
