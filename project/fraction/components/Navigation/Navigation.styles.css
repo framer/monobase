@@ -153,8 +153,8 @@
   z-index: var(--fraction-depth-zero);
 }
 
-:global([data-navigation-tint="true"]) .hamburger:before {
-  background: var(--fraction-palette-white);
+:global([data-navigation-tint="true"]) .hamburger {
+  color: var(--fraction-palette-white);
 }
 
 .hamburger svg {
@@ -163,12 +163,12 @@
 }
 
 .hamburger g {
-  transition: transform 0.3s;
+  transition: transform 0.22s;
 }
 
 .hamburger path {
   transform-origin: top left;
-  transition: transform 0.3s, opacity 0.3s 0.1s;
+  transition: transform 0.22s, opacity 0.16s 0.06s;
 }
 
 .hamburger path:nth-child(1) {
@@ -184,12 +184,12 @@
 }
 
 .navigation:global(.open) .hamburger g {
-  transition: transform 0.3s 0.1s;
+  transition: transform 0.22s 0.06s;
   transform: translateX(1.8px);
 }
 
 .navigation:global(.open) .hamburger path {
-  transition: transform 0.3s 0.1s, opacity 0.3s;
+  transition: transform 0.22s 0.06s, opacity 0.16s;
 }
 
 .navigation:global(.open) .hamburger path:nth-child(1) {

@@ -84,7 +84,7 @@ export default () => {
           </Heading>
         </Content>
       </Section>
-      <Section data-navigation-tint>
+      <Section style={sectionStyle} data-navigation-tint>
         <Content size="small">
           <Text size="smallest">
             Our component system was based on good old NPM packages, built by a
