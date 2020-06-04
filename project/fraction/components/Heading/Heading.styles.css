@@ -3,6 +3,7 @@
 
   font-size: var(--fraction-size-4);
   color: var(--heading-color);
+  margin: 0 0 0.8em;
 }
 
 .heading:global(.level-6) {
