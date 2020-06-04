@@ -6,6 +6,10 @@ export interface ScrollObserverValues {
   scroll: number
 }
 
+export interface ScreenObserverValues {
+  screen: string
+}
+
 export interface ResizeObserverValues {
   viewportWidth: number
   viewportHeight: number
@@ -41,6 +45,29 @@ export const useScrollObserver = (
       unsubscribeScroll()
     }
   }, [observerScroll, read, update])
+}
+
+export const useScreenObserver = (
+  read: observerCallback<ScreenObserverValues> = () => {},
+  update?: observerCallback<ScreenObserverValues>
+) => {
+  const { screen: observerScreen } = observerValues
+
+  useIsomorphicLayoutEffect(() => {
+    const onScreenChange = (screen: string) => {
+      sync.read(() => read({ screen }))
+
+      if (update instanceof Function) {
+        sync.update(() => update({ screen }))
+      }
+    }
+
+    const unsubscribeScreen = observerScreen.onChange(onScreenChange)
+
+    return () => {
+      unsubscribeScreen()
+    }
+  }, [observerScreen, read, update])
 }
 
 export const useResizeObserver = (

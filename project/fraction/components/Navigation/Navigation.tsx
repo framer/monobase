@@ -4,7 +4,7 @@ import { motion, AnimatePresence, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { dimension } from "../../tokens"
 import { HTMLPropsWithMotion } from "../../types"
-import { useEscapeKey, useIsomorphicLayoutEffect } from "../../hooks"
+import { useEscapeKey } from "../../hooks"
 import { Content } from "../Content"
 import { NavigationItem } from "./NavigationItem"
 import { NavigationSignup } from "./NavigationSignup"
@@ -25,6 +25,7 @@ export interface FramerAccount {
 export interface Props {
   items?: Items
   account?: FramerAccount
+  withHamburger: boolean
 }
 
 export const defaultItems: Items = {
@@ -58,10 +59,11 @@ export const transitions: Record<string, Transition> = {
 export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
   items = defaultItems,
   account,
+  withHamburger = false,
   ...props
 }) => {
   const [isOpen, setOpen] = useState(false)
-  const [isMobile, setMobile] = useState(false)
+  const [isVisiblyAuthenticated, setVisiblyAuthenticated] = useState(false)
   const isAuthenticated = !!account
 
   const handleHamburgerClick = useCallback(() => {
@@ -72,29 +74,13 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
     setOpen(false)
   }, [])
 
+  const handleAuthenticationAnimationComplete = useCallback(() => {
+    setVisiblyAuthenticated(true)
+  }, [])
+
   useEscapeKey(() => {
     setOpen(false)
-  }, isOpen && isMobile)
-
-  useIsomorphicLayoutEffect(() => {
-    const desktopMediaQuery = window.matchMedia("(min-width: 740px)")
-    const addMediaQueryListener = (
-      callback: (event?: MediaQueryListEvent) => void
-    ) =>
-      desktopMediaQuery.addEventListener instanceof Function
-        ? desktopMediaQuery.addEventListener("change", callback)
-        : desktopMediaQuery.addListener(callback)
-
-    addMediaQueryListener(({ matches }) => {
-      setMobile(!matches)
-
-      if (matches) {
-        setOpen(false)
-      }
-    })
-
-    setMobile(!desktopMediaQuery.matches)
-  }, [])
+  }, isOpen && withHamburger)
 
   useEffect(() => {
     if (isOpen) {
@@ -103,6 +89,10 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
       document.documentElement.removeAttribute("data-scroll")
     }
   }, [isOpen])
+
+  useEffect(() => {
+    setOpen(false)
+  }, [withHamburger])
 
   return (
     <motion.nav
@@ -171,7 +161,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
               <NavigationItem
                 key={index}
                 href={items[item].href}
-                tabIndex={isMobile && !isOpen ? -1 : 4}
+                tabIndex={withHamburger && !isOpen ? -1 : 4}
               >
                 {items[item].label}
               </NavigationItem>
@@ -180,7 +170,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
         </ul>
         <ul
           className={clsx(styles.authentication, {
-            authenticated: isAuthenticated,
+            authenticated: isVisiblyAuthenticated,
           })}
         >
           <AnimatePresence initial={false}>
@@ -201,7 +191,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
                 exit="hidden"
                 transition={transitions.ease}
               >
-                <a href="#" tabIndex={isMobile && !isOpen ? -1 : 4}>
+                <a href="#" tabIndex={withHamburger && !isOpen ? -1 : 4}>
                   Sign in
                 </a>
               </motion.li>
@@ -209,8 +199,11 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
           </AnimatePresence>
           <NavigationSignup
             href="#"
-            tabIndex={isMobile ? 3 : 4}
+            tabIndex={withHamburger ? 3 : 4}
             account={account}
+            onAuthenticationAnimationComplete={
+              handleAuthenticationAnimationComplete
+            }
           />
         </ul>
       </Content>

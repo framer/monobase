@@ -276,7 +276,7 @@
   top: 12px;
   right: var(--fraction-dimension-gutter);
   height: 36px;
-  width: 96px;
+  width: 78px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -285,8 +285,8 @@
   color: var(--fraction-palette-white);
   background: var(--navigation-accent);
   border-radius: 18px;
-  transition: width 0.16s ease-in-out, opacity 0.16s ease-in-out,
-    background 0.08s ease-in-out, color 0.08s ease-in-out;
+  transition: opacity 0.16s ease-in-out, background 0.08s ease-in-out,
+    color 0.08s ease-in-out;
 }
 
 .signup:hover,
@@ -323,7 +323,6 @@
   overflow: hidden;
   margin-right: auto;
   transform: scale(1.52);
-  transition: transform 0.12s ease-in-out;
 }
 
 .avatar:before {

@@ -7,6 +7,7 @@ import { HTMLProps } from "../../types"
 
 interface Props {
   account?: FramerAccount
+  onAuthenticationAnimationComplete?: () => void
 }
 
 const variants: Variants = {
@@ -20,6 +21,7 @@ const variants: Variants = {
 
 export const NavigationSignup: FC<HTMLProps<"a"> & Props> = ({
   account,
+  onAuthenticationAnimationComplete,
   className,
   ...props
 }) => {
@@ -28,7 +30,11 @@ export const NavigationSignup: FC<HTMLProps<"a"> & Props> = ({
   return (
     <li className={clsx(styles.item, "signup")}>
       <a {...props} className={clsx(className, styles.signup)}>
-        <AnimatePresence initial={false} exitBeforeEnter>
+        <AnimatePresence
+          initial={false}
+          exitBeforeEnter
+          onExitComplete={onAuthenticationAnimationComplete}
+        >
           {isAuthenticated ? (
             <motion.div
               className={clsx(styles.signupContent, "authenticated")}

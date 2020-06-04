@@ -1,6 +1,11 @@
 import { useEffect, useRef, FC } from "react"
 import { motionValue, MotionValue } from "framer-motion"
-import { dimension, useIsomorphicLayoutEffect } from "fraction"
+import {
+  screenNames,
+  screenValues,
+  dimension,
+  useIsomorphicLayoutEffect,
+} from "fraction"
 import { Dynamic } from "monobase"
 import sync from "framesync"
 import kebabCase from "lodash.kebabcase"
@@ -21,6 +26,7 @@ export interface NavigationThreshold {
 
 export interface ObserverValues {
   scroll: MotionValue<number>
+  screen: MotionValue<string>
   documentWidth: MotionValue<number>
   documentHeight: MotionValue<number>
   viewportWidth: MotionValue<number>
@@ -34,6 +40,7 @@ export interface DocumentResizeEvent {
 
 export const observerValues: ObserverValues = {
   scroll: motionValue<number>(0),
+  screen: motionValue<string>(null),
   documentWidth: motionValue<number>(null),
   documentHeight: motionValue<number>(null),
   viewportWidth: motionValue<number>(null),
@@ -177,15 +184,36 @@ const calculateScrollThresholds = (
   })
 }
 
+const getCurrentMediaQuery = (mediaQueries: MediaQueryList[]) => {
+  return [...mediaQueries].reverse().find((mediaQuery) => mediaQuery.matches)
+}
+
+const getScreenFromMediaQuery = (
+  mediaQuery: MediaQueryList | MediaQueryListEvent
+) => {
+  const mediaQueryIndex = screenNames.findIndex(
+    (name) => screenValues[name] === mediaQuery.media
+  )
+  const mediaQueryRelativeIndex = mediaQuery.matches
+    ? mediaQueryIndex
+    : mediaQueryIndex - 1
+
+  return screenNames[mediaQueryRelativeIndex]
+}
+
 const initiateObserverValues = (
-  navigationTraits: NavigationTraits
-): [NavigationThreshold[], number, number, number, number, number] => {
+  navigationTraits: NavigationTraits,
+  mediaQueries: MediaQueryList[]
+): [NavigationThreshold[], number, string, number, number, number, number] => {
   let thresholds: NavigationThreshold[] = []
   let scroll = 0
   let documentWidth: number
   let documentHeight: number
   let viewportWidth: number
   let viewportHeight: number
+
+  const currentMediaQuery = getCurrentMediaQuery(mediaQueries)
+  const screen = getScreenFromMediaQuery(currentMediaQuery)
 
   sync.read(() => {
     thresholds = calculateScrollThresholds(navigationTraits)
@@ -199,6 +227,7 @@ const initiateObserverValues = (
 
   sync.update(() => {
     observerValues.scroll.set(scroll)
+    observerValues.screen.set(screen)
     observerValues.documentWidth.set(documentWidth)
     observerValues.documentHeight.set(documentHeight)
     observerValues.viewportWidth.set(viewportWidth)
@@ -208,12 +237,33 @@ const initiateObserverValues = (
   return [
     thresholds,
     scroll,
+    screen,
     documentWidth,
     documentHeight,
     viewportWidth,
     viewportHeight,
   ]
 }
+
+const initiateMediaQueries = () => {
+  return screenNames.map((name) => window.matchMedia(screenValues[name]))
+}
+
+const addMediaQueryListener = (
+  mediaQuery: MediaQueryList,
+  callback: (event?: MediaQueryListEvent) => void
+) =>
+  mediaQuery.addEventListener instanceof Function
+    ? mediaQuery.addEventListener("change", callback)
+    : mediaQuery.addListener(callback)
+
+const removeMediaQueryListener = (
+  mediaQuery: MediaQueryList,
+  callback: (event?: MediaQueryListEvent) => void
+) =>
+  mediaQuery.removeEventListener instanceof Function
+    ? mediaQuery.removeEventListener("change", callback)
+    : mediaQuery.removeListener(callback)
 
 export const StaticObserver: FC<NavigationTraits> = ({
   navigationAccent = undefined,
@@ -233,14 +283,24 @@ export const StaticObserver: FC<NavigationTraits> = ({
   useIsomorphicLayoutEffect(() => {
     let navigationTraits: NavigationTraits
     let previousNavigationTraits = defaultNavigationTraits.current
+    const mediaQueries = initiateMediaQueries()
     let [
       thresholds,
       scroll,
+      screen,
       documentWidth,
       documentHeight,
       viewportWidth,
       viewportHeight,
-    ] = initiateObserverValues(previousNavigationTraits)
+    ] = initiateObserverValues(previousNavigationTraits, mediaQueries)
+
+    const updateScreenValue = (event: MediaQueryListEvent) => {
+      screen = getScreenFromMediaQuery(event)
+
+      sync.update(() => {
+        observerValues.screen.set(screen)
+      })
+    }
 
     const updateObserverValues = (event: Event | DocumentResizeEvent) => {
       sync.read(() => {
@@ -303,6 +363,10 @@ export const StaticObserver: FC<NavigationTraits> = ({
       })
     )
 
+    mediaQueries.forEach((mediaQuery) => {
+      addMediaQueryListener(mediaQuery, updateScreenValue)
+    })
+
     window.addEventListener("scroll", updateObserverValues, {
       passive: true,
     })
@@ -312,6 +376,9 @@ export const StaticObserver: FC<NavigationTraits> = ({
     documentObserver.observe(document.body)
 
     return () => {
+      mediaQueries.forEach((mediaQuery) => {
+        removeMediaQueryListener(mediaQuery, updateScreenValue)
+      })
       window.removeEventListener("scroll", updateObserverValues)
       window.removeEventListener("resize", updateObserverValues)
       documentObserver.unobserve(document.body)
