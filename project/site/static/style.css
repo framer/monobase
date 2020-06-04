@@ -33,6 +33,10 @@ html {
   }
 }
 
+html[data-scroll="false"] {
+  overflow: hidden;
+}
+
 html.margin-navigation body {
   padding-top: var(--fraction-dimension-navigationHeight);
 }

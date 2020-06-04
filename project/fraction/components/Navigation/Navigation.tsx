@@ -1,4 +1,4 @@
-import React, { useCallback, useState, FC } from "react"
+import React, { useCallback, useEffect, useState, FC } from "react"
 import clsx from "clsx"
 import { motion, AnimatePresence, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
@@ -95,6 +95,14 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
 
     setMobile(!desktopMediaQuery.matches)
   }, [])
+
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.setAttribute("data-scroll", "false")
+    } else {
+      document.documentElement.removeAttribute("data-scroll")
+    }
+  }, [isOpen])
 
   return (
     <motion.nav
