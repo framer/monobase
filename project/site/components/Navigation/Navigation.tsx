@@ -1,15 +1,15 @@
-import React, { useEffect, useState, FC } from "react"
+import React, { useEffect, useState } from "react"
 import { Dynamic } from "monobase"
 import {
   Navigation as FractionNavigation,
   NavigationProps,
-  HTMLPropsWithMotion,
+  ComponentWithMotion,
   ScreenName,
   smallerThanScreen,
 } from "fraction"
 import { useSessionState, useObserverValues } from "../../hooks"
 
-const StaticNavigation: FC<HTMLPropsWithMotion<"nav"> & NavigationProps> = ({
+const StaticNavigation: ComponentWithMotion<"header", NavigationProps> = ({
   ...props
 }) => {
   const { screen: screenMotionValue } = useObserverValues()

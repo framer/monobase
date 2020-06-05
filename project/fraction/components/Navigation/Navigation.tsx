@@ -1,20 +1,20 @@
-import React, { useCallback, useEffect, useState, FC } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import clsx from "clsx"
 import { motion, AnimatePresence, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { dimension } from "../../tokens"
-import { HTMLPropsWithMotion } from "../../types"
+import { ComponentWithMotion } from "../../types"
 import { useEscapeKey } from "../../hooks"
-import { Content } from "../Content"
+import { Content } from "../../primitives/Content"
 import { NavigationItem } from "./NavigationItem"
 import { NavigationSignup } from "./NavigationSignup"
 
 export interface Item {
-  label: string
+  name: string
   href: string
 }
 
-export type Items = Record<string, Item>
+export type Items = Item[]
 
 export interface FramerAccount {
   name?: string
@@ -28,21 +28,21 @@ export interface Props {
   withHamburger: boolean
 }
 
-export const defaultItems: Items = {
-  examples: { label: "Examples", href: "/examples/" },
-  tutorials: { label: "Tutorials", href: "/tutorials/" },
-  teams: { label: "Teams", href: "/teams/" },
-  enterprise: {
-    label: "Enterprise",
+export const defaultItems: Items = [
+  { name: "Examples", href: "/examples/" },
+  { name: "Tutorials", href: "/tutorials/" },
+  { name: "Teams", href: "/teams/" },
+  {
+    name: "Enterprise",
     href: "/enterprise/",
   },
-  pricing: { label: "Pricing", href: "/pricing/" },
-  blog: { label: "Blog", href: "/blog/" },
-  support: {
-    label: "Support",
+  { name: "Pricing", href: "/pricing/" },
+  { name: "Blog", href: "/blog/" },
+  {
+    name: "Support",
     href: "/support/",
   },
-}
+]
 
 export const transitions: Record<string, Transition> = {
   ease: {
@@ -56,7 +56,7 @@ export const transitions: Record<string, Transition> = {
   },
 }
 
-export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
+export const Navigation: ComponentWithMotion<"header", Props> = ({
   items = defaultItems,
   account,
   withHamburger = false,
@@ -95,7 +95,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
   }, [withHamburger])
 
   return (
-    <motion.nav
+    <motion.header
       {...props}
       className={clsx(styles.navigation, "navigation", { open: isOpen })}
       variants={{
@@ -112,7 +112,7 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
     >
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.background} />
-      <Content>
+      <Content as="nav">
         <div className={styles.controls}>
           <button
             className={styles.hamburger}
@@ -157,13 +157,13 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
         </div>
         <ul className={styles.list}>
           <AnimatePresence>
-            {Object.keys(items).map((item, index) => (
+            {items.map((item, index) => (
               <NavigationItem
                 key={index}
-                href={items[item].href}
+                href={item.href}
                 tabIndex={withHamburger && !isOpen ? -1 : 4}
               >
-                {items[item].label}
+                {item.name}
               </NavigationItem>
             ))}
           </AnimatePresence>
@@ -207,6 +207,6 @@ export const Navigation: FC<HTMLPropsWithMotion<"nav"> & Props> = ({
           />
         </ul>
       </Content>
-    </motion.nav>
+    </motion.header>
   )
 }

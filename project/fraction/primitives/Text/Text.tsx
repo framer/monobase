@@ -1,7 +1,11 @@
-import React, { forwardRef, FC, CSSProperties } from "react"
+import React, { forwardRef, ElementType, CSSProperties } from "react"
 import clsx from "clsx"
 import styles from "./Text.styles.css"
-import { TypographyProps, HTMLPropsWithRef } from "../../types"
+import { Element } from ".."
+import { ComposedPrimitive, ComposedPrimitiveProps } from "../../types"
+import { TypographyProps } from "../../types"
+
+const DEFAULT_ELEMENT = "p"
 
 export interface Props extends TypographyProps {
   size?:
@@ -14,23 +18,26 @@ export interface Props extends TypographyProps {
     | "largest"
 }
 
-export const Text: FC<HTMLPropsWithRef<"p"> & Props> = forwardRef(
-  (
+export const Text = forwardRef(
+  <E extends ElementType = typeof DEFAULT_ELEMENT>(
     {
       children,
-      align,
-      color,
-      italic,
+      ref,
+      as = DEFAULT_ELEMENT as E,
       size = "default",
+      align,
+      italic,
+      color,
       style,
       className,
       ...props
-    },
-    ref
+    }: ComposedPrimitiveProps<E, Props>,
+    innerRef: typeof ref
   ) => (
-    <p
+    <Element
+      as={as as ElementType}
       {...props}
-      ref={ref}
+      ref={innerRef}
       className={clsx(styles.text, className, {
         [`size-${size}`]: !!size,
       })}
@@ -44,6 +51,6 @@ export const Text: FC<HTMLPropsWithRef<"p"> & Props> = forwardRef(
       }
     >
       {children}
-    </p>
+    </Element>
   )
-)
+) as ComposedPrimitive<typeof DEFAULT_ELEMENT, Props>

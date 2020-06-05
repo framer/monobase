@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React from "react"
 import {
   backdropValues,
   colorValues,
@@ -14,7 +14,7 @@ import {
   widthValues,
 } from "../../tokens"
 import { Style } from "../Style"
-import { HTMLProps } from "../../types"
+import { Component } from "../../types"
 
 export interface Props {
   accent?: string
@@ -23,13 +23,14 @@ export interface Props {
   navigationTint?: string
 }
 
-export const Variables: FC<HTMLProps<"style"> & Props> = ({
+export const Variables: Component<"style", Props> = ({
   accent = colorVariables.primary,
   tint = colorVariables.primary,
   navigationAccent,
   navigationTint,
+  ...props
 }) => (
-  <Style>{`
+  <Style {...props}>{`
     :root {
       ${typeof accent === "string" ? `--page-accent: ${accent};` : ""}
       ${typeof tint === "string" ? `--page-tint: ${tint};` : ""}

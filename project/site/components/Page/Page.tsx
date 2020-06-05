@@ -1,6 +1,6 @@
-import React, { FC, CSSProperties } from "react"
+import React, { CSSProperties } from "react"
 import { Development, StyleSheet } from "monobase"
-import { Variables, Theme, HTMLProps } from "fraction"
+import { Variables, Theme, Component } from "fraction"
 import clsx from "clsx"
 import { Authentication } from "../Authentication"
 import { Navigation } from "../Navigation"
@@ -101,7 +101,7 @@ export interface Props {
   navigationVibrant?: string
 }
 
-export const Page: FC<HTMLProps<"html"> & Props> = ({
+export const Page: Component<"html", Props> = ({
   children,
   theme = Theme.Light,
   title = "The prototyping tool for teams",

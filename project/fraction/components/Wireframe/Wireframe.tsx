@@ -1,9 +1,9 @@
-import React, { FC } from "react"
+import React from "react"
 import styles from "./Wireframe.styles.css"
-import { Content } from "../Content"
-import { HTMLProps } from "../../types"
+import { Content } from "../../primitives/Content"
+import { Component } from "../../types"
 
-export const Wireframe: FC<HTMLProps<"div">> = () => (
+export const Wireframe: Component<"div"> = () => (
   <div className={styles.wireframe}>
     <Content size="larger">
       <Content size="large">

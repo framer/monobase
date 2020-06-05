@@ -1,9 +1,9 @@
-import React, { FC } from "react"
+import React from "react"
 import clsx from "clsx"
 import { motion, AnimatePresence, Variants } from "framer-motion"
 import styles from "./Navigation.styles.css"
 import { FramerAccount, transitions } from "./Navigation"
-import { HTMLProps } from "../../types"
+import { Component } from "../../types"
 
 interface Props {
   account?: FramerAccount
@@ -19,7 +19,7 @@ const variants: Variants = {
   },
 }
 
-export const NavigationSignup: FC<HTMLProps<"a"> & Props> = ({
+export const NavigationSignup: Component<"a", Props> = ({
   account,
   onAuthenticationAnimationComplete,
   className,

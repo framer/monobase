@@ -1,12 +1,11 @@
-import React, { FC } from "react"
+import React from "react"
 import { createInnerHTML } from "../../utils"
-import { HTMLProps } from "../../types"
+import { Component } from "../../types"
 
 interface Props {
   children?: string
 }
 
-export const Style: FC<HTMLProps<"style"> & Props> = ({
-  children,
-  ...props
-}) => <style {...props} dangerouslySetInnerHTML={createInnerHTML(children)} />
+export const Style: Component<"style", Props> = ({ children, ...props }) => (
+  <style {...props} dangerouslySetInnerHTML={createInnerHTML(children)} />
+)

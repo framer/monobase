@@ -1,5 +1,3 @@
-export { Content, Props as ContentProps } from "./Content"
-export { Heading, Props as HeadingProps } from "./Heading"
 export {
   Navigation,
   NavigationItem,
@@ -9,8 +7,6 @@ export {
   FramerAccount,
 } from "./Navigation"
 export { Script } from "./Script"
-export { Section } from "./Section"
 export { Style } from "./Style"
-export { Text, Props as TextProps } from "./Text"
 export { Variables } from "./Variables"
 export { Wireframe } from "./Wireframe"

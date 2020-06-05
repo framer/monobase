@@ -1,4 +1,4 @@
-import { useEffect, useRef, FC } from "react"
+import { useEffect, useRef } from "react"
 import { motionValue, MotionValue } from "framer-motion"
 import {
   screenNames,
@@ -265,13 +265,13 @@ const removeMediaQueryListener = (
     ? mediaQuery.removeEventListener("change", callback)
     : mediaQuery.removeListener(callback)
 
-export const StaticObserver: FC<NavigationTraits> = ({
+export const StaticObserver = ({
   navigationAccent = undefined,
   navigationTint = undefined,
   navigationTheme = "light",
   navigationTransparent = false,
   navigationVibrant = false,
-}) => {
+}: NavigationTraits) => {
   const defaultNavigationTraits = useRef<NavigationTraits>({
     navigationAccent,
     navigationTint,

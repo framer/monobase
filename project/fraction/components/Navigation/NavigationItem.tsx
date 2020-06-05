@@ -1,9 +1,9 @@
-import React, { FC } from "react"
+import React from "react"
 import clsx from "clsx"
 import styles from "./Navigation.styles.css"
-import { HTMLProps } from "../../types"
+import { Component } from "../../types"
 
-export const NavigationItem: FC<HTMLProps<"a">> = ({
+export const NavigationItem: Component<"a"> = ({
   children,
   className,
   ...props
