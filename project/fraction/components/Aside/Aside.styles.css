@@ -1,0 +1,20 @@
+.container {
+  display: grid;
+  grid-gap: var(--fraction-space-5);
+  grid-template-rows: auto auto;
+  grid-template-columns: 100%;
+}
+
+.aside {
+}
+
+.content {
+}
+
+@media screen and (min-width: 1040px) {
+  .container {
+    grid-gap: var(--fraction-space-5);
+    grid-template-rows: auto;
+    grid-template-columns: auto var(--fraction-width-5);
+  }
+}

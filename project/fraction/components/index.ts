@@ -1,3 +1,4 @@
+export { Aside, Props as AsideProps } from "./Aside"
 export {
   Navigation,
   NavigationItem,

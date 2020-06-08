@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react"
 import { Page } from "../components"
 import {
+  Aside,
   Content,
   Section,
   Heading,
@@ -50,6 +51,11 @@ export default () => {
             </Content>
           </Content>
         </Content>
+      </Section>
+      <Section style={sectionStyle}>
+        <Aside aside={<div style={contentStyle}>Aside</div>}>
+          <div style={contentStyle}>Content</div>
+        </Aside>
       </Section>
       <Section
         style={sectionStyle}
