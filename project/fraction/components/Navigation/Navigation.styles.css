@@ -62,6 +62,7 @@
 
 :global([data-navigation-tint="true"]) .background {
   background: var(--navigation-tint);
+  box-shadow: 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .controls,

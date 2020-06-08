@@ -32,8 +32,10 @@ export const Variables: Component<"style", Props> = ({
 }) => (
   <Style {...props}>{`
     :root {
-      ${typeof accent === "string" ? `--page-accent: ${accent};` : ""}
-      ${typeof tint === "string" ? `--page-tint: ${tint};` : ""}
+      --page-accent: ${
+        typeof accent === "string" ? accent : colorVariables.primary
+      };
+      --page-tint: ${typeof tint === "string" ? tint : colorVariables.primary};
       --navigation-accent: ${
         typeof navigationAccent === "string"
           ? navigationAccent

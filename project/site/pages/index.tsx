@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { Page } from "../components"
 import {
   Content,
@@ -26,7 +26,7 @@ const contentStyle = {
 
 export default () => {
   return (
-    <Page>
+    <Page tint={variables.palette.yellow} accent={variables.palette.green}>
       <Section style={sectionStyle}>
         <Content style={contentStyle} size="small">
           Small
@@ -84,7 +84,16 @@ export default () => {
           </Heading>
         </Content>
       </Section>
-      <Section style={sectionStyle} data-navigation-tint>
+      <Section
+        style={
+          {
+            ...sectionStyle,
+            background: "var(--page-tint)",
+            "--fraction-color-textBody": "var(--fraction-palette-white)",
+          } as CSSProperties
+        }
+        data-navigation-tint
+      >
         <Content size="small">
           <Text size="smallest">
             Our component system was based on good old NPM packages, built by a

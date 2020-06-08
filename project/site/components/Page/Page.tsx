@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react"
 import { Development, StyleSheet } from "monobase"
-import { Variables, Theme, Component } from "fraction"
+import { Footer, Variables, Theme, Component } from "fraction"
 import clsx from "clsx"
 import { Authentication } from "../Authentication"
 import { Navigation } from "../Navigation"
@@ -160,8 +160,8 @@ export const Page: Component<"html", Props> = ({
       data-navigation-tint={
         typeof navigationTint === "string"
           ? true
-          : typeof navigationAccent === "boolean"
-          ? String(navigationAccent)
+          : typeof navigationTint === "boolean"
+          ? String(navigationTint)
           : undefined
       }
       data-navigation-theme={
@@ -198,7 +198,7 @@ export const Page: Component<"html", Props> = ({
         <link rel="stylesheet" href="/static/style.css" />
         <Variables
           accent={accent}
-          tint={accent}
+          tint={tint}
           navigationAccent={navigationAccent}
           navigationTint={navigationTint}
         />
