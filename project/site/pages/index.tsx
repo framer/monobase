@@ -5,6 +5,7 @@ import {
   Content,
   Section,
   Heading,
+  Stack,
   Text,
   Wireframe,
   Theme,
@@ -23,6 +24,11 @@ const contentStyle = {
   color: "#fff",
   paddingTop: variables.space[5],
   paddingBottom: variables.space[5],
+}
+
+const stackStyle = {
+  background: "#05f",
+  color: "#fff",
 }
 
 export default () => {
@@ -56,6 +62,43 @@ export default () => {
         <Aside aside={<div style={contentStyle}>Aside</div>}>
           <div style={contentStyle}>Content</div>
         </Aside>
+      </Section>
+      <Section style={sectionStyle}>
+        <Content>
+          <Stack direction="vertical" gap={20} fluid>
+            <div style={stackStyle}>
+              <Stack gap={20} gapX={10} inline>
+                <div style={{ ...stackStyle, background: "#07f" }}>
+                  <Stack direction="vertical" gap={10} gapX={30}>
+                    <div style={{ ...stackStyle, background: "#09f" }}>
+                      Motion that works like magic.
+                    </div>
+                    <div style={{ ...stackStyle, background: "#09f" }}>
+                      Motion that works like magic.
+                    </div>
+                  </Stack>
+                </div>
+                <div style={{ ...stackStyle, background: "#07f" }}>
+                  Motion that works like magic.
+                </div>
+                <div style={{ ...stackStyle, background: "#07f" }}>
+                  Motion that works like magic.
+                </div>
+                <div style={{ ...stackStyle, background: "#07f" }}>
+                  Motion that works like magic.
+                </div>
+                <div style={{ ...stackStyle, background: "#07f" }}>
+                  Motion that works like magic.
+                </div>
+              </Stack>
+            </div>
+            <div style={stackStyle}>Motion that works like magic.</div>
+            <div style={stackStyle}>Motion that works like magic.</div>
+            <div style={stackStyle}>Motion that works like magic.</div>
+            <div style={stackStyle}>Motion that works like magic.</div>
+            <div style={stackStyle}>Motion that works like magic.</div>
+          </Stack>
+        </Content>
       </Section>
       <Section
         style={sectionStyle}

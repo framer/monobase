@@ -46,7 +46,7 @@ export const Text = forwardRef(
           ...style,
           textAlign: align,
           fontStyle: italic ? "italic" : null,
-          "--text-color": color,
+          "--text-color": typeof color === "string" ? color : undefined,
         } as CSSProperties
       }
     >

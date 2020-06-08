@@ -5,7 +5,7 @@ import { Element } from ".."
 import { ComposedPrimitive, ComposedPrimitiveProps } from "../../types"
 import { TypographyProps } from "../../types"
 
-type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+export type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 
 export interface Props extends TypographyProps {
   level?: 1 | 2 | 3 | 4 | 5 | 6
@@ -39,7 +39,7 @@ export const Heading = forwardRef(
           ...style,
           textAlign: align,
           fontStyle: italic ? "italic" : null,
-          "--text-color": color,
+          "--text-color": typeof color === "string" ? color : undefined,
         } as CSSProperties
       }
     >
