@@ -213,7 +213,7 @@ export const Page: Component<"html", Props> = ({
       <body>
         <Observer />
         <Navigation />
-        {children}
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

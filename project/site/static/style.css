@@ -27,6 +27,15 @@ html {
   color: var(--fraction-color-textBody);
 }
 
+body {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+body > main {
+  flex: 1;
+}
+
 @supports (font-size: max(0px)) {
   html {
     font-size: min(max(16px, 3vw), 20px);
