@@ -44,12 +44,9 @@ export type Color = {
   buttonIconHoverColor: string
 
   // Footer
-  footerBackground: string
-  footerCookiesLink: string
-  footerCopyrightLink: string
-  footerIcon: string
-  footerIconHover: string
+  footerHeading: string
   footerLink: string
+  footerSecondary: string
 
   // Input
   inputBackground: string

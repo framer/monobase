@@ -214,6 +214,7 @@ export const Page: Component<"html", Props> = ({
         <Observer />
         <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   )
