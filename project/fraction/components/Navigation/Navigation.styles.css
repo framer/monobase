@@ -1,6 +1,5 @@
 .navigation {
   --navigation-gap: var(--fraction-space-3);
-  --navigation-active-opacity: 0.5;
 
   position: fixed;
   top: 0;
@@ -10,11 +9,6 @@
   z-index: var(--fraction-depth-navigation);
   contain: layout;
   transition: color 0.08s ease-in-out;
-}
-
-:global([data-theme="dark"]) .navigation,
-:global([data-navigation-theme="dark"]) .navigation {
-  --navigation-active-opacity: 0.4;
 }
 
 :global([data-navigation-tint="true"]) .navigation {
@@ -96,7 +90,7 @@
 
 .logo:hover,
 .logo:focus {
-  opacity: var(--navigation-active-opacity);
+  opacity: 0.5;
 }
 
 .logo svg {
@@ -138,7 +132,7 @@
 
 .hamburger:hover,
 .hamburger:focus {
-  opacity: var(--navigation-active-opacity);
+  opacity: 0.5;
 }
 
 .hamburger:before {
@@ -256,7 +250,7 @@
 
 .item a:not(.signup):hover,
 .item a:not(.signup):focus {
-  opacity: var(--navigation-active-opacity);
+  opacity: 0.5;
 }
 
 .authentication {
@@ -292,7 +286,7 @@
 
 .signup:hover,
 .signup:focus {
-  opacity: var(--navigation-active-opacity);
+  opacity: 0.5;
 }
 
 :global([data-navigation-tint="true"]) .signup {
