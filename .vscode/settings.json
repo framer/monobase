@@ -2,6 +2,7 @@
   "files.exclude": {
     "**/dist": true,
     "**/.cache-loader": true,
+    "**/*.css.d.ts": true,
     "project/site/fraction": true
   }
 }

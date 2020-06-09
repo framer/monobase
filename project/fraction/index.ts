@@ -80,6 +80,5 @@ export const values = {
 
 export * from "./components"
 export * from "./hooks"
-export * from "./primitives"
 export * from "./tokens"
 export * from "./types"

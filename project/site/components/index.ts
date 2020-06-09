@@ -1,6 +1,5 @@
 export { Authentication } from "./Authentication"
 export { Navigation } from "./Navigation"
-export { Page, Props as PageProps, Meta } from "./Page"
 export {
   observerValues,
   ObserverValues,
@@ -10,3 +9,4 @@ export {
   NavigationThreshold,
   DocumentResizeEvent,
 } from "./Observer"
+export { Page, Props as PageProps, Meta } from "./Page"
