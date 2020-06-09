@@ -47,7 +47,7 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .content.sizeLarger {
+  .content:global(.size-larger) {
     max-width: var(--fraction-width-10);
   }
 }
