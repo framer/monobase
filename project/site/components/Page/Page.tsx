@@ -1,6 +1,13 @@
-import React, { CSSProperties } from "react"
+import React, { useMemo, CSSProperties } from "react"
 import { Development, StyleSheet } from "monobase"
-import { Footer, Variables, Theme, Component } from "fraction"
+import {
+  Footer,
+  Variables,
+  Theme,
+  Component,
+  Banner,
+  dimension,
+} from "fraction"
 import clsx from "clsx"
 import { Authentication } from "../Authentication"
 import { Navigation } from "../Navigation"
@@ -67,12 +74,6 @@ export interface Props {
   marginNavigation?: boolean
 
   /**
-   * Remove default footer margin from bottom margin of the page
-   * @default true
-   */
-  marginFooter?: boolean
-
-  /**
    * Set navigation default accent
    */
   navigationAccent?: string
@@ -99,6 +100,11 @@ export interface Props {
    * @default false
    */
   navigationVibrant?: string
+
+  /**
+   * Add a banner on top of the navigation
+   */
+  banner?: Banner
 }
 
 export const Page: Component<"html", Props> = ({
@@ -112,15 +118,16 @@ export const Page: Component<"html", Props> = ({
   accent,
   tint,
   marginNavigation = true,
-  marginFooter = true,
   navigationAccent,
   navigationTint,
   navigationTheme = Theme.Light,
   navigationTransparent,
   navigationVibrant,
-  style = {},
+  banner,
+  style,
   ...props
 }) => {
+  const withBanner = !!banner
   const withSecondaryTitle = (
     title: string,
     secondaryTitle = secondaryDefaultTitle,
@@ -142,12 +149,21 @@ export const Page: Component<"html", Props> = ({
   const pageDescription = description
   const pageMetaDescription = meta.description || pageDescription
 
+  const navigationHeight = useMemo(() => {
+    let additionalHeight = 0
+
+    if (withBanner) {
+      additionalHeight += dimension.navigationBannerHeight
+    }
+
+    return dimension.navigationHeight + additionalHeight
+  }, [withBanner])
+
   return (
     <html
       {...props}
       className={clsx({
         "margin-navigation": marginNavigation,
-        "margin-footer": marginFooter,
       })}
       data-theme={Theme[theme] || Theme.Light}
       data-navigation-accent={
@@ -178,6 +194,7 @@ export const Page: Component<"html", Props> = ({
       data-navigation-ceiling
       style={
         {
+          "--navigation-height": `${navigationHeight}px`,
           "--navigation-accent":
             typeof navigationAccent === "string" ? navigationAccent : undefined,
           "--navigation-tint":
@@ -211,8 +228,8 @@ export const Page: Component<"html", Props> = ({
         <Development defer />
       </head>
       <body>
-        <Observer />
-        <Navigation />
+        <Observer navigationHeight={navigationHeight} />
+        <Navigation height={navigationHeight} banner={banner} />
         <main>{children}</main>
         <Footer />
       </body>

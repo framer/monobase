@@ -47,7 +47,10 @@ html[data-scroll="false"] {
 }
 
 html.margin-navigation body {
-  padding-top: var(--fraction-dimension-navigationHeight);
+  padding-top: var(
+    --navigation-height,
+    var(--fraction-dimension-navigationHeight)
+  );
 }
 
 /* stylelint-disable selector-type-no-unknown */

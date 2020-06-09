@@ -5,6 +5,7 @@ export {
   observerValues,
   ObserverValues,
   Observer,
+  Props as ObserverProps,
   NavigationTraits,
   NavigationThreshold,
   DocumentResizeEvent,

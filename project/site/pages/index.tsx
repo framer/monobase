@@ -33,7 +33,11 @@ const stackStyle = {
 
 export default () => {
   return (
-    <Page tint={variables.palette.yellow} accent={variables.palette.green}>
+    <Page
+      tint={variables.palette.yellow}
+      accent={variables.palette.green}
+      banner="loupe"
+    >
       <Section style={sectionStyle}>
         <Content style={contentStyle} size="small">
           Small

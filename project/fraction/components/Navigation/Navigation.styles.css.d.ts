@@ -4,6 +4,7 @@ interface CssExports {
   'authentication': string;
   'avatar': string;
   'background': string;
+  'banner': string;
   'controls': string;
   'hamburger': string;
   'initials': string;

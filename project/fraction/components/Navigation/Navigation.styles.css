@@ -59,6 +59,27 @@
   box-shadow: 0 1px rgba(0, 0, 0, 0.05);
 }
 
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--fraction-dimension-navigationBannerHeight);
+  z-index: var(--fraction-depth-high);
+}
+
+.banner:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--fraction-depth-higher);
+  pointer-events: none;
+  box-shadow: 0 1px var(--fraction-color-navigationBorder);
+}
+
 .controls,
 .list,
 .authentication {
@@ -69,6 +90,10 @@
 .controls {
   height: var(--fraction-dimension-navigationHeight);
   flex: none;
+}
+
+.navigation:global(.banner) .controls {
+  margin-top: var(--fraction-dimension-navigationBannerHeight);
 }
 
 .logo {
@@ -284,6 +309,10 @@
     color 0.08s ease-in-out;
 }
 
+.navigation:global(.banner) .signup {
+  top: calc(12px + var(--fraction-dimension-navigationBannerHeight));
+}
+
 .signup:hover,
 .signup:focus {
   opacity: 0.5;
@@ -403,6 +432,11 @@
     margin: 0 auto 0 var(--navigation-gap);
   }
 
+  .navigation:global(.banner) .list {
+    margin: var(--fraction-dimension-navigationBannerHeight) auto 0
+      var(--navigation-gap);
+  }
+
   .item {
     height: 100%;
   }
@@ -416,12 +450,20 @@
     margin: 0;
   }
 
+  .navigation:global(.banner) .authentication {
+    margin-top: var(--fraction-dimension-navigationBannerHeight);
+  }
+
   .signup,
   .authentication:global(.authenticated) .signup {
     position: relative;
     top: initial;
     right: initial;
     width: 96px;
+  }
+
+  .navigation:global(.banner) .signup {
+    top: initial;
   }
 
   .label,

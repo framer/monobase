@@ -2,6 +2,7 @@ export { Aside, Props as AsideProps } from "./Aside"
 export {
   Navigation,
   NavigationItem,
+  Banner,
   Items as NavigationItems,
   defaultItems as defaultNavigationItems,
   Props as NavigationProps,

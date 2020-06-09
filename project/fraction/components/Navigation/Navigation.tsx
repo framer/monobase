@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState, isValidElement } from "react"
 import clsx from "clsx"
 import { motion, AnimatePresence, Transition } from "framer-motion"
 import styles from "./Navigation.styles.css"
@@ -8,6 +8,7 @@ import { useEscapeKey } from "../../hooks"
 import { Content } from "../../primitives/Content"
 import { NavigationItem } from "./NavigationItem"
 import { NavigationSignup } from "./NavigationSignup"
+import { banners, Banner } from "./banners"
 
 export interface Item {
   name: string
@@ -26,6 +27,8 @@ export interface Props {
   items?: Items
   account?: FramerAccount
   withHamburger: boolean
+  banner?: Banner
+  height?: number
 }
 
 export const defaultItems: Items = [
@@ -60,11 +63,16 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
   items = defaultItems,
   account,
   withHamburger = false,
+  banner,
+  height = dimension.navigationHeight,
   ...props
 }) => {
   const [isOpen, setOpen] = useState(false)
   const [isVisiblyAuthenticated, setVisiblyAuthenticated] = useState(false)
   const isAuthenticated = !!account
+
+  const Banner = banners[banner]
+  const withBanner = !!Banner
 
   const handleHamburgerClick = useCallback(() => {
     setOpen((isOpen) => !isOpen)
@@ -97,10 +105,13 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
   return (
     <motion.header
       {...props}
-      className={clsx(styles.navigation, "navigation", { open: isOpen })}
+      className={clsx(styles.navigation, "navigation", {
+        open: isOpen,
+        banner: withBanner,
+      })}
       variants={{
         close: {
-          height: dimension.navigationHeight,
+          height,
         },
         open: {
           height: "auto",
@@ -112,6 +123,11 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
     >
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.background} />
+      {withBanner && (
+        <div className={styles.banner}>
+          <Banner />
+        </div>
+      )}
       <Content as="nav">
         <div className={styles.controls}>
           <button

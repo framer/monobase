@@ -10,6 +10,10 @@ import { Dynamic } from "monobase"
 import sync from "framesync"
 import kebabCase from "lodash.kebabcase"
 
+export interface Props {
+  navigationHeight?: number
+}
+
 export interface NavigationTraits {
   navigationAccent?: string | boolean
   navigationTint?: string | boolean
@@ -167,14 +171,15 @@ const updateNavigationTraits = (
 }
 
 const calculateScrollThresholds = (
-  navigationTraits: NavigationTraits
+  navigationTraits: NavigationTraits,
+  navigationHeight: number
 ): NavigationThreshold[] => {
   const elements = getNavigationElements(navigationTraits)
   const scroll = observerValues.scroll.get()
 
   return elements.map((element) => {
     const boundingClientRect = element.getBoundingClientRect()
-    const top = boundingClientRect.y + scroll - dimension.navigationHeight
+    const top = boundingClientRect.y + scroll - navigationHeight
 
     return {
       element,
@@ -203,7 +208,8 @@ const getScreenFromMediaQuery = (
 
 const initiateObserverValues = (
   navigationTraits: NavigationTraits,
-  mediaQueries: MediaQueryList[]
+  mediaQueries: MediaQueryList[],
+  navigationHeight: number
 ): [NavigationThreshold[], number, string, number, number, number, number] => {
   let thresholds: NavigationThreshold[] = []
   let scroll = 0
@@ -216,7 +222,7 @@ const initiateObserverValues = (
   const screen = getScreenFromMediaQuery(currentMediaQuery)
 
   sync.read(() => {
-    thresholds = calculateScrollThresholds(navigationTraits)
+    thresholds = calculateScrollThresholds(navigationTraits, navigationHeight)
 
     scroll = window.pageYOffset
     documentWidth = document.body.clientWidth
@@ -271,7 +277,8 @@ export const StaticObserver = ({
   navigationTheme = "light",
   navigationTransparent = false,
   navigationVibrant = false,
-}: NavigationTraits) => {
+  navigationHeight = dimension.navigationHeight,
+}: NavigationTraits & Props) => {
   const defaultNavigationTraits = useRef<NavigationTraits>({
     navigationAccent,
     navigationTint,
@@ -292,7 +299,11 @@ export const StaticObserver = ({
       documentHeight,
       viewportWidth,
       viewportHeight,
-    ] = initiateObserverValues(previousNavigationTraits, mediaQueries)
+    ] = initiateObserverValues(
+      previousNavigationTraits,
+      mediaQueries,
+      navigationHeight
+    )
 
     const updateScreenValue = (event: MediaQueryListEvent) => {
       screen = getScreenFromMediaQuery(event)
@@ -318,7 +329,8 @@ export const StaticObserver = ({
 
         if (event.type === "document" || event.type === "resize") {
           thresholds = calculateScrollThresholds(
-            defaultNavigationTraits.current
+            defaultNavigationTraits.current,
+            navigationHeight
           )
         }
 
@@ -342,7 +354,7 @@ export const StaticObserver = ({
           observerValues.viewportHeight.set(viewportHeight)
         }
 
-        if (scroll > dimension.navigationHeight) {
+        if (scroll > navigationHeight) {
           document.documentElement.removeAttribute("data-navigation-ceiling")
         } else {
           document.documentElement.setAttribute(
