@@ -10,13 +10,13 @@ import { MotionProps } from "framer-motion"
  * Primitives
  */
 
-export type ElementProps<E extends ElementType> = PrimitivePolymorphicProp<E> &
+export type ElementProps<E extends ElementType> = PrimitiveAsProp<E> &
   Omit<
     JSX.LibraryManagedAttributes<E, ComponentPropsWithRef<E>>,
-    keyof PrimitivePolymorphicProp
+    keyof PrimitiveAsProp
   >
 
-export interface PrimitivePolymorphicProp<E extends ElementType = ElementType> {
+export interface PrimitiveAsProp<E extends ElementType = ElementType> {
   as?: E
 }
 
