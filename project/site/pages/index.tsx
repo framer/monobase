@@ -9,21 +9,23 @@ import {
   Text,
   Wireframe,
   Theme,
-  variables,
-  tokens,
+  palette,
+  paletteVariables,
+  colorVariables,
+  spaceVariables,
 } from "fraction"
 
 const sectionStyle = {
-  background: variables.color.pageBackground,
-  paddingTop: variables.space[8],
-  paddingBottom: variables.space[8],
+  background: colorVariables.pageBackground,
+  paddingTop: spaceVariables[8],
+  paddingBottom: spaceVariables[8],
 }
 
 const contentStyle = {
   background: "#05f",
   color: "#fff",
-  paddingTop: variables.space[5],
-  paddingBottom: variables.space[5],
+  paddingTop: spaceVariables[5],
+  paddingBottom: spaceVariables[5],
 }
 
 const stackStyle = {
@@ -34,8 +36,8 @@ const stackStyle = {
 export default () => {
   return (
     <Page
-      tint={variables.palette.yellow}
-      accent={variables.palette.green}
+      tint={paletteVariables.yellow}
+      accent={paletteVariables.green}
       banner="loupe"
     >
       <Section style={sectionStyle}>
@@ -108,7 +110,7 @@ export default () => {
         style={sectionStyle}
         data-theme={Theme.Dark}
         data-navigation-theme={Theme.Dark}
-        data-navigation-accent={tokens.palette.red}
+        data-navigation-accent={palette.red}
       >
         <Content size="small">
           <Heading level={1}>
