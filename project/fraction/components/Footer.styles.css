@@ -82,20 +82,19 @@
   margin-right: var(--fraction-space-4);
 }
 
-.social a,
-.social svg {
+.social a {
   width: 24px;
   height: 24px;
-}
-
-.social a {
-  display: inline-block;
+  display: inline-flex;
+  place-content: center;
+  place-items: center;
   background: var(--fraction-color-footerSecondary);
   border-radius: 50%;
   transition: background 0.16s ease-in-out;
 }
 
 .social svg {
+  width: 16px;
   color: var(--footer-background);
 }
 
