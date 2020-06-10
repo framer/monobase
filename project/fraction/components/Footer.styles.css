@@ -30,6 +30,11 @@
   font-size: 15px;
 }
 
+.item a {
+  display: inline-block;
+  line-height: 1.2;
+}
+
 .item:not(:last-of-type) {
   margin-bottom: var(--fraction-space-2);
 }
