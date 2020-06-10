@@ -6,6 +6,7 @@ export enum Scope {
   Dimensions = "dimension",
   Depth = "depth",
   Family = "family",
+  Icon = "icon",
   Palette = "palette",
   Size = "size",
   Space = "space",

@@ -83,8 +83,8 @@
 }
 
 .social a {
-  width: 24px;
-  height: 24px;
+  width: var(--fraction-icon-4);
+  height: var(--fraction-icon-4);
   display: inline-flex;
   place-content: center;
   place-items: center;
@@ -94,7 +94,7 @@
 }
 
 .social svg {
-  width: 16px;
+  width: var(--fraction-icon-2);
   color: var(--footer-background);
 }
 

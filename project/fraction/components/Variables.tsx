@@ -7,6 +7,7 @@ import {
   depthValues,
   dimensionValues,
   familyValues,
+  iconValues,
   paletteValues,
   sizeValues,
   spaceValues,
@@ -50,6 +51,7 @@ export const Variables: Component<"style", Props> = ({
       ${depthValues}
       ${dimensionValues}
       ${familyValues}
+      ${iconValues}
       ${paletteValues}
       ${sizeValues}
       ${spaceValues}
