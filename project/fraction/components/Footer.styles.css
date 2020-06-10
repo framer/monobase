@@ -82,21 +82,25 @@
   margin-right: var(--fraction-space-4);
 }
 
+.social a,
 .social svg {
   width: 24px;
+  height: 24px;
 }
 
-.social svg path,
-.social svg rect,
-.social svg circle {
-  fill: var(--fraction-color-footerSecondary);
-  transition: fill 0.16s ease-in-out;
+.social a {
+  display: inline-block;
+  background: var(--fraction-color-footerSecondary);
+  border-radius: 50%;
+  transition: background 0.16s ease-in-out;
 }
 
-.social li:hover svg path,
-.social li:hover svg rect,
-.social li:hover svg circle {
-  fill: var(--page-accent);
+.social svg {
+  color: var(--footer-background);
+}
+
+.social a:hover {
+  background: var(--page-accent);
 }
 
 .addendum {

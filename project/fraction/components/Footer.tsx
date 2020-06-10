@@ -3,6 +3,11 @@ import clsx from "clsx"
 import styles from "./Footer.styles.css"
 import { Content } from "./Content"
 import { Component } from "../types"
+import {
+  IconSocialTwitter,
+  IconSocialDribbble,
+  IconSocialDiscord,
+} from "../icons"
 
 export interface Category {
   name: string
@@ -109,29 +114,17 @@ export const defaultSocialItems: SocialItems = [
   {
     name: "Twitter",
     href: "https://twitter.com/framer",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <rect width="100%" height="100%" />
-      </svg>
-    ),
+    icon: <IconSocialTwitter width="100%" />,
   },
   {
     name: "Discord",
     href: "https://framer.com/r/discord",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <rect width="100%" height="100%" />
-      </svg>
-    ),
+    icon: <IconSocialDiscord width="100%" />,
   },
   {
     name: "Dribbble",
     href: "https://dribbble.com/framer",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <rect width="100%" height="100%" />
-      </svg>
-    ),
+    icon: <IconSocialDribbble width="100%" />,
   },
 ]
 

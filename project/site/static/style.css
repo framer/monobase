@@ -20,6 +20,7 @@ html {
   font-variant-ligatures: common-ligatures;
   text-size-adjust: 100%;
   letter-spacing: -0.004em;
+  line-height: 1;
   word-break: break-word;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -104,7 +105,8 @@ video {
   border: 0;
 }
 
-img {
+img,
+svg {
   vertical-align: middle;
 }
 
