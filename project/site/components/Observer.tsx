@@ -404,6 +404,8 @@ export const StaticObserver = ({
       navigationAccent,
       navigationTint,
       navigationTheme,
+      navigationTransparent,
+      navigationVibrant,
     }
   }, [navigationAccent, navigationTint, navigationTheme])
 
