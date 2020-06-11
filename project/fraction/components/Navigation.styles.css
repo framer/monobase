@@ -49,15 +49,45 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--fraction-color-navigationBackground);
   z-index: var(--fraction-depth-zero);
-  box-shadow: 0 1px var(--fraction-color-navigationBorder);
-  transition: background 0.08s ease-in-out, box-shadow 0.08s ease-in-out;
 }
 
-:global([data-navigation-tint="true"]) .background {
+.background:before,
+.background:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background:before {
+  z-index: var(--fraction-depth-zero);
+  background: var(--fraction-color-navigationBackground);
+  transition: background 0.08s ease-in-out;
+}
+
+.background:after {
+  box-shadow: 0 1px var(--fraction-color-navigationBorder);
+  z-index: var(--fraction-depth-default);
+  transition: box-shadow 0.08s ease-in-out;
+}
+
+:global([data-navigation-tint="true"]) .background:before {
   background: var(--navigation-tint);
+}
+
+:global([data-navigation-tint="true"]) .background:after {
   box-shadow: 0 1px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-navigation-vibrant="true"]) .navigation {
+  backdrop-filter: var(--fraction-backdrop-medium);
+}
+
+:global([data-navigation-vibrant="true"]) .background:before {
+  opacity: 0.9;
 }
 
 .banner {

@@ -94,13 +94,13 @@ export interface Props {
    * Set navigation default transparency
    * @default false
    */
-  navigationTransparent?: string
+  navigationTransparent?: boolean
 
   /**
    * Set navigation default vibrancy
    * @default false
    */
-  navigationVibrant?: string
+  navigationVibrant?: boolean
 
   /**
    * Add a banner on top of the navigation
@@ -195,12 +195,12 @@ export const Page: Component<"html", Props> = ({
       data-navigation-theme={
         Theme[navigationTheme] || Theme[theme] || Theme.Light
       }
-      data-navigaiton-transparent={
+      data-navigation-transparent={
         typeof navigationTransparent === "boolean"
           ? navigationTransparent
           : undefined
       }
-      data-navigaiton-vibrant={
+      data-navigation-vibrant={
         typeof navigationVibrant === "boolean" ? navigationVibrant : undefined
       }
       data-navigation-ceiling
@@ -240,7 +240,14 @@ export const Page: Component<"html", Props> = ({
         <Development defer />
       </head>
       <body>
-        <Observer navigationHeight={navigationHeight} />
+        <Observer
+          navigationAccent={navigationAccent}
+          navigationTint={navigationTint}
+          navigationTheme={navigationTheme}
+          navigationTransparent={navigationTransparent}
+          navigationVibrant={navigationVibrant}
+          navigationHeight={navigationHeight}
+        />
         <Navigation
           height={navigationHeight}
           banner={banner}
