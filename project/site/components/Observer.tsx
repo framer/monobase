@@ -196,6 +196,8 @@ const getCurrentMediaQuery = (mediaQueries: MediaQueryList[]) => {
 const getScreenFromMediaQuery = (
   mediaQuery: MediaQueryList | MediaQueryListEvent
 ) => {
+  if (!mediaQuery) return
+
   const mediaQueryIndex = screenNames.findIndex(
     (name) => screenMediaQueries[name] === mediaQuery.media
   )
@@ -233,7 +235,7 @@ const initiateObserverValues = (
 
   sync.update(() => {
     observerValues.scroll.set(scroll)
-    observerValues.screen.set(screen)
+    if (screen) observerValues.screen.set(screen)
     observerValues.documentWidth.set(documentWidth)
     observerValues.documentHeight.set(documentHeight)
     observerValues.viewportWidth.set(viewportWidth)
@@ -309,7 +311,7 @@ export const StaticObserver = ({
       screen = getScreenFromMediaQuery(event)
 
       sync.update(() => {
-        observerValues.screen.set(screen)
+        if (screen) observerValues.screen.set(screen)
       })
     }
 
