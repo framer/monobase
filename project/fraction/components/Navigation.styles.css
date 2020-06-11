@@ -8,6 +8,7 @@
   color: var(--fraction-color-navigationColor);
   z-index: var(--fraction-depth-navigation);
   contain: layout;
+  min-height: var(--navigation-height);
   transition: color 0.08s ease-in-out;
 }
 
