@@ -2,6 +2,7 @@ import React from "react";
 import { Development, StyleSheet, relative } from "monobase";
 import { CSSVariables } from "./CSSVariables";
 import { tokens } from "./tokens";
+import Responsive from "./examples/Responsive";
 
 function Template({ children }) {
   return (
@@ -15,6 +16,7 @@ function Template({ children }) {
           href={relative("/static/styles.css")}
         ></link>
         <StyleSheet />
+        <Responsive />
       </head>
       <body>
         {children}

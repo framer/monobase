@@ -9,6 +9,7 @@ import Visible from "components/examples/Visible";
 import Cookie from "components/examples/Cookie";
 import Colors from "components/examples/Colors";
 import Context from "components/examples/Context";
+import { ResponsiveThing } from "components/examples/ResponsiveThing";
 
 export default function render() {
   return (
@@ -18,6 +19,10 @@ export default function render() {
           <h1>Welcome to Monobase</h1>
           <p>A simple React based static site generator</p>
         </section>
+
+        <Example title="ResponsiveThing">
+          <ResponsiveThing />
+        </Example>
         <Example title="Button">
           <Button />
         </Example>

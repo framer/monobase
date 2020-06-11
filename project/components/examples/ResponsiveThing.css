@@ -1,0 +1,18 @@
+.test {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+body[data-size="mobile"] .test {
+  background-color: green;
+}
+
+.test:hover {
+  background-color: yellow;
+}
+
+
+
+
