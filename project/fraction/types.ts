@@ -43,13 +43,18 @@ export interface TypographyProps {
  * Components
  */
 
-export type Component<E extends ElementType = ElementType, P = {}> = FC<
-  P & ComponentPropsWithoutRef<E>
->
-export type ComponentWithRef<E extends ElementType = ElementType, P = {}> = FC<
-  ComponentPropsWithRef<E> & P
->
+export type Component<
+  E extends ElementType = ElementType,
+  P = {},
+  O extends string = ""
+> = FC<P & Omit<ComponentPropsWithoutRef<E>, O>>
+export type ComponentWithRef<
+  E extends ElementType = ElementType,
+  P = {},
+  O extends string = ""
+> = FC<P & Omit<ComponentPropsWithRef<E>, O>>
 export type ComponentWithMotion<
   E extends ElementType = ElementType,
-  P = {}
-> = FC<P & ComponentPropsWithRef<E> & MotionProps>
+  P = {},
+  O extends string = ""
+> = FC<P & Omit<ComponentPropsWithRef<E> & MotionProps, O>>

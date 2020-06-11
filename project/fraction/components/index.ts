@@ -10,6 +10,7 @@ export {
   SocialItems as FooterSocialItems,
 } from "./Footer"
 export { Heading, Props as HeadingProps } from "./Heading"
+export { Icon, Icons, Props as IconProps } from "./Icon"
 export {
   Navigation,
   Props as NavigationProps,

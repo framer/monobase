@@ -5,6 +5,7 @@ import {
   Content,
   Section,
   Heading,
+  Icon,
   Stack,
   Text,
   Wireframe,
@@ -103,6 +104,15 @@ export default () => {
             <div style={stackStyle}>Motion that works like magic.</div>
             <div style={stackStyle}>Motion that works like magic.</div>
             <div style={stackStyle}>Motion that works like magic.</div>
+          </Stack>
+        </Content>
+      </Section>
+      <Section style={sectionStyle}>
+        <Content>
+          <Stack gap={20}>
+            <Icon icon="socialDiscord" />
+            <Icon icon="socialTwitter" />
+            <Icon icon="socialDribbble" />
           </Stack>
         </Content>
       </Section>
