@@ -6,6 +6,7 @@ import { dimension } from "../tokens"
 import { Component, ComponentWithMotion } from "../types"
 import { useEscapeKey } from "../hooks"
 import { banners, Banner } from "./Banner"
+import { subnavigations, Subnavigation } from "./Subnavigation"
 import { Content } from "./Content"
 
 export interface Item {
@@ -26,6 +27,7 @@ export interface Props {
   account?: FramerAccount
   withHamburger: boolean
   banner?: Banner
+  subnavigation?: Subnavigation
   height?: number
 }
 
@@ -77,6 +79,7 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
   account,
   withHamburger = false,
   banner,
+  subnavigation,
   height = dimension.navigationHeight,
   ...props
 }) => {
@@ -86,6 +89,8 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
 
   const Banner = banners[banner]
   const withBanner = !!Banner
+  const Subnavigation = subnavigations[subnavigation]
+  const withSubnavigation = !!Subnavigation
 
   const handleHamburgerClick = useCallback(() => {
     setOpen((isOpen) => !isOpen)
@@ -121,6 +126,7 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
       className={clsx(styles.navigation, "navigation", {
         open: isOpen,
         banner: withBanner,
+        subnavigation: withSubnavigation,
       })}
       variants={{
         close: {
@@ -136,11 +142,6 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
     >
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.background} />
-      {withBanner && (
-        <div className={styles.banner}>
-          <Banner />
-        </div>
-      )}
       <Content as="nav">
         <div className={styles.controls}>
           <button
@@ -273,6 +274,16 @@ export const Navigation: ComponentWithMotion<"header", Props> = ({
           </li>
         </ul>
       </Content>
+      {withBanner && (
+        <div className={clsx(styles.banner, "banner")}>
+          <Banner />
+        </div>
+      )}
+      {withSubnavigation && (
+        <div className={clsx(styles.subnavigation, "subnavigation")}>
+          <Subnavigation />
+        </div>
+      )}
     </motion.header>
   )
 }

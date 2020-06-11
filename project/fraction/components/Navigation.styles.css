@@ -80,6 +80,39 @@
   box-shadow: 0 1px var(--fraction-color-navigationBorder);
 }
 
+.subnavigation {
+  position: absolute;
+  width: 100%;
+  height: var(--fraction-dimension-navigationHeight);
+  left: 0;
+  top: var(--fraction-dimension-navigationHeight);
+  transition: opacity 0.12s ease-in-out;
+}
+
+.subnavigation:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--fraction-depth-higher);
+  pointer-events: none;
+  box-shadow: 0 -1px var(--fraction-color-navigationBorder);
+}
+
+.navigation:global(.banner) .subnavigation {
+  top: calc(
+    var(--fraction-dimension-navigationHeight) +
+      var(--fraction-dimension-navigationBannerHeight)
+  );
+}
+
+.navigation:global(.open) .subnavigation {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .controls,
 .list,
 .authentication {
@@ -234,6 +267,14 @@
 
 .list {
   margin: calc(var(--fraction-dimension-gutter) - 12px) auto 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease-in-out;
+}
+
+.navigation:global(.open) .list {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .item {
@@ -249,7 +290,14 @@
 
 .item:global(.signin) {
   color: var(--navigation-accent);
-  transition: color 0.08s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  transition: color 0.08s ease-in-out, opacity 0.12s ease-in-out;
+}
+
+.navigation:global(.open) .item:global(.signin) {
+  opacity: 1;
+  pointer-events: all;
 }
 
 :global([data-navigation-tint="true"]) .item:global(.signin) {
@@ -392,7 +440,6 @@
   }
 
   .navigation :global(.content) {
-    place-items: center;
     flex-direction: row;
   }
 
@@ -432,6 +479,13 @@
     margin: 0 auto 0 var(--navigation-gap);
   }
 
+  .list,
+  .navigation:global(.open) .list {
+    opacity: 1;
+    pointer-events: all;
+    transition: none;
+  }
+
   .navigation:global(.banner) .list {
     margin: var(--fraction-dimension-navigationBannerHeight) auto 0
       var(--navigation-gap);
@@ -444,6 +498,12 @@
   .item a:not(.signup) {
     height: 100%;
     padding: 0 var(--navigation-gap);
+  }
+
+  .item:global(.signin),
+  .navigation:global(.open) .item:global(.signin) {
+    opacity: 1;
+    pointer-events: all;
   }
 
   .authentication {

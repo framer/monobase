@@ -17,6 +17,7 @@ interface CssExports {
   'signup': string;
   'signupContent': string;
   'sublabel': string;
+  'subnavigation': string;
   'wordmark': string;
 }
 export const cssExports: CssExports;

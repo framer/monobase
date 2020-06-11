@@ -6,6 +6,7 @@ import {
   Theme,
   Component,
   Banner,
+  Subnavigation,
   dimensionTokens,
 } from "fraction"
 import clsx from "clsx"
@@ -105,6 +106,11 @@ export interface Props {
    * Add a banner on top of the navigation
    */
   banner?: Banner
+
+  /**
+   * Add a subnavigation below the navigation
+   */
+  subnavigation?: Subnavigation
 }
 
 export const Page: Component<"html", Props> = ({
@@ -124,10 +130,12 @@ export const Page: Component<"html", Props> = ({
   navigationTransparent,
   navigationVibrant,
   banner,
+  subnavigation,
   style,
   ...props
 }) => {
   const withBanner = !!banner
+  const withSubnavigation = !!subnavigation
   const withSecondaryTitle = (
     title: string,
     secondaryTitle = secondaryDefaultTitle,
@@ -156,8 +164,12 @@ export const Page: Component<"html", Props> = ({
       additionalHeight += dimensionTokens.navigationBannerHeight
     }
 
+    if (withSubnavigation) {
+      additionalHeight += dimensionTokens.navigationHeight
+    }
+
     return dimensionTokens.navigationHeight + additionalHeight
-  }, [withBanner])
+  }, [withBanner, withSubnavigation])
 
   return (
     <html
@@ -229,7 +241,11 @@ export const Page: Component<"html", Props> = ({
       </head>
       <body>
         <Observer navigationHeight={navigationHeight} />
-        <Navigation height={navigationHeight} banner={banner} />
+        <Navigation
+          height={navigationHeight}
+          banner={banner}
+          subnavigation={subnavigation}
+        />
         <main>{children}</main>
         <Footer />
       </body>
