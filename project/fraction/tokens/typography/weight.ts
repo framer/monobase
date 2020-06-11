@@ -9,7 +9,7 @@ export type Weight = {
   black: string
 }
 
-export const weight: Weight = {
+export const weightTokens: Weight = {
   thin: "200",
   light: "300",
   regular: "400",
@@ -18,7 +18,7 @@ export const weight: Weight = {
   black: "700",
 }
 
-export const [weightVariables, weightValues] = createVariables(
-  weight,
+export const [weight, weightDeclarations] = createVariables(
+  weightTokens,
   Scope.Weight
 )

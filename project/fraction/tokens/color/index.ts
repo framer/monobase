@@ -1,11 +1,14 @@
-import { color } from "./light"
-import { colorDark } from "./dark"
+import { colorTokens } from "./light"
+import { colorTokensDark } from "./dark"
 import { createVariables, Scope } from "../utils/variables"
 
-export const [colorVariables, colorValues] = createVariables(color, Scope.Color)
+export const [color, colorDeclarations] = createVariables(
+  colorTokens,
+  Scope.Color
+)
 
-export const [colorVariablesDark, colorValuesDark] = createVariables(
-  colorDark,
+export const [colorDark, colorDeclarationsDark] = createVariables(
+  colorTokensDark,
   Scope.Color
 )
 

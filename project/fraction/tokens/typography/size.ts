@@ -1,6 +1,6 @@
 import { createVariablesFromArray, Scope } from "../utils"
 
-export const size: number[] = [
+export const sizeTokens: number[] = [
   0,
   0.6,
   0.7,
@@ -14,8 +14,8 @@ export const size: number[] = [
   4.3,
 ]
 
-export const [sizeVariables, sizeValues] = createVariablesFromArray(
-  size,
+export const [size, sizeDeclarations] = createVariablesFromArray(
+  sizeTokens,
   Scope.Size,
   (variable) => `${variable}rem`
 )

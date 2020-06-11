@@ -1,19 +1,23 @@
 import React from "react"
+import { color } from "../tokens"
+import { backdropDeclarations } from "../tokens/backdrop"
 import {
-  backdropValues,
-  colorValues,
-  colorValuesDark,
-  colorVariables,
-  depthValues,
-  dimensionValues,
-  familyValues,
-  iconValues,
-  paletteValues,
-  sizeValues,
-  spaceValues,
-  weightValues,
-  widthValues,
-} from "../tokens"
+  colorDeclarations,
+  paletteDeclarations,
+  colorDeclarationsDark,
+} from "../tokens/color"
+import {
+  depthDeclarations,
+  dimensionDeclarations,
+  iconDeclarations,
+  spaceDeclarations,
+  widthDeclarations,
+} from "../tokens/dimension"
+import {
+  familyDeclarations,
+  sizeDeclarations,
+  weightDeclarations,
+} from "../tokens/typography"
 import { Style } from "./Style"
 import { Component } from "../types"
 
@@ -25,18 +29,16 @@ export interface Props {
 }
 
 export const Variables: Component<"style", Props> = ({
-  accent = colorVariables.primary,
-  tint = colorVariables.primary,
+  accent = color.primary,
+  tint = color.primary,
   navigationAccent,
   navigationTint,
   ...props
 }) => (
   <Style {...props}>{`
     :root {
-      --page-accent: ${
-        typeof accent === "string" ? accent : colorVariables.primary
-      };
-      --page-tint: ${typeof tint === "string" ? tint : colorVariables.primary};
+      --page-accent: ${typeof accent === "string" ? accent : color.primary};
+      --page-tint: ${typeof tint === "string" ? tint : color.primary};
       --navigation-accent: ${
         typeof navigationAccent === "string"
           ? navigationAccent
@@ -46,25 +48,25 @@ export const Variables: Component<"style", Props> = ({
         typeof navigationTint === "string" ? navigationTint : "var(--page-tint)"
       };
 
-      ${backdropValues}
-      ${colorValues}
-      ${depthValues}
-      ${dimensionValues}
-      ${familyValues}
-      ${iconValues}
-      ${paletteValues}
-      ${sizeValues}
-      ${spaceValues}
-      ${weightValues}
-      ${widthValues}
+      ${backdropDeclarations}
+      ${colorDeclarations}
+      ${depthDeclarations}
+      ${dimensionDeclarations}
+      ${familyDeclarations}
+      ${iconDeclarations}
+      ${paletteDeclarations}
+      ${sizeDeclarations}
+      ${spaceDeclarations}
+      ${weightDeclarations}
+      ${widthDeclarations}
     }
 
     [data-theme="light"], [data-navigation-theme="light"] .navigation {
-      ${colorValues}
+      ${colorDeclarations}
     }
 
     [data-theme="dark"], [data-navigation-theme="dark"] .navigation {
-      ${colorValuesDark}
+      ${colorDeclarationsDark}
     }
   `}</Style>
 )

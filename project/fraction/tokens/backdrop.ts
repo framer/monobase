@@ -6,13 +6,13 @@ export type Backdrop = {
   heavy: string
 }
 
-export const backdrop: Backdrop = {
+export const backdropTokens: Backdrop = {
   default: "blur(12px) saturate(120%)",
   medium: "blur(16px) saturate(120%)",
   heavy: "blur(42px) saturate(120%)",
 }
 
-export const [backdropVariables, backdropValues] = createVariables(
-  backdrop,
+export const [backdrop, backdropDeclarations] = createVariables(
+  backdropTokens,
   Scope.Backdrop
 )

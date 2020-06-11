@@ -1,6 +1,6 @@
 import { createVariables, Scope } from "../utils"
 
-export const dimension: Record<string, number> = {
+export const dimensionTokens: Record<string, number> = {
   gutter: 20,
 
   // Content
@@ -61,8 +61,8 @@ export const dimension: Record<string, number> = {
   notificationRadius: 14,
 }
 
-export const [dimensionVariables, dimensionValues] = createVariables(
-  dimension,
+export const [dimension, dimensionDeclarations] = createVariables(
+  dimensionTokens,
   Scope.Dimensions,
   (variable) => `${variable}px`
 )

@@ -14,7 +14,7 @@ export interface Screen<T = number> {
 
 export type ScreenName = keyof Screen
 
-export const screen: Screen = {
+export const screenTokens: Screen = {
   mobileSmall: 320,
   mobile: 375,
   mobileLarge: 440,
@@ -28,11 +28,13 @@ export const screen: Screen = {
   desktopLargest: 1820,
 }
 
-export const screenNames: ScreenName[] = Object.keys(screen) as ScreenName[]
+export const screenNames: ScreenName[] = Object.keys(
+  screenTokens
+) as ScreenName[]
 
-export const screenValues: Screen<string> = screenNames.reduce(
+export const screenMediaQueries: Screen<string> = screenNames.reduce(
   (values, name) => {
-    values[name] = `(min-width: ${screen[name]}px)`
+    values[name] = `(min-width: ${screenTokens[name]}px)`
 
     return values
   },

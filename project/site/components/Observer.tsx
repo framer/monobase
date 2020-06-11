@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react"
 import { motionValue, MotionValue } from "framer-motion"
 import {
   screenNames,
-  screenValues,
-  dimension,
+  screenMediaQueries,
+  dimensionTokens,
   useIsomorphicLayoutEffect,
 } from "fraction"
 import { Dynamic } from "monobase"
@@ -197,7 +197,7 @@ const getScreenFromMediaQuery = (
   mediaQuery: MediaQueryList | MediaQueryListEvent
 ) => {
   const mediaQueryIndex = screenNames.findIndex(
-    (name) => screenValues[name] === mediaQuery.media
+    (name) => screenMediaQueries[name] === mediaQuery.media
   )
   const mediaQueryRelativeIndex = mediaQuery.matches
     ? mediaQueryIndex
@@ -252,7 +252,7 @@ const initiateObserverValues = (
 }
 
 const initiateMediaQueries = () => {
-  return screenNames.map((name) => window.matchMedia(screenValues[name]))
+  return screenNames.map((name) => window.matchMedia(screenMediaQueries[name]))
 }
 
 const addMediaQueryListener = (
@@ -277,7 +277,7 @@ export const StaticObserver = ({
   navigationTheme = "light",
   navigationTransparent = false,
   navigationVibrant = false,
-  navigationHeight = dimension.navigationHeight,
+  navigationHeight = dimensionTokens.navigationHeight,
 }: NavigationTraits & Props) => {
   const defaultNavigationTraits = useRef<NavigationTraits>({
     navigationAccent,

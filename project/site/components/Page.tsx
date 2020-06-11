@@ -6,7 +6,7 @@ import {
   Theme,
   Component,
   Banner,
-  dimension,
+  dimensionTokens,
 } from "fraction"
 import clsx from "clsx"
 import { Authentication } from "./Authentication"
@@ -153,10 +153,10 @@ export const Page: Component<"html", Props> = ({
     let additionalHeight = 0
 
     if (withBanner) {
-      additionalHeight += dimension.navigationBannerHeight
+      additionalHeight += dimensionTokens.navigationBannerHeight
     }
 
-    return dimension.navigationHeight + additionalHeight
+    return dimensionTokens.navigationHeight + additionalHeight
   }, [withBanner])
 
   return (

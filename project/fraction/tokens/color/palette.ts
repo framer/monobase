@@ -1,6 +1,6 @@
 import { createVariables, Scope } from "../utils"
 
-export const palette: Record<string, string> = {
+export const paletteTokens: Record<string, string> = {
   // Dark
   dark100: "#111",
   dark94: "#181818",
@@ -82,7 +82,7 @@ export const palette: Record<string, string> = {
   transparent: "transparent",
 }
 
-export const [paletteVariables, paletteValues] = createVariables(
-  palette,
+export const [palette, paletteDeclarations] = createVariables(
+  paletteTokens,
   Scope.Palette
 )

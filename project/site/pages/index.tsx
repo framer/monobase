@@ -11,22 +11,21 @@ import {
   Wireframe,
   Theme,
   palette,
-  paletteVariables,
-  colorVariables,
-  spaceVariables,
+  color,
+  space,
 } from "fraction"
 
 const sectionStyle = {
-  background: colorVariables.pageBackground,
-  paddingTop: spaceVariables[8],
-  paddingBottom: spaceVariables[8],
+  background: color.pageBackground,
+  paddingTop: space[8],
+  paddingBottom: space[8],
 }
 
 const contentStyle = {
   background: "#05f",
   color: "#fff",
-  paddingTop: spaceVariables[5],
-  paddingBottom: spaceVariables[5],
+  paddingTop: space[5],
+  paddingBottom: space[5],
 }
 
 const stackStyle = {
@@ -36,11 +35,7 @@ const stackStyle = {
 
 export default () => {
   return (
-    <Page
-      tint={paletteVariables.yellow}
-      accent={paletteVariables.green}
-      banner="loupe"
-    >
+    <Page tint={palette.yellow} accent={palette.green} banner="loupe">
       <Section style={sectionStyle}>
         <Content style={contentStyle} size="small">
           Small

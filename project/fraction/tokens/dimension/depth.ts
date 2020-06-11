@@ -11,7 +11,7 @@ export type Depth = {
   overlay: number
 }
 
-export const depth: Record<string, number> = {
+export const depthTokens: Record<string, number> = {
   negative: -1,
   zero: 0,
   default: 1,
@@ -23,4 +23,7 @@ export const depth: Record<string, number> = {
   wireframe: 30000,
 }
 
-export const [depthVariables, depthValues] = createVariables(depth, Scope.Depth)
+export const [depth, depthDeclarations] = createVariables(
+  depthTokens,
+  Scope.Depth
+)
