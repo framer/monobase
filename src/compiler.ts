@@ -14,7 +14,7 @@ import { writeFileSync } from "fs";
 export const ConfigDefaults = {
   production: false,
   cache: false,
-  externals: true
+  externals: true,
 };
 
 type ConfigOptions = typeof ConfigDefaults;
@@ -33,9 +33,9 @@ export const Config = (
       ? [
           {
             loader: "cache-loader",
-            options: { cacheDirectory: join(projectPath, ".cache-loader") }
+            options: { cacheDirectory: join(projectPath, ".cache-loader") },
           },
-          ...loaders
+          ...loaders,
         ]
       : loaders;
   }
@@ -52,10 +52,10 @@ export const Config = (
               terserOptions: {
                 mangle: true,
                 keep_fnames: true,
-                keep_classnames: true
-              }
-            })
-          ]
+                keep_classnames: true,
+              },
+            }),
+          ],
         }
       : {},
     // To execute in Node we need externals, because since React Hooks, the React instance
@@ -68,35 +68,35 @@ export const Config = (
               root: "React",
               commonjs2: "react",
               commonjs: "react",
-              amd: "react"
+              amd: "react",
             },
             "react-dom": {
               root: "ReactDOM",
               commonjs2: "react-dom",
               commonjs: "react-dom",
-              amd: "react-dom"
+              amd: "react-dom",
             },
             "react-dom/server": {
               root: "react-dom/server",
               commonjs2: "react-dom/server",
               commonjs: "react-dom/server",
-              amd: "react-dom/server"
+              amd: "react-dom/server",
             },
             monobase: {
               root: "monobase",
               commonjs2: "monobase",
               commonjs: "monobase",
-              amd: "monobase"
-            }
-          }
+              amd: "monobase",
+            },
+          },
         ]
       : [],
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
-      modules: [projectPath, "node_modules"]
+      modules: [projectPath, "node_modules"],
     },
     node: {
-      fs: "empty"
+      fs: "empty",
     },
     module: {
       rules: [
@@ -112,12 +112,12 @@ export const Config = (
                 presets: ["@babel/env", "@babel/react"],
                 plugins: [
                   "@babel/proposal-class-properties",
-                  "@babel/proposal-object-rest-spread"
-                ]
-              }
+                  "@babel/proposal-object-rest-spread",
+                ],
+              },
             },
-            "@mdx-js/loader"
-          ])
+            "@mdx-js/loader",
+          ]),
         },
         {
           test: [/\.m?js$/, /\.tsx?$/],
@@ -132,15 +132,15 @@ export const Config = (
                 presets: [
                   "@babel/preset-env",
                   "@babel/typescript",
-                  "@babel/react"
+                  "@babel/react",
                 ],
                 plugins: [
                   "@babel/proposal-class-properties",
-                  "@babel/proposal-object-rest-spread"
-                ]
-              }
-            }
-          ])
+                  "@babel/proposal-object-rest-spread",
+                ],
+              },
+            },
+          ]),
         },
         {
           test: /\.css$/i,
@@ -148,7 +148,7 @@ export const Config = (
             // This extracts the generated css and passes it so that we can use it in a <style> tag
             {
               loader: MiniCssExtractPlugin.loader,
-              options: { hmr: false }
+              options: { hmr: false },
             },
             // This generates .d.ts files for every .css file so TypeScript pick them up
             "css-modules-typescript-loader",
@@ -162,26 +162,28 @@ export const Config = (
                   mode: "local",
                   localIdentName: options.production
                     ? "[hash:base64:6]"
-                    : "[name]-[local]-[hash:base64:6]"
-                }
-              }
+                    : "[name]-[local]-[hash:base64:6]",
+                },
+              },
             },
+            { loader: "sass-loader" },
             {
               loader: "postcss-loader",
               options: {
-                plugins: loader => [
+                plugins: (loader) => [
                   require("postcss-preset-env")(),
                   require("postcss-filter-rules")({
                     // Only allow class and explicit global selectors
                     filter: (selector: string, parts: string[]) =>
-                      selector.startsWith(".") || selector.startsWith(":")
-                  })
-                ]
-              }
-            }
-          ]
-        }
-      ]
+                      // We can scope this with prefixes, as long as the last part is the class
+                      parts[parts.length - 1].startsWith("."),
+                  }),
+                ],
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -191,10 +193,10 @@ export const Config = (
         }),
         "process.env.NODE_ENV": options.production
           ? JSON.stringify("production")
-          : JSON.stringify("debug")
+          : JSON.stringify("debug"),
       }),
-      new MiniCssExtractPlugin({ filename: "styles.css" })
-    ]
+      new MiniCssExtractPlugin({ filename: "styles.css" }),
+    ],
   };
 
   return config;
@@ -218,7 +220,7 @@ export class Compiler {
       filename: `${name}.js`,
       libraryTarget: "umd",
       // This is to make UMD compatible with Node, because it normally relies on the window
-      globalObject: "(typeof window !== 'undefined' ? window : this)"
+      globalObject: "(typeof window !== 'undefined' ? window : this)",
     };
 
     config.entry = this._getEntry;
