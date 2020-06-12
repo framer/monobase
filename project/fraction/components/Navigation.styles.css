@@ -35,7 +35,7 @@
   opacity: 0;
   pointer-events: none;
   cursor: pointer;
-  transition: opacity 0.12s ease-in-out;
+  transition: opacity 0.16s ease-in-out;
 }
 
 .navigation:global(.open) .overlay {
@@ -65,13 +65,18 @@
 .background:before {
   z-index: var(--fraction-depth-zero);
   background: var(--fraction-color-navigationBackground);
-  transition: background 0.08s ease-in-out;
+  transition: background 0.08s ease-in-out, opacity 0.08s ease-in-out;
 }
 
 .background:after {
   box-shadow: 0 1px var(--fraction-color-navigationBorder);
   z-index: var(--fraction-depth-default);
-  transition: box-shadow 0.08s ease-in-out;
+  transition: box-shadow 0.08s ease-in-out, opacity 0.08s ease-in-out;
+}
+
+.navigation:global(.open) .background:before,
+.navigation:global(.open) .background:after {
+  opacity: 1;
 }
 
 :global([data-navigation-tint="true"]) .background:before {
@@ -88,6 +93,10 @@
 
 :global([data-navigation-vibrant="true"]) .background:before {
   opacity: 0.9;
+}
+
+:global([data-navigation-transparent="true"]) .background:before {
+  opacity: 0;
 }
 
 .banner {
@@ -300,12 +309,14 @@
   margin: calc(var(--fraction-dimension-gutter) - 12px) auto 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.12s ease-in-out;
+  transform: translateY(calc(-1 * var(--fraction-space-2)));
+  transition: transform 0.22s ease-in-out, opacity 0.12s ease-in-out;
 }
 
 .navigation:global(.open) .list {
   opacity: 1;
   pointer-events: all;
+  transform: translateY(0);
 }
 
 .item {
@@ -514,6 +525,7 @@
   .navigation:global(.open) .list {
     opacity: 1;
     pointer-events: all;
+    transform: translateY(0);
     transition: none;
   }
 

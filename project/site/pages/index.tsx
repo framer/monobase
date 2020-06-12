@@ -42,7 +42,7 @@ export default () => {
       accent={palette.green}
       banner="loupe"
       subnavigation="blog"
-      navigationVibrant
+      navigationTransparent
     >
       <Section style={sectionStyle}>
         <Content style={contentStyle} size="small">
