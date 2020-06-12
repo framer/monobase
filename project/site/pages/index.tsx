@@ -8,6 +8,8 @@ import {
   Icon,
   Stack,
   Text,
+  Video,
+  Image,
   Wireframe,
   Theme,
   palette,
@@ -115,6 +117,24 @@ export default () => {
             <Icon icon="socialTwitter" />
             <Icon icon="socialDribbble" />
           </Stack>
+        </Content>
+      </Section>
+      <Section
+        style={sectionStyle}
+        data-theme={Theme.Dark}
+        data-navigation-theme={Theme.Dark}
+        data-navigation-accent={palette.yellow}
+      >
+        <Content>
+          <Video
+            poster="https://www.framer.com/static/images/frontpage/hero/loop.jpg"
+            src="https://www.framer.com/static/images/frontpage/hero/loop.mp4"
+          />
+          <Image
+            src="https://www.framer.com/static/images/frontpage/motion-controls@2x.png"
+            webp
+            alt="example"
+          />
         </Content>
       </Section>
       <Section

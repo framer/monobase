@@ -11,6 +11,7 @@ export {
 } from "./Footer"
 export { Heading, Props as HeadingProps } from "./Heading"
 export { Icon, Icons, Props as IconProps } from "./Icon"
+export { Image, Props as ImageProps } from "./Image"
 export {
   Navigation,
   Props as NavigationProps,
@@ -26,4 +27,5 @@ export { Subnavigation } from "./Subnavigation"
 export { Style } from "./Style"
 export { Text, Props as TextProps } from "./Text"
 export { Variables } from "./Variables"
+export { Video } from "./Video"
 export { Wireframe } from "./Wireframe"
