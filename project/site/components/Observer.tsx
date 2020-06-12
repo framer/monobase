@@ -319,17 +319,12 @@ export const StaticObserver = ({
       sync.read(() => {
         scroll = window.pageYOffset < 0 ? 0 : window.pageYOffset
 
-        if (event.type === "document") {
-          documentWidth = (event as DocumentResizeEvent).contentRect.width
-          documentHeight = (event as DocumentResizeEvent).contentRect.height
-        }
-
-        if (event.type === "resize") {
+        if (event.type === "document" || event.type === "resize") {
+          documentWidth = document.documentElement.clientWidth
+          documentHeight = document.documentElement.clientHeight
           viewportWidth = window.innerWidth
           viewportHeight = window.innerHeight
-        }
 
-        if (event.type === "document" || event.type === "resize") {
           thresholds = calculateScrollThresholds(
             defaultNavigationTraits.current,
             navigationHeight
@@ -346,12 +341,9 @@ export const StaticObserver = ({
       sync.update(() => {
         observerValues.scroll.set(scroll)
 
-        if (event.type === "document") {
+        if (event.type === "document" || event.type === "resize") {
           observerValues.documentWidth.set(documentWidth)
           observerValues.documentHeight.set(documentHeight)
-        }
-
-        if (event.type === "resize") {
           observerValues.viewportWidth.set(viewportWidth)
           observerValues.viewportHeight.set(viewportHeight)
         }
@@ -370,12 +362,12 @@ export const StaticObserver = ({
       })
     }
 
-    const documentObserver = new ResizeObserver(([{ contentRect }]) =>
+    const documentObserver = new ResizeObserver(([{ contentRect }]) => {
       updateObserverValues({
         type: "document",
         contentRect,
       })
-    )
+    })
 
     mediaQueries.forEach((mediaQuery) => {
       addMediaQueryListener(mediaQuery, updateScreenValue)
@@ -387,7 +379,7 @@ export const StaticObserver = ({
     window.addEventListener("resize", updateObserverValues, {
       passive: true,
     })
-    documentObserver.observe(document.body)
+    documentObserver.observe(document.documentElement)
 
     return () => {
       mediaQueries.forEach((mediaQuery) => {
@@ -395,7 +387,7 @@ export const StaticObserver = ({
       })
       window.removeEventListener("scroll", updateObserverValues)
       window.removeEventListener("resize", updateObserverValues)
-      documentObserver.unobserve(document.body)
+      documentObserver.unobserve(document.documentElement)
     }
   }, [])
 
