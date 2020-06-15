@@ -40,7 +40,7 @@ export {
   Weight,
 } from "./typography"
 export {
-  rgba,
+  transparent,
   smallerThanScreen,
   largerThanScreen,
   betweenScreens,
