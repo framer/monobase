@@ -15,11 +15,16 @@ export type Icons =
 
 export interface Props {
   icon?: Icons
+  size?: number
 }
 
-export const Icon: Component<"svg", Props, "icon"> = ({ icon, ...props }) => {
+export const Icon: Component<"svg", Props, "icon"> = ({
+  icon,
+  size = 20,
+  ...props
+}) => {
   const IconTag =
     typeof icon === "string" ? icons[`Icon${capitalize(icon)}`] : undefined
 
-  return IconTag === undefined ? null : <IconTag {...props} />
+  return IconTag === undefined ? null : <IconTag width={size} {...props} />
 }
