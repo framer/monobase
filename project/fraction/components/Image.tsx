@@ -43,7 +43,7 @@ export const Image: Component<"picture", Props> = ({
       className={clsx(styles.picture, className)}
       {...props}
     >
-      {webp && <source type="image/webp" src={webpSrc} srcSet={webpSrcSet} />}
+      {webp && <source type="image/webp" srcSet={webpSrcSet} />}
       <img
         src={src}
         srcSet={imgSrcSet}
