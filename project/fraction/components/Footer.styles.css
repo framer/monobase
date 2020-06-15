@@ -1,7 +1,8 @@
 .footer {
-  --footer-background: var(--fraction-color-pageBackground);
+  --footer-background: var(--fraction-color-page);
 
   background: var(--footer-background);
+  color: var(--fraction-color-footerColor);
   box-shadow: 0 -1px var(--fraction-color-navigationBorder);
   padding: var(--fraction-space-8) 0;
 }
@@ -17,7 +18,7 @@
   font-weight: 600;
   line-height: 1;
   margin: 0 0 var(--fraction-space-4);
-  color: var(--fraction-color-footerHeading);
+  color: var(--fraction-color-footerHeadingColor);
 }
 
 .list {
@@ -33,14 +34,7 @@
 .item a {
   display: inline-block;
   line-height: 1.2;
-}
-
-.item:not(:last-of-type) {
-  margin-bottom: var(--fraction-space-2);
-}
-
-.item a {
-  color: var(--fraction-color-footerLink);
+  color: inherit;
   transition: opacity 0.16s ease-in-out;
 }
 
@@ -50,6 +44,10 @@
 
 .item a:hover .badge {
   text-decoration: underline;
+}
+
+.item:not(:last-of-type) {
+  margin-bottom: var(--fraction-space-2);
 }
 
 .badge {
@@ -93,7 +91,7 @@
   display: inline-flex;
   place-content: center;
   place-items: center;
-  background: var(--fraction-color-footerSecondary);
+  background: var(--fraction-color-footerSecondaryColor);
   border-radius: 50%;
   transition: background 0.16s ease-in-out;
 }
@@ -115,7 +113,7 @@
 
 .addendum p {
   margin: 0;
-  color: var(--fraction-color-footerSecondary);
+  color: var(--fraction-color-footerSecondaryColor);
   width: 100%;
   flex: none;
   text-align: center;
@@ -132,7 +130,7 @@
 }
 
 .addendum a {
-  color: var(--fraction-color-footerLink);
+  color: var(--fraction-color-footerColor);
   transition: opacity 0.16s ease-in-out;
 }
 

@@ -30,7 +30,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--fraction-color-overlayColor);
+  background: var(--fraction-color-overlay);
   z-index: var(--fraction-depth-negative);
   opacity: 0;
   pointer-events: none;
@@ -64,7 +64,7 @@
 
 .background:before {
   z-index: var(--fraction-depth-zero);
-  background: var(--fraction-color-navigationBackground);
+  background: var(--fraction-color-navigation);
   transition: background 0.08s ease-in-out, opacity 0.08s ease-in-out;
 }
 

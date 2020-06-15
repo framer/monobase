@@ -24,8 +24,8 @@ html {
   word-break: break-word;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  background: var(--fraction-color-pageBackground);
-  color: var(--fraction-color-textBody);
+  background: var(--fraction-color-page);
+  color: var(--fraction-color-pageColor);
 }
 
 body {
@@ -61,8 +61,8 @@ dynamic {
 /* stylelint-enable selector-type-no-unknown */
 
 ::selection {
-  color: var(--fraction-color-selection);
-  background: var(--fraction-color-selectionBackground);
+  color: var(--fraction-color-selectionColor);
+  background: var(--fraction-color-selection);
 }
 
 a,

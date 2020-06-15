@@ -1,5 +1,5 @@
 .heading {
-  --heading-color: var(--fraction-color-textHeadline);
+  --heading-color: var(--fraction-color-pageColor);
 
   font-size: var(--fraction-size-4);
   color: var(--heading-color);

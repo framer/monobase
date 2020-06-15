@@ -18,7 +18,7 @@ import {
 } from "fraction"
 
 const sectionStyle = {
-  background: color.pageBackground,
+  background: color.page,
   paddingTop: space[8],
   paddingBottom: space[8],
 }
@@ -42,7 +42,6 @@ export default () => {
       accent={palette.green}
       banner="loupe"
       subnavigation="blog"
-      navigationTransparent
     >
       <Section style={sectionStyle}>
         <Content style={contentStyle} size="small">
@@ -175,7 +174,7 @@ export default () => {
           {
             ...sectionStyle,
             background: "var(--page-tint)",
-            "--fraction-color-textBody": "var(--fraction-palette-white)",
+            "--fraction-color-pageColor": "var(--fraction-palette-white)",
           } as CSSProperties
         }
         data-navigation-tint
