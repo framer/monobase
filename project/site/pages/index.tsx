@@ -6,6 +6,7 @@ import {
   Section,
   Heading,
   Icon,
+  Spinner,
   Stack,
   Text,
   Video,
@@ -115,6 +116,9 @@ export default () => {
             <Icon icon="socialDiscord" />
             <Icon icon="socialTwitter" />
             <Icon icon="socialDribbble" />
+            <Spinner size={20} />
+            <Spinner />
+            <Spinner size={40} />
           </Stack>
         </Content>
       </Section>

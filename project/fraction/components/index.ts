@@ -22,6 +22,7 @@ export {
 export { Banner } from "./Banner"
 export { Script } from "./Script"
 export { Section } from "./Section"
+export { Spinner, Props as SpinnerProps } from "./Spinner"
 export { Stack, Props as StackProps } from "./Stack"
 export { Subnavigation } from "./Subnavigation"
 export { Style } from "./Style"
