@@ -1,4 +1,5 @@
 export * from "./capitalize"
 export * from "./createInnerHTML"
+export * from "./insertString"
 export * from "./noop"
 export * from "./parsePath"
