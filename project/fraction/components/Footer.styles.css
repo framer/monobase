@@ -3,7 +3,7 @@
 
   background: var(--footer-background);
   color: var(--fraction-color-footerColor);
-  box-shadow: 0 -1px var(--fraction-color-navigationBorder);
+  box-shadow: 0 -1px var(--fraction-color-border);
   padding: var(--fraction-space-8) 0;
 }
 
@@ -70,7 +70,7 @@
   background: transparent;
   height: 0;
   margin: var(--fraction-space-6) 0;
-  border-bottom: 1px solid var(--fraction-color-navigationBorder);
+  border-bottom: 1px solid var(--fraction-color-border);
 }
 
 .social {

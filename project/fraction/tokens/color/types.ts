@@ -2,6 +2,7 @@ export type Color = {
   primary: string
   wireframe: string
   overlay: string
+  border: string
   page: string
   pageColor: string
   selection: string

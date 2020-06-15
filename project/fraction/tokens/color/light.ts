@@ -6,6 +6,7 @@ export const colorTokens: Color = {
   primary: palette.blue,
   wireframe: "rgba(255, 0, 0, 0.06)", // rgba(palette.red, 0.08)
   overlay: palette.black50,
+  border: palette.black05,
   page: palette.white,
   pageColor: palette.black,
   selection: "rgba(0, 170, 255, 0.99)",
