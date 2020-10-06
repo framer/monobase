@@ -68,7 +68,7 @@
     "is-reachable": "^3.0.0",
     "jest": "^24.8.0",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "memory-fs": "^0.4.1",
     "minimist": "^1.2.0",
     "mkcert": "^1.2.0",
