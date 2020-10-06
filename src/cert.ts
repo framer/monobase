@@ -3,14 +3,6 @@ import * as path from "path";
 import * as _mkcert from "mkcert";
 import getPath from "platform-folders";
 
-export const fallback = () => {
-  const ssl = path.join(__dirname, "..", "extras", "ssl");
-  return {
-    key: fs.readFileSync(path.join(ssl, "key.pem")),
-    cert: fs.readFileSync(path.join(ssl, "cert.pem"))
-  };
-};
-
 export const mkcert = async (hosts: string[]) => {
   const appData = getPath("appData");
 
