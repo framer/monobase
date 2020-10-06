@@ -70,7 +70,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
     "memory-fs": "^0.4.1",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "mkcert": "^1.2.0",
     "mkdirp": "^0.5.1",
     "morgan": "^1.9.0",
